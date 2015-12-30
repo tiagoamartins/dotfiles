@@ -24,6 +24,27 @@ gethostname() {
 
 hostname=`gethostname`
 
+# Change terminal window title
+if [ -t 1 ]; then
+    # Set XON/XOFF flow control
+    [ ! -x /bin/stty ] || stty -ixon
+    if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]; then
+        tty=`tty 2>/dev/null|sed -e 's,^/dev/,,'`
+        case "$TERM" in
+            screen*)
+                [ "$STY" -o "$TMUX" ] || h=$hostname
+                printf '\033]1;%s@%s\a' "$tty" "$hostname"
+                [ -n "$TMUX" ] || printf '\033k%s@%s\033\\' "$tty" "$h"
+                unset h
+                ;;
+            xterm*|rxvt*|Eterm*|kterm*|putty*|dtterm*|ansi*|cygwin*)
+                printf '\033]1;%s@%s\a' "$tty" "$hostname"
+                ;;
+        esac
+        unset tty h
+    fi
+fi
+
 # Set prompt if not set
 if [ -z "$PS1" ]; then
     [ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
@@ -43,15 +64,29 @@ echo -ne "Today is "; date
 echo -ne "Up time: "; uptime | awk /'up/'
 echo ""
 
+# Refresh function
+rf() {
+    . "$HOME/.profile" >/dev/null
+    dp=`echo $DISPLAY|sed -e 's/\..*$//'`
+    if [ -r "$HOME/.env.$dp" ]; then
+        . "$HOME/.env.$dp"
+    fi
+    unset dp
+    hash -r
+}
+
 # Aliases
 alias d='ls -lah'
 alias ll='ls -l'
 alias cp='cp -i'
 alias mv='mv -i'
+alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 
 alias j='jobs'
 
 alias cls='clear'
+
+alias gst='git status'
 
 [ "$VISUAL" != vim ] || alias vi='vim'
 
