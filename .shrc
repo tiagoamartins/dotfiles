@@ -1,0 +1,63 @@
+#! sh
+
+# If profile was not sourced before do it now
+[ -n "$ENV" ] || . "$HOME/.profile" >/dev/null
+
+# Default keys as emacs style
+set -o emacs
+# Do not overwrite files with redirected outputs
+set -o noclobber
+
+# If linux console set a timeout of 1 hour
+[ "$TERM" != linux ] || TMOUT=3600
+
+gethostname() {
+    if [ -n "$COMPUTERNAME" ]; then
+        # Windows
+        echo "$COMPUTERNAME"
+    elif [ -r /proc/sys/kernel/hostname ]; then
+        cat /proc/sys/kernel/hostname
+    else
+        hostname | cut -d. -f1
+    fi
+}
+
+hostname=`gethostname`
+
+# Set prompt if not set
+if [ -z "$PS1" ]; then
+    [ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
+fi
+case $PS1 in
+    ?' ') PS1="$LOGNAME@$hostname `basename $0|sed -e 's/^-//'` $PS1" ;;
+esac
+
+unset hostname
+
+# Welcome message
+if hash archey 2> /dev/null; then
+    # Archey offline with colors
+    archey -o -c
+fi
+echo -ne "Today is "; date
+echo -ne "Up time: "; uptime | awk /'up/'
+echo ""
+
+# Aliases
+alias d='ls -lah'
+alias ll='ls -l'
+alias cp='cp -i'
+alias mv='mv -i'
+
+alias j='jobs'
+
+alias cls='clear'
+
+[ "$VISUAL" != vim ] || alias vi='vim'
+
+if ! grep --color 2>&1 | grep un >/dev/null; then
+    alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
+fi
+
+# Source local shrc file if it exists
+[ ! -r "$HOME/.shrc.local" ] || . "$HOME/.shrc.local"
