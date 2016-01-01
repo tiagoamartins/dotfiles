@@ -1,0 +1,66 @@
+[extensions]
+color =
+graphlog =
+mq =
+pager =
+shelve =
+
+[pager]
+pager = less -FSRX
+attend = help, cat, diff, log, glog, incoming, outgoing, show, wip, tree
+
+[alias]
+wip = log --graph --rev=wip --template=wip
+tree = log --graph --template=wip
+
+[revsetalias]
+wip = (parents(not public()) or not public() or . or head()) and (not obsolete() or unstable()^) and not closed()
+
+[templates]
+wip = "{label('changeset.{phase}', rev)}{ifeq(branch, "default", "", " <{label("log.branch", branch)}>")}{if(tags, " ({label("log.tag", "{tags}")})")}{bookmarks % " [{ifeq(bookmark, currentbookmark, label('log.activebookmark', bookmark), label('log.bookmark', bookmark))}]"} {label(ifcontains(rev, revset('parents()'), 'desc.here'), desc|firstline)}{label('log.summary'," ({date|age} by {author|person})")}"
+
+[diff]
+git = True
+unified = 5
+
+[color]
+mode = auto
+
+# Status
+status.modified = cyan
+status.added = green
+status.removed = red
+status.deleted = yellow bold underline
+status.unknown = magenta bold underline
+status.ignored = black bold
+
+# Diff
+diff.diffline = none
+diff.extended = cyan
+diff.file_a = red
+diff.file_b = green
+diff.hunk = yellow bold
+diff.deleted = red
+diff.inserted = green
+diff.changed = white
+diff.trailingwhitespace = white_background
+
+# Log
+log.rev = yellow
+log.branch = green bold
+log.tag = blue bold
+log.bookmark = red bold
+log.activebookmark = red bold underline
+log.user = cyan bold
+log.date = magenta bold
+log.summary = white
+
+# Changeset
+changeset.public = yellow
+changeset.secret = blue
+changeset.draft = magenta
+
+# Description
+desc.here = black blue_background
+
+%include .hgrc.local
