@@ -1,0 +1,180 @@
+# Snippets for SystemVerilog file type
+
+global !p
+try:
+	import re
+	import datetime
+	from snippet_helpers import *
+
+except ImportError:
+    raise ImportError("Error while importing dependencies")
+
+class SvArg(object):
+	def __init__(self, arg):
+		self.arg = arg
+		self.name = arg.split('=')[0].strip('assign' + ' ')
+		self.value = arg.split('=')[1].strip(';' + ' ')
+
+	def __str__(self):
+		return self.name
+
+	def __unicode__(self):
+		return self.name
+
+def getArgs(argList):
+	args = [SvArg(arg) for arg in argList.split('\n') if arg]
+
+	return args
+
+def writeSensitiveList(args, snip, default):
+	if args:
+		snip.rv = ', '.join(arg.value for arg in args if arg.value and re.match('[a-z]\w+', arg.value))
+	if not snip.rv:
+		snip.rv = default
+
+def getOperator(sensitiveList):
+	if sensitiveList:
+		if 'posedge' in sensitiveList or 'negedge' in sensitiveList:
+			return '<='
+		else:
+			return '='
+
+def writeAssignments(args, operator, snip, default):
+	snip >> 1
+
+	if args:
+		for arg in args:
+			if arg.name:
+				newLine = (arg.name + '\t' + operator + ' ' + arg.value + ';').expandtabs(int(snip.opt("&tabstop", 1)))
+
+				if not snip.rv:
+					snip.rv = newLine
+				else:
+					snip += newLine
+
+			else:
+				for line in arg.arg.split('\n'):
+					if line.strip():
+						if not snip.rv:
+							snip.rv += line.strip()
+						else:
+							snip += line.strip()
+
+	else:
+		snip.rv += default
+
+def writeHeader(snip):
+	snip.rv = "// -----------------------------------------------------------------------------"
+	snip += "//  Title       " + snippetTitle(snip.basename)
+	snip += "//  Project     " + snippetProjectTitle()
+	snip += "// -----------------------------------------------------------------------------"
+	snip += "//"
+	snip += "// Information:"
+	snip += "// -----------------------------------------------------------------------------"
+	snip += "//! @file       " + snip.fn
+	snip += "//! @author     " + snippetProjectAuthor()
+	snip += "//! @date       " + datetime.datetime.now().strftime('%b-%d-%Y')
+	snip += "//! @copyright  " + snippetCopyright()
+	snip += "//! @brief      <Brief Description>"
+	snip += "// -----------------------------------------------------------------------------"
+	snip += "//"
+	snip += "// Description:"
+	snip += "// -----------------------------------------------------------------------------"
+	snip += "//! @details    <Extended Description>"
+	snip += "//"
+	snip += "//! @todo       <To-Do List>"
+	snip += "// -----------------------------------------------------------------------------"
+
+endglobal
+
+snippet _skel "SystemVerilog module file" b
+`!p writeHeader(snip)`
+
+module `!v expand('%:t:r')` ${2/(\/\/.*|\w.*)|(.*)/(?1:#\(
+	:)/}${2:// Add module parameters here}${2/(\/\/.*|\w.*)|(.*)/(?1:
+\) :)/}(
+	${1:// Add module ports here}
+);
+
+	${0:// Add module internals here}
+
+endmodule : `!v expand('%:t:r')`
+endsnippet
+
+snippet alw "SystemVerilog always block" b
+`!p
+args = getArgs(snip.v.text)
+`always @ (${1:`!p writeSensitiveList(args, snip, "/* Sensitive List */")`}) begin${2/\w.*/ \: /}${2:label}
+	${0:`!p writeAssignments(args, getOperator(t[1]), snip, "// Add logic statements here")`}
+end${2/\w.*/ \: $0/}
+endsnippet
+
+snippet alwc "SystemVerilog combinational always block" b
+`!p
+args = getArgs(snip.v.text)
+`always_comb begin${1/\w.*/ \: /}${1:label}
+	${0:`!p writeAssignments(args, '=', snip, "// Add combinational statements here")`}
+end${1/\w.*/ \: $0/}
+endsnippet
+
+snippet alwl "SystemVerilog latch always block" b
+`!p
+args = getArgs(snip.v.text)
+`always_latch begin${1/\w.*/ \: /}${1:label}
+	${0:`!p writeAssignments(args, '<=', snip, "// Add sequential statements here")`}
+end${1/\w.*/ \: $0/}
+endsnippet
+
+snippet alwf "SystemVerilog flip-flop always block" b
+`!p
+args = getArgs(snip.v.text)
+`always_ff @ (${1:posedge ${2:clk}${3/\w.*/, /}${3:rst}}) begin${4/\w.*/ \: /}${4:label}
+	${0:`!p writeAssignments(args, '<=', snip, "// Add sequential statements here")`}
+end${4/\w.*/ \: $0/}
+endsnippet
+
+snippet func "SystemVerilog function" b
+function ${1:return_type} ${2:function_name} (${3:input_argument});
+	${0:${VISUAL:\/\/ Add the function contents here}}
+endfunction
+endsnippet
+
+snippet mod "SystemVerilog module" b
+module ${1:`!v expand('%:t:r')`} ${3/(\/\/.*|\w.*)|(.*)/(?1:#\(
+	:)/}${3:// Add module parameters here}${3/(\/\/.*|\w.*)|(.*)/(?1:
+\) :)/}(
+	${2:// Add module ports here}
+);
+
+	${0:${VISUAL:\/\/ Add module internals here}}
+
+endmodule${1/\w.*/ \: $0/}
+endsnippet
+
+snippet iport "SystemVerilog module input port" b
+input ${2:/* Port Size */} ${1:${VISUAL:iPortName}};$0
+endsnippet
+
+snippet oport "SystemVerilog module output port" b
+output ${2:/* Port Size */} ${1:${VISUAL:oPortName}};$0
+endsnippet
+
+snippet param "SystemVerilog parameter" b
+parameter ${1:${VISUAL:PARAM_NAME}} = ${2:default_value};$0
+endsnippet
+
+snippet lparam "SystemVerilog localparam" b
+localparam ${1:${VISUAL:PARAM_NAME}} = ${2:default_value};$0
+endsnippet
+
+snippet reg "SystemVerilog reg" b
+reg ${2:/* Reg Size */} ${1:${VISUAL:regName}};$0
+endsnippet
+
+snippet wire "SystemVerilog wire" b
+wire ${2:/* Reg Size */} ${1:${VISUAL:regName}};$0
+endsnippet
+
+snippet logic "SystemVerilog logic" b
+logic ${2:/* Reg Size */} ${1:${VISUAL:regName}};$0
+endsnippet
