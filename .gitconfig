@@ -1,0 +1,11 @@
+[core]
+	excludesfile = ~/.cvsignore
+	pager = less -FSRX
+[alias]
+	tree = log --graph --oneline --decorate --all
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+[include]
+	path = .gitconfig.local
