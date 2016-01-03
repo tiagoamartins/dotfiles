@@ -1,0 +1,278 @@
+#!/bin/sh
+# vim:set et sw=4:
+
+[ -n "$ENV" ] || . "$HOME/.profile" > /dev/null
+
+basename=`basename "$0"`
+if [ "$basename" = tiago ]; then
+    tiago="$basename " basename="$1"
+    shift
+fi
+
+if [ aliases = "$basename" ]; then
+    # Optimization: put this early since it is called for every shell
+    aliases="extract"
+    PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin
+    for app in pacman; do
+        [ -x "`which $app 2>/dev/null`" -a ! -h "$HOME/.local/bin/$app" ] && aliases="$aliases $app"
+    done
+    echo $aliases
+    exit 0
+fi
+
+inpath() {
+    type "$1" >/dev/null 2>&1
+}
+
+root_init() {
+    if inpath cygstart; then
+        as_root() {
+            "$@"
+        }
+    elif [ "`id -u`" -ne 0 ]; then
+        if inpath sudo && sudo -l > /dev/null 2>&1; then
+            as_root() {
+                if [ "$1" = exec ]; then ex="exec"; shift; fi
+                $ex sudo "$@"
+            }
+        else
+            echo "Warning: sudo not installed or not configured" >&2
+            as_root() {
+                if [ "$1" = exec ]; then ex="exec"; shift; fi
+                $ex su -c "$*"
+            }
+        fi
+    else
+        as_root() {
+            "$@"
+        }
+    fi
+}
+
+host_name() {
+    if [ -n "$COMPUTERNAME" ]; then
+        # Windows
+        echo "$COMPUTERNAME"
+    elif [ -r /proc/sys/kernel/hostname ]; then
+        cat /proc/sys/kernel/hostname
+    else
+        hostname | cut -d. -f1
+    fi
+}
+
+host_normalize() {
+    if [ localhost = "$1" -o - = "$1" -o -z "$1" ]; then
+        host_name
+    else
+        echo "$1"
+    fi
+}
+
+host_lookup() {
+    awkhost='
+        $1 == "Host" {
+        me = 0;
+        for (i = 2;i <= NF;i++) {
+            gsub(/[][().+^$]/, "\\\\&", $i);
+            gsub(/[?]/, ".", $i);
+            gsub(/[*]/, ".*", $i);
+            if (host ~ "^" $i "$")
+                me = 1
+            }
+        }
+        me && $1 == "'"$2"'" {
+            printf("%s", $2);
+            for(i = 3;i <= NF;i++)
+                printf(" %s", $i);
+            print("");
+            fail = 0;
+            exit
+        }
+        BEGIN {
+            fail = 1;
+        }
+        END {
+            exit fail
+        }
+    '
+    awk "$awkhost" host="`host_normalize "$1"`" "$HOME/.ssh/config"
+}
+
+host_getfullname() {
+    host_lookup "$1" HostName || echo "$1"
+}
+
+setup_basics() {
+    if [ ! -f "$HOME/.hushlogin" ]; then
+        touch "$HOME/.hushlogin"
+        basics=1
+    fi
+    [ -z "$basics" ] || echo "Initializing basic configuration."
+}
+
+setup_shell() {
+    zsh="`grep 'zsh$' /etc/shells 2>/dev/null|head -1`"
+    if [ -x "$zsh" ] && grep "^$LOGNAME:" /etc/passwd >/dev/null; then
+        if ! grep "^$LOGNAME:.*zsh" /etc/passwd >/dev/null ; then
+            echo "Changing login shell."
+            chsh -s "$zsh"
+        fi
+    fi
+}
+
+
+case "$basename" in
+    extract)
+        [ $# -gt 0 ] || exit 1
+
+
+        if [ ! -r $1 ]; then
+            echo "`basename "$0"`: file is unreadable: '$1'" >&2
+            exit 1
+        fi
+
+        case $1 in
+            *.t@\(gz|lz|xz|b@\(2|z?\(2\)\)|a@\(z|r?\(.@\(Z|bz?\(2\)|gz|lzma|xz\)\)\)\))
+                   extractor='bsdtar xvf' ;;
+            *.7z)  extractor='7z x'       ;;
+            *.Z)   extractor='uncompress' ;;
+            *.bz2) extractor='bunzip2'    ;;
+            *.exe) extractor='cabextract' ;;
+            *.gz)  extractor='gunzip'     ;;
+            *.rar) extractor='unrar x'    ;;
+            *.tar) extractor='tar xvf'    ;;
+            *.xz)  extractor='unxz'       ;;
+            *.zip) extractor='unzip'      ;;
+            *)
+                echo "`basename "$0"`: Unrecognized file extension: '$1'" >&2
+                exit 1
+                ;;
+        esac
+
+        exec $extractor "$@"
+        shift
+        ;;
+
+    host)
+        [ $# -gt 0 ] || exit 1
+
+        command="$1"
+        shift
+
+        case "$command" in
+            name) # hosts
+                host_getfullname $1 | cut -d. -f1
+                exit 0
+                ;;
+
+            list) # nothing
+                awk '$1 == "HostName" { print $2 }' "$HOME/.ssh/config" | cut -d. -f1
+                exit 0
+                ;;
+
+            *)
+                echo "`basename "$0"` $1: unknown command." >&2
+                exit 1
+                ;;
+        esac
+        ;;
+
+    pacman)
+        case "$1" in
+            -Q*)
+                exec "$basename" "$@"
+                ;;
+            -[S|R|U]*)
+                root_init; as_root "$basename" "$@"
+                ret="$?"
+                [ "$ret" != 0 ] || tiago setup --quiet &
+                exit $ret
+                ;;
+            *)
+                root_init; as_root exec "$basename" "$@"
+                ;;
+        esac
+        ;;
+
+    setup)
+        [ $# -gt 0 ] || set -- default
+
+        for arg in "$@"; do
+            case "$arg" in
+                default)
+                    setup_basics
+                    ;;
+
+                all)
+                    setup_basics
+                    setup_shell
+                    ;;
+
+                basics)
+                    setup_basics
+                    ;;
+
+                shell)
+                    setup_shell
+                    ;;
+
+                *)
+                    echo "Unknown setup "$arg". Proceeding with basics only." >&2
+                    setup_basics
+                    ;;
+            esac
+        done
+        ;;
+
+    vimclone)
+        case "$1" in
+            *://*|*@*)
+                repo="$1"
+                ;;
+            */*)
+                repo="git://github.com/$1.git"
+                ;;
+            *)
+                repo="git@bitbucket.org:tiagoamartins/$1.git"
+                ;;
+        esac
+        case "$repo" in
+            *@*)
+                dest="$HOME/.vim/bundle"
+                ;;
+            */*)
+                dest="$HOME/.vim/vendor"
+                ;;
+        esac
+        mkdir -p "$dest"
+        cd "$dest"
+        basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | tr '[:upper:]' '[:lower:]'`
+        if [ -d $basename ]; then
+            cd $basename
+            git pull --rebase
+        else
+            git clone "$repo" "$basename" || exit 1
+            cd ./$basename
+            if [ vim --serverlist 2> /dev/null ]; then
+                for server in $(vim --serverlist); do
+                    vim --servername "$server" --remote-expr "pathogen#surround('$PWD')" >/dev/null
+                    vim --servername "$server" --remote-expr "pathogen#execute('filetype off', 'filetype on')"
+                    vim --servername "$server" --remote-expr "call('pathogen#execute', map(split(glob('$PWD/plugin/**.vim'), \"\n\"), '\"source \".v:val'))"
+                done
+            fi
+        fi
+        echo $PWD
+        if [ -d doc ]; then
+            vim -u NONE -c'helptags doc' -cq > /dev/null 2>&1 < /dev/null
+        fi
+        ;;
+
+    '')
+        echo "Usage: `basename "$0"` <command> [options]"
+        ;;
+
+    *)
+        echo "`basename "$0"` $basename: unknown command." >&2
+        exit 1
+        ;;
+esac

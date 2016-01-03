@@ -94,5 +94,14 @@ if ! grep --color 2>&1 | grep un >/dev/null; then
     alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
 fi
 
+# Remove unused gp as alias
+unalias gp >/dev/null 2>&1
+
+# Alias commands in tiago script
+for cmd in `tiago aliases`; do
+    alias $cmd="\"\$HOME\"/.bin/tiago $cmd"
+done
+unset cmd
+
 # Source local shrc file if it exists
 [ ! -r "$HOME/.shrc.local" ] || . "$HOME/.shrc.local"
