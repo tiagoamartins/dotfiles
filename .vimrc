@@ -32,18 +32,19 @@ if !filereadable(pathogen_readme)
     if !isdirectory($DOTVIM . "/vendor")
         call mkdir($DOTVIM . "/vendor", "p")
     endif
-    silent !git clone https://github.com/tpope/vim-pathogen $DOTVIM/vendor/pathogen/
+    silent execute "!git clone https://github.com/tpope/vim-pathogen " . $DOTVIM . "/vendor/pathogen"
 endif
 
 if has("vim_starting")
     " Required:
     " Set the runtime path to include Pathogen
-    source $DOTVIM/vendor/pathogen/autoload/pathogen.vim
+    runtime! vendor/pathogen/autoload/pathogen.vim
 endif
 
 " Required:
 " Initialize and pass a path where Pathogen should get plugins
-execute pathogen#infect(expand("$DOTVIM/vendor/{}"))
+execute pathogen#infect("vendor/{}")
+execute pathogen#infect("bundle/{}")
 filetype plugin on              " Enable plugins to detect file types
 
 " Make sure Pathogen works with Vim Sessions
@@ -86,8 +87,12 @@ set undolevels=100
 " ---------- Colors ----------
 syntax enable                   " Enable syntax processing
 set background=dark             " Set a dark background profile
-let g:hybrid_use_Xresources = 1 " Use terminal custom colors
-colorscheme hybrid              " Set color scheme
+try
+    let g:hybrid_use_Xresources = 1 " Use terminal custom colors
+    colorscheme hybrid              " Set color scheme
+catch
+    colorscheme peachpuff
+endtry
 
 " ---------- UI Configuration ----------
 set number                      " Enable line numbering, taking up 6 spaces
