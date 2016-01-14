@@ -29,7 +29,9 @@ let pathogen_readme = expand("$DOTVIM/vendor/pathogen/README.markdown")
 if !filereadable(pathogen_readme)
     echo "Installing Pathogen..."
     echo ""
-    silent !mkdir -p $DOTVIM/vendor
+    if !isdirectory($DOTVIM . "/vendor")
+        call mkdir($DOTVIM . "/vendor", "p")
+    endif
     silent !git clone https://github.com/tpope/vim-pathogen $DOTVIM/vendor/pathogen/
 endif
 
@@ -54,12 +56,18 @@ set mouse=a                     " Allow mouse use for all modes
 
 " Backup directories
 if has("persistent_undo")
-    silent !mkdir -p $DOTVIM/temp/undo
+    if !isdirectory($DOTVIM . "/temp/undo")
+        call mkdir($DOTVIM . "/temp/undo", "p")
+    endif
     set undodir=$DOTVIM/temp/undo//
 endif
-silent !mkdir -p $DOTVIM/temp/backup
+if !isdirectory($DOTVIM . "/temp/backup")
+    call mkdir($DOTVIM . "/temp/backup", "p")
+endif
 set backupdir=$DOTVIM/temp/backup//
-silent !mkdir -p $DOTVIM/temp/swap
+if !isdirectory($DOTVIM . "/temp/swap")
+    call mkdir($DOTVIM . "/temp/swap", "p")
+endif
 set directory=$DOTVIM/temp/swap//
 
 set backupskip=/tmp/*,/private/tmp/*"
