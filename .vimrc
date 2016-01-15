@@ -364,3 +364,5 @@ endfunction
 " ---------- Mappings ----------
 nnoremap <silent> <Plug>TransposeCharacters xp :call repeat#set("\<Plug>TransposeCharacters")<CR>
 nmap cp <Plug>TransposeCharacters
+autocmd FileType vhdl nnoremap <buffer> <F8> :Make<CR>
+autocmd FileType vhdl nnoremap <buffer> <F9> :Dispatch<CR>
