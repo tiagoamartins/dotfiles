@@ -224,47 +224,8 @@ case "$basename" in
         done
         ;;
 
-    vimclone)
-        case "$1" in
-            *://*|*@*)
-                repo="$1"
-                ;;
-            */*)
-                repo="git://github.com/$1.git"
-                ;;
-            *)
-                repo="git@bitbucket.org:tiagoamartins/$1.git"
-                ;;
-        esac
-        case "$repo" in
-            *@*)
-                dest="$HOME/.vim/bundle"
-                ;;
-            */*)
-                dest="$HOME/.vim/vendor"
-                ;;
-        esac
-        mkdir -p "$dest"
-        cd "$dest"
-        basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | tr '[:upper:]' '[:lower:]'`
-        if [ -d $basename ]; then
-            cd $basename
-            git pull --rebase
-        else
-            git clone "$repo" "$basename" || exit 1
-            cd ./$basename
-            if [ vim --serverlist 2> /dev/null ]; then
-                for server in $(vim --serverlist); do
-                    vim --servername "$server" --remote-expr "pathogen#surround('$PWD')" >/dev/null
-                    vim --servername "$server" --remote-expr "pathogen#execute('filetype off', 'filetype on')"
-                    vim --servername "$server" --remote-expr "call('pathogen#execute', map(split(glob('$PWD/plugin/**.vim'), \"\n\"), '\"source \".v:val'))"
-                done
-            fi
-        fi
-        echo $PWD
-        if [ -d doc ]; then
-            vim -u NONE -c'helptags doc' -cq > /dev/null 2>&1 < /dev/null
-        fi
+    vim)
+        exec "$HOME/.bin/tiago-vim" "$@"
         ;;
 
     '')
