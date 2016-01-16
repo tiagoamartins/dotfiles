@@ -16,7 +16,7 @@ set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
 
-let mapleader = ","             " Leader is comma
+let mapleader = '\'             " Leader is backslash
 
 set fileformats=unix,dos,mac
 
