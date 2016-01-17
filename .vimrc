@@ -334,10 +334,6 @@ let g:UltiSnipsExpandTrigger="<Tab>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" Change snippets default directory
-let g:UltiSnipsSnippetsDir = expand("$DOTVIM/after/snips")
-let g:UltiSnipsSnippetDirectories = ["snips"]
-
 " ---------- Functions ----------
 function! Preserve(command)
     " Preparation: save last search, and cursor position.
