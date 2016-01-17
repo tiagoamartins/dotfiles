@@ -88,7 +88,7 @@ set undolevels=100
 syntax enable                   " Enable syntax processing
 set background=dark             " Set a dark background profile
 try
-    let g:hybrid_use_Xresources = 1 " Use terminal custom colors
+    let g:hybrid_custom_term_colors = 1
     colorscheme hybrid              " Set color scheme
 catch
     colorscheme peachpuff
