@@ -90,6 +90,18 @@ alias gst='git status'
 
 [ "$VISUAL" != vim ] || alias vi='vim'
 
+if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]; then
+    # Linux coloring
+    eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
+    case "$TERM" in
+        xterm*|screen*) LS_COLORS=`echo "$LS_COLORS"|sed -e 's/01;3/00;9/g'` ;;
+    esac
+    alias ls='ls -hF --color=auto'
+else
+    # BSD coloring
+    alias ls='CLICOLOR=1 LSCOLORS=ExGxFxdxCxfxDxabadacad ls -hF'
+fi
+
 if ! grep --color 2>&1 | grep un >/dev/null; then
     alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
 fi
