@@ -25,7 +25,8 @@ vendors=(
     tpope/vim-surround
     tpope/vim-speeddating
     tpope/vim-unimpaired
-    bling/vim-airline
+    vim-airline/vim-airline
+    vim-airline/vim-airline-themes
     sjl/gundo.vim
     w0ng/vim-hybrid
     ludovicchabant/vim-lawrencium
