@@ -10,6 +10,7 @@ pager = less -FSRX
 attend = help, cat, diff, log, glog, incoming, outgoing, show, wip, tree
 
 [alias]
+st = !hg status "$($HG root)" $HG_ARGS
 wip = log --graph --rev=wip --template=wip
 tree = log --graph --template=wip
 
