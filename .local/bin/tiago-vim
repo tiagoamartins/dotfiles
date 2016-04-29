@@ -84,9 +84,11 @@ vim_clone() {
 case "$basename" in
     bundle-list)
         IFS=$'\n'
-        echo "Bundles:\n${bundles[*]}"
+        echo "Bundles:"
+        echo "${bundles[*]}"
         echo ""
-        echo "Vendors:\n${vendors[*]}"
+        echo "Vendors:"
+        echo "${vendors[*]}"
         unset IFS
         ;;
 
