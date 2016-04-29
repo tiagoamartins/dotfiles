@@ -1,7 +1,7 @@
 # ~/.profile
 
 # Set the default path for commands
-PATH=$HOME/.bin:/usr/local/bin:${PATH:-/usr/bin:/bin}:/usr/sbin:/sbin
+PATH=$HOME/.local/bin:/usr/local/bin:${PATH:-/usr/bin:/bin}:/usr/sbin:/sbin
 # Set shell startup file when in POSIX mode
 ENV=$HOME/.shrc
 # Set bash startup file
@@ -40,7 +40,7 @@ export LESS LESSOPEN VISUAL EDITOR
 
 # Validate and append directories in PATH variable
 IFS=:
-newpath=$HOME/.bin
+newpath=$HOME/.local/bin
 for dir in $PATHPREPEND $PATH; do
     case :$newpath: in
         *:$dir:*) ;;

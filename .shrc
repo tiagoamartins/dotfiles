@@ -111,7 +111,7 @@ unalias gp >/dev/null 2>&1
 
 # Alias commands in tiago script
 for cmd in `tiago aliases`; do
-    alias $cmd="\"\$HOME\"/.bin/tiago $cmd"
+    alias $cmd="\"\$HOME\"/.local/bin/tiago $cmd"
 done
 unset cmd
 

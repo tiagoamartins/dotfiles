@@ -225,7 +225,7 @@ case "$basename" in
         ;;
 
     vim)
-        exec "$HOME/.bin/tiago-vim" "$@"
+        exec "$HOME/.local/bin/tiago-vim" "$@"
         ;;
 
     '')
