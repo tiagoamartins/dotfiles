@@ -36,6 +36,7 @@ vendors=(
     WeiChungWu/vim-SystemVerilog
     godlygeek/tabular
     SirVer/ultisnips
+    mhinz/vim-signify
 )
 
 vim_clone() {
