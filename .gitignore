@@ -1,3 +1,7 @@
+# Local configuration files
+*.local
+
+# Vim plugins and temporaries
 .vim/temp/
 .vim/vendor/
 .vim/bundle/
