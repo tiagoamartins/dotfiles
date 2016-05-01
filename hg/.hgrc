@@ -1,3 +1,6 @@
+[ui]
+ignore = ~/.cvsignore
+
 [extensions]
 color =
 graphlog =
