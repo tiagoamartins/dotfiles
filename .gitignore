@@ -3,6 +3,6 @@
 !.local
 
 # Vim plugins and temporaries
-.vim/temp/
-.vim/vendor/
-.vim/bundle/
+**/.vim/temp/
+**/.vim/vendor/
+**/.vim/bundle/
