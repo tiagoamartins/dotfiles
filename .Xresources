@@ -30,7 +30,7 @@
 
 XTerm*Geometry: 150x75+0+0
 XTerm*termName: xterm-256color
-XTerm*faceName: DejaVu Sans Mono
+XTerm*faceName: DejaVu Sans Mono for Powerline
 XTerm*faceSize: 9
 XTerm*locale: true
 XTerm*metaSendsEscape: true
