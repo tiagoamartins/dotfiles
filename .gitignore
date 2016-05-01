@@ -1,5 +1,6 @@
 # Local configuration files
 *.local
+!.local
 
 # Vim plugins and temporaries
 .vim/temp/
