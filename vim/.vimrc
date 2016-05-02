@@ -131,25 +131,25 @@ endif
 if has("gui_running")
     if has("gui_win32")
         " On Vim 7.4.16 the following line still doesn't work with gui_gtk
-        set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h9,Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
 
     elseif has("gui_mac") || has("gui_macvim")
-        set guifont=Menlo\ Regular:h11
+        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,Menlo\ Regular:h11
 
     else "gui_gtk
 
-        let menlo = system("fc-list | grep -c Menlo")
+        let dejavu = system("fc-list | grep -c DejaVu\ Mono\ for\ Powerline")
         let consolas = system("fc-list | grep -c Consolas")
         let inconsolata = system("fc-list | grep -c Inconsolata")
 
-        if (menlo > 0)
-            set guifont=Menlo\ 10
+        if (dejavu > 0)
+            set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
         elseif (consolas > 0)
-            set guifont=Consolas\ 10
+            set guifont=Consolas\ 9
         elseif (inconsolata > 0)
-            set guifont=Inconsolata\ 10
+            set guifont=Inconsolata\ 9
         else
-            set guifont=DejaVu\ Sans\ Mono\ 10
+            set guifont=DejaVu\ Sans\ Mono\ 9
         endif
     endif
 endif
