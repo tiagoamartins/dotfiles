@@ -7,5 +7,7 @@
 	ci = commit
 	co = checkout
 	br = branch
+[push]
+	default = matching
 [include]
 	path = .gitconfig.local
