@@ -131,25 +131,19 @@ endif
 if has("gui_running")
     if has("gui_win32")
         " On Vim 7.4.16 the following line still doesn't work with gui_gtk
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h9,Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
+        set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
 
     elseif has("gui_mac") || has("gui_macvim")
-        set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h11,Menlo\ Regular:h11
+        set guifont=Menlo\ Regular:h11
 
     else "gui_gtk
 
-        let dejavu = system("fc-list | grep -c DejaVu\ Mono\ for\ Powerline")
-        let consolas = system("fc-list | grep -c Consolas")
-        let inconsolata = system("fc-list | grep -c Inconsolata")
+        let dejavu = system("fc-list | grep -c DejaVu Sans\ Mono")
 
         if (dejavu > 0)
-            set guifont=DejaVu\ Sans\ Mono\ for\ Powerline\ 9
-        elseif (consolas > 0)
-            set guifont=Consolas\ 9
-        elseif (inconsolata > 0)
-            set guifont=Inconsolata\ 9
-        else
             set guifont=DejaVu\ Sans\ Mono\ 9
+        else
+            set guifont=Inconsolata\ 9
         endif
     endif
 endif
@@ -265,7 +259,23 @@ cnoreabbrev Qall qall
 
 " ---------- Airline ----------
 let g:airline_theme = "hybridline"
-let g:airline_powerline_fonts = 1                   " Enable use of powerline fonts
+let g:airline_powerline_fonts = 0                   " Disable use of powerline fonts
+
+if !exists('g:airline_symbols')
+let g:airline_symbols = {}
+endif
+
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.crypt = '🔒'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = '☰'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#branch#enabled = 1
 
