@@ -298,6 +298,9 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_python_checkers = ['python', 'pep8']
+let g:syntastic_python_pep8_args = '--max-line-length=120'
+
 autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
         \ let b:syntastic_checkers = ['modelsim'] |
         \ let b:syntastic_vhdl_modelsim_args = '-work ' . GetSimulationDir() | endif
