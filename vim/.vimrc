@@ -301,6 +301,9 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pyflakes', 'pep8']
 let g:syntastic_python_pep8_args = '--max-line-length=120'
 
+let g:syntastic_c_checkers = ['splint', 'gcc']
+let g:syntastic_c_splint_args = '-weak'
+
 autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
         \ let b:syntastic_checkers = ['modelsim'] |
         \ let b:syntastic_vhdl_modelsim_args = '-work ' . GetSimulationDir() | endif
