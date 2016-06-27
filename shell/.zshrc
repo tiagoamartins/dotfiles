@@ -40,7 +40,7 @@ _repo_prompt_info() {
             branchcolor="$fg_bold[white]"
             ;;
     esac
-    print -Pn '%%{$basecolor%%} on %%{$branchcolor%%}%20>..>$ref%<<%%{\e[00m%%}'
+    print -Pn '%%{$basecolor%%}[%%{$branchcolor%%}%20>..>$ref%<<%%{$basecolor%%}]%%{\e[00m%%}'
 }
 
 autoload -Uz colors && colors
