@@ -81,6 +81,7 @@ alias ll='ls -l'
 alias cp='cp -i'
 alias mv='mv -i'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
+alias tree='tree -C'
 
 alias j='jobs'
 
