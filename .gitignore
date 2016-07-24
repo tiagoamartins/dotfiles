@@ -6,3 +6,14 @@
 **/.vim/temp/
 **/.vim/vendor/
 **/.vim/bundle/
+
+# Ignore ncmpcpp error log
+**/.ncmpcpp/error.log
+
+# Ignore mpd files
+**/mpd/playlists
+**/mpd/database
+**/mpd/log
+**/mpd/pid
+**/mpd/state
+**/mpd/sticker.sql
