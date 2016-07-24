@@ -202,3 +202,87 @@ _tiago() {
 }
 
 # }}}1
+# Keybindings {{{1
+
+bindkey -e
+bindkey -r '^Q'
+
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^B' backward-char
+bindkey -M viins '^D' delete-char-or-list
+bindkey -M viins '^E' end-of-line
+bindkey -M viins '^F' forward-char
+bindkey -M viins '^K' kill-line
+bindkey -M viins '^N' down-line-or-history
+bindkey -M viins '^P' up-line-or-history
+bindkey -M viins '^R' history-incremental-search-backward
+bindkey -M viins '^S' history-incremental-search-forward
+bindkey -M viins '^T' transpose-chars
+bindkey -M viins '^Y' yank
+
+bindkey -M emacs '^X^[' vi-cmd-mode
+
+bindkey -M emacs ' ' magic-space
+bindkey -M viins ' ' magic-space
+
+bindkey -M isearch '^J' accept-search 2>/dev/null
+
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
+autoload -Uz select-word-style
+select-word-style bash
+
+change-first-word() {
+    zle beginning-of-line -N
+    zle kill-word
+}
+zle -N change-first-word
+bindkey -M emacs "\ea" change-first-word
+
+bindkey -M emacs "^XD" describe-key-briefly
+
+fg-widget() {
+    if [[ $#BUFFER -eq 0 ]]; then
+        if jobs %- >/dev/null 2>&1; then
+            BUFFER='fg %-'
+        else
+            BUFFER='fg'
+        fi
+        zle accept-line
+    else
+        zle push-input
+        zle clear-screen
+    fi
+}
+zle -N fg-widget
+bindkey -M emacs "^Z" fg-widget
+bindkey -M vicmd "^Z" fg-widget
+bindkey -M viins "^Z" fg-widget
+
+autoload -Uz incarg
+zle -N incarg
+bindkey -M emacs "^X^A" incarg
+bindkey -M vicmd "^A" incarg
+
+bindkey -M vicmd ga what-cursor-position
+
+new-screen() {
+    [ -z "$STY" ] || screen < "$TTY"
+    [ -z "$TMUX" ] || tmux new-window
+}
+zle -N new-screen
+[[ -z "$terminfo[kf12]" ]] || bindkey "$terminfo[kf12]" new-screen
+
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey -M emacs '^[e'  edit-command-line
+bindkey -M emacs '^X^E' edit-command-line
+bindkey -M vicmd v      edit-command-line
+
+for binding in ${(f)$(bindkey -M emacs|grep '^"\^X')}; do
+    bindkey -M viins "${(@Qz)binding}"
+done
+unset binding
+
+# }}}1
