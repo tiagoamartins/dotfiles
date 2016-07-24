@@ -136,20 +136,42 @@ setopt autocd cdable_vars
 
 HISTSIZE=100
 
+if [[ $ZSH_VERSION == 3.<->* ]]; then
+    which zmodload >& /dev/null && zmodload zsh/compctl
+    compctl -c sudo
+    compctl -c which
+    compctl -g '*(-/)' + -g '.*(-/)' -v cd pushd rmdir
+    compctl -k hosts -x 'p[2,-1]' -l '' -- rsh ssh
+    return 0
+fi
+
 setopt histexpiredupsfirst histreduceblanks
 
+fpath=($fpath ~/.zsh/functions ~/.zsh/functions.zwc)
+watch=notme
 PERIOD=3600
+periodic() { rehash }
 
 # }}}1
 # Aliases {{{1
 
 alias lsd='ls -d *(-/DN)'
+autoload -Uz zmv # Batch rename (Z move)
+alias zmv='noglob zmv'
+
+autoload -Uz zrecompile
 
 # }}}1
 # Completion {{{1
 
+zmodload -i zsh/complist
+
+# The following lines were added by compinstall
+zstyle :compinstall filename "$HOME/.zshrc"
+
 autoload -Uz compinit
-compinit -u
+compinit
+# End of lines added by compinstall
 
 compdef _tiago tiago
 
