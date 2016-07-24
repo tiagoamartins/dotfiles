@@ -37,6 +37,7 @@ vendors=(
     godlygeek/tabular
     SirVer/ultisnips
     mhinz/vim-signify
+    vivien/vim-linux-coding-style
 )
 
 vim_clone() {
