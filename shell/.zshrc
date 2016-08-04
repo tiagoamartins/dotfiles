@@ -23,7 +23,7 @@ _repo_prompt_info() {
             return
     fi
     case "$TERM" in
-        *-256color)
+        *-256color|tmux)
             basecolor=$'\e[1;38;5;244m'
             branchcolor=$'\e[1;38;5;136m'
             ;;
@@ -52,7 +52,7 @@ local dircolor="$fg_bold[cyan]"
 local hashcolor="$fg_bold[white]"
 # Use echotc Co?
 case "$TERM" in
-    *-256color)
+    *-256color|tmux)
         usercolor=$'\e[1;38;5;33m'
         atcolor=$'\e[1;38;5;136m'
         hostcolor=$'\e[1;38;5;166m'
@@ -88,7 +88,7 @@ _set_title() {
 }
 
 case $TERM in
-    screen*)
+    screen*|tmux*)
         PROMPT="${PROMPT//01;3/00;9}"
         precmd() {
             _set_title "$@"

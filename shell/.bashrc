@@ -18,7 +18,7 @@ atcolor='01;37'
 hostcolor='01;33'
 dircolor='01;36'
 case "$TERM" in
-    *-256color)
+    *-256color|tmux)
         usercolor='1;38;5;33'  # Blue
         atcolor='1;38;5;136'   # Yellow
         hostcolor='1;38;5;166' # Orange
@@ -46,7 +46,7 @@ PS1='\[\e['$usercolor'm\]\u\[\e['$atcolor'm\]@\[\e['$hostcolor'm\]\h\[\e[0;1m\]:
 
 # Set icon name and window title
 case "$TERM" in
-    screen*|xterm*|rxvt*|Eterm*|kterm*|dtterm*|ansi*|cygwin*)
+    screen*|xterm*|rxvt*|Eterm*|kterm*|dtterm*|ansi*|cygwin*|tmux*)
         PS1='\[\e]1;'$ttyat'\h\007\e]2;\u@\h:\w'$ttybracket'\007\]'"${PS1//01;3/00;9}"
         ;;
     linux*|vt220*) ;;
@@ -57,7 +57,7 @@ esac
 
 # Set screen/tmux window title
 case $TERM in
-    screen*)
+    screen*|tmux*)
         PS1="$PS1"'\[\ek'"$ttyat`[ "$STY" -o "$TMUX" ] || echo '\h'`"'\e\\\]'
         ;;
 esac
