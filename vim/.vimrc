@@ -203,7 +203,7 @@ nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 nnoremap <leader>s :mksession<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:¬
+set listchars=space:•,tab:→\ ,eol:¬
 
 " ---------- Buffers ----------
 
@@ -259,23 +259,13 @@ cnoreabbrev Qall qall
 
 " ---------- Airline ----------
 let g:airline_theme = "hybridline"
-let g:airline_powerline_fonts = 0                   " Disable use of powerline fonts
+let g:airline_powerline_fonts = 1                   " Disable use of powerline fonts
 
 if !exists('g:airline_symbols')
-let g:airline_symbols = {}
+    let g:airline_symbols = {}
 endif
 
-" unicode symbols
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_symbols.crypt = '🔒'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.maxlinenr = '☰'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.spell = 'Ꞩ'
-let g:airline_symbols.notexists = '∄'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.maxlinenr='≡'
 
 let g:airline#extensions#branch#enabled = 1
 
@@ -290,10 +280,10 @@ let g:airline#extensions#syntastic#enabled = 1
 
 " ---------- Syntastic ----------
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_error_symbol = '✗'
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_style_error_symbol = '✗'
-let g:syntastic_style_warning_symbol = '⚠'
+let g:syntastic_error_symbol = 'X'
+let g:syntastic_warning_symbol = 'Δ'
+let g:syntastic_style_error_symbol = 'X'
+let g:syntastic_style_warning_symbol = 'Δ'
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
