@@ -28,7 +28,7 @@
 *color7: #707880
 *color15: #C5C8C6
 
-XTerm*Geometry: 150x75+0+0
+XTerm*Geometry: 120x60+0+0
 XTerm*termName: xterm-256color
 XTerm*faceName: Terminess Powerline
 XTerm*faceSize: 12
