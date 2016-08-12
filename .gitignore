@@ -3,6 +3,7 @@
 !.local
 
 # Vim plugins and temporaries
+**/.vim/.netrwhist
 **/.vim/temp/
 **/.vim/vendor/
 **/.vim/bundle/
