@@ -343,3 +343,8 @@ nnoremap <silent> <Plug>TransposeCharacters xp :call repeat#set("\<Plug>Transpos
 nmap cp <Plug>TransposeCharacters
 autocmd FileType vhdl nnoremap <buffer> <F8> :Make<CR>
 autocmd FileType vhdl nnoremap <buffer> <F9> :Dispatch<CR>
+
+" ---------- Local Configurations ----------
+if filereadable(glob($MYVIMRC . ".local"))
+    source $MYVIMRC.local
+endif
