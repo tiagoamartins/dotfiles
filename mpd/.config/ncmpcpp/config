@@ -1,9 +1,27 @@
+# ~/.ncmpcpp/config
+
+# Change default directory
 ncmpcpp_directory = "~/.cache/ncmpcpp"
 
-# visualizations
+# MPD configuration
+mpd_host = "localhost"
+mpd_port = "6600"
+mpd_music_dir = "nfs://starfiler.local/srv/nfs4/music"
+mpd_connection_timeout = "5"
+mpd_crossfade_time = "3"
+
+media_library_primary_tag = artist
+
+# Visualizations
 visualizer_fifo_path = "/tmp/mpd.fifo"
 visualizer_output_name = "my_fifo"
 visualizer_sync_interval = "20"
 visualizer_in_stereo = "yes"
 visualizer_type = "spectrum"
 visualizer_look = "●▉"
+
+# Visual
+progressbar_look = "▁▁▁"
+
+display_bitrate = yes
+colors_enabled = yes
