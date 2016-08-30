@@ -204,7 +204,7 @@ nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 nnoremap <leader>s :mksession<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=space:•,tab:→\ ,eol:¬
+set listchars=space:∙,tab:→\ ,eol:¬
 
 " ---------- Buffers ----------
 
@@ -267,6 +267,9 @@ if !exists('g:airline_symbols')
 endif
 
 let g:airline_symbols.maxlinenr='≡'
+let g:airline_symbols.crypt = 'œ'
+let g:airline_symbols.notexists = '∅'
+let g:airline_symbols.whitespace = 'Ξ'
 
 let g:airline#extensions#branch#enabled = 1
 
