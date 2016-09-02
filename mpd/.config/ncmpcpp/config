@@ -6,11 +6,11 @@ ncmpcpp_directory = "~/.cache/ncmpcpp"
 # MPD configuration
 mpd_host = "localhost"
 mpd_port = "6600"
-mpd_music_dir = "nfs://starfiler.local/srv/nfs4/music"
+mpd_music_dir = "smb://starfiler.local/Music"
 mpd_connection_timeout = "5"
 mpd_crossfade_time = "3"
 
-media_library_primary_tag = artist
+media_library_primary_tag = album_artist
 
 # Visualizations
 visualizer_fifo_path = "/tmp/mpd.fifo"
