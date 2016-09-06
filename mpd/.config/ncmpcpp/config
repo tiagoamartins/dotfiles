@@ -18,10 +18,12 @@ visualizer_output_name = "my_fifo"
 visualizer_sync_interval = "20"
 visualizer_in_stereo = "yes"
 visualizer_type = "spectrum"
-visualizer_look = "●▉"
+visualizer_look = "•▉"
 
 # Visual
+user_interface = "alternative"
 progressbar_look = "▁▁▁"
 
 display_bitrate = yes
 colors_enabled = yes
+external_editor = "vim"
