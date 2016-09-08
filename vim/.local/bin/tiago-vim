@@ -38,6 +38,7 @@ vendors=(
     SirVer/ultisnips
     mhinz/vim-signify
     vivien/vim-linux-coding-style
+    5long/pytest-vim-compiler
 )
 
 vim_clone() {
