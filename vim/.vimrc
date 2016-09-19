@@ -292,8 +292,8 @@ let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_checkers = ['pyflakes', 'pep8']
-let g:syntastic_python_pep8_args = '--max-line-length=120'
+let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
+let g:syntastic_python_flake8_args = '--max-line-length=90'
 
 let g:syntastic_c_checkers = ['splint', 'gcc']
 let g:syntastic_c_splint_args = '-weak'
