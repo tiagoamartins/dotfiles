@@ -138,13 +138,12 @@ if has("gui_running")
         set guifont=Menlo\ Regular:h11
 
     else "gui_gtk
+        let terminess = system("fc-list | grep -c Terminess\ Powerline")
 
-        let dejavu = system("fc-list | grep -c DejaVu Sans\ Mono")
-
-        if (dejavu > 0)
-            set guifont=DejaVu\ Sans\ Mono\ 9
+        if (terminess > 0)
+            set guifont=Terminess\ Powerline 12
         else
-            set guifont=Inconsolata\ 9
+            set guifont=Terminus\ 12
         endif
     endif
 endif
@@ -343,7 +342,7 @@ function! GetSimulationDir() abort
 endfunction
 
 " ---------- Mappings ----------
-nnoremap <silent> <Plug>TransposeCharacters xp :call repeat#set("\<Plug>TransposeCharacters")<CR>
+nnoremap <silent> <Plug>TransposeCharacters xp2h :call repeat#set("\<Plug>TransposeCharacters")<CR>
 nmap cp <Plug>TransposeCharacters
 nnoremap <F8> :Make<CR>
 nnoremap <F9> :Dispatch<CR>
