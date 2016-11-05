@@ -34,3 +34,13 @@ XTerm*faceName: Terminess Powerline
 XTerm*faceSize: 12
 XTerm*locale: true
 XTerm*metaSendsEscape: true
+
+URxvt*geometry: 120x52
+URxvt*font: xft:Terminess Powerline:size=12
+URxvt*scrollBar: false
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0200/c800
+URxvt.urgentOnBell: true
+URxvt.visualBell: true
+URxvt.perl-ext-common: fullscreen
+URxvt.keysym.Meta-Return: perl:fullscreen:switch
