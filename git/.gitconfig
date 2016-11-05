@@ -1,6 +1,9 @@
 [core]
 	excludesfile = ~/.cvsignore
 	pager = less -FSRX
+	abbrev = 12
+[pretty]
+	fixes = Fixes: %h (\"%s\")
 [alias]
 	tree = log --graph --oneline --decorate --all
 	st = status
