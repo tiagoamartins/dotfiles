@@ -105,10 +105,10 @@ set nowrap                      " Turn off line wrapping
 set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
 
 " ---------- Spacing ----------
-set tabstop=4                   " Set tab character visually to a number of spaces characters
-set softtabstop=4               " Number of spaces in tab when editing
-set shiftwidth=4                " Indent width for autoindent
-set expandtab                   " Turn tabs into whitespace
+set tabstop=8                   " Set tab character visually to a number of spaces characters
+set softtabstop=0               " Number of spaces in tab when editing
+set shiftwidth=8                " Indent width for autoindent
+set noexpandtab                 " Turn tabs into whitespace
 set backspace=indent,eol,start  " Set backspace to be able to delete previous characters
 set textwidth=0                 " Width necessary to auto split lines
 
