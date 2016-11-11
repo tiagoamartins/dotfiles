@@ -34,12 +34,12 @@ CompilerSet errorformat+=%-G\\s%#
 
 " Analyze and Synthesis
 " CompilerSet makeprg=quartus_map
-CompilerSet makeprg=$QUARTUS_ROOTDIR/bin64/quartus_map.exe\ $*\ --analyze_file=\"%:p\"
+" CompilerSet makeprg=quartus_map\ $*\ --analyze_file=\"%:p\"
 
 " Complete compile flow
 " CompilerSet makeprg=quartus_sh
-" CompilerSet makeprg=$QUARTUS_ROOTDIR/bin64/quartus_sh.exe\ --flow\ compile\ $*
+CompilerSet makeprg=quartus_sh\ --flow\ compile\ $*
 
 " Programming
 " CompilerSet makeprg=quartus_pgm
-" CompilerSet makeprg=$QUARTUS_ROOTDIR/bin64/quartus_pgm.exe\ -z\ -m\ JTAG\ -c\ USB-Blaster[USB-0]\ -o\ \"p;$*\"
+" CompilerSet makeprg=quartus_pgm\ -z\ -m\ JTAG\ -c\ USB-Blaster[USB-0]\ -o\ \"p;$*\"
