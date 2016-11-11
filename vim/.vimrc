@@ -203,7 +203,7 @@ nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 nnoremap <leader>s :mksession<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=space:∙,tab:→\ ,eol:¬
+set listchars=space:∙,tab:→\ ,eol:¬,trail:-,extends:>,precedes:<,nbsp:+
 
 " ---------- Buffers ----------
 
