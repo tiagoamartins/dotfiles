@@ -55,34 +55,69 @@ set mouse=a                     " Allow mouse use for all modes
 
 " ---------- Backups ----------
 
-" Backup directories
-if has("persistent_undo")
-    if !isdirectory($DOTVIM . "/temp/undo")
-        call mkdir($DOTVIM . "/temp/undo", "p")
+if exists('*mkdir')
+    " Backup directories
+    " Persist (g)undo tree between sessions
+    if has("persistent_undo")
+        if !isdirectory($DOTVIM . "/temp/undo")
+            call mkdir($DOTVIM . "/temp/undo", "p")
+        endif
+        set undodir=$DOTVIM/temp/undo//
+        set undofile
+        set undolevels=100
     endif
-    set undodir=$DOTVIM/temp/undo//
-endif
-if !isdirectory($DOTVIM . "/temp/backup")
-    call mkdir($DOTVIM . "/temp/backup", "p")
-endif
-set backupdir=$DOTVIM/temp/backup//
-if !isdirectory($DOTVIM . "/temp/swap")
-    call mkdir($DOTVIM . "/temp/swap", "p")
-endif
-set directory=$DOTVIM/temp/swap//
 
-set backupskip=/tmp/*,/private/tmp/*"
-
-set backup                      " Keeps a backup after closing the file
-set writebackup                 " Creates a backup file after overwriting the file
-set noswapfile                  " Swap files are a nuisance
-
-" Persist (g)undo tree between sessions
-if has("persistent_undo")
-    set undofile
+    if !isdirectory($DOTVIM . "/temp/backup")
+        call mkdir($DOTVIM . "/temp/backup", "p")
+    endif
+    set backupdir=$DOTVIM/temp/backup//
+    set backup                  " Keeps a backup after closing the file
+    set writebackup             " Creates a backup file after overwriting the file
+    set noswapfile              " Swap files are a nuisance
 endif
+
 set history=100
-set undolevels=100
+
+if has('viminfo')
+    set viminfo='100,n$DOTVIM/temp/viminfo
+endif
+
+" Don't backup files in temp directories or shm
+if exists('&backupskip')
+    set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+endif
+
+" Don't keep swap files in temp directories or shm
+if has('autocmd')
+    augroup swapskip
+        autocmd!
+        silent! autocmd BufNewFile,BufReadPre
+                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                    \ setlocal noswapfile
+    augroup END
+endif
+
+" Don't keep undo files in temp directories or shm
+if has('persistent_undo') && has('autocmd')
+    augroup undoskip
+        autocmd!
+        silent! autocmd BufWritePre
+                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                    \ setlocal noundofile
+    augroup END
+endif
+
+" Don't keep viminfo for files in temp directories or shm
+if has('viminfo')
+    if has('autocmd')
+        augroup viminfoskip
+            autocmd!
+            silent! autocmd BufNewFile,BufReadPre
+                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                        \ setlocal viminfo=
+        augroup END
+    endif
+endif
 
 " ---------- Colors ----------
 syntax enable                   " Enable syntax processing
