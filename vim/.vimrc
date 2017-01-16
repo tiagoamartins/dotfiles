@@ -173,12 +173,15 @@ if has("gui_running")
         set guifont=Menlo\ Regular:h11
 
     else "gui_gtk
-        let terminess = system("fc-list | grep -c Terminess\ Powerline")
+        let terminess = system("fc-list | grep -c \"Terminess Powerline\"")
+        let terminus = system("fc-list | grep -c Terminus")
 
         if (terminess > 0)
-            set guifont=Terminess\ Powerline 12
-        else
+            set guifont=Terminess\ Powerline\ 12
+        elseif (terminus > 0)
             set guifont=Terminus\ 12
+        else
+            set guifont=Monospace\ 11
         endif
     endif
 endif
