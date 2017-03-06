@@ -27,7 +27,6 @@ vendors=(
     tpope/vim-unimpaired
     vim-airline/vim-airline
     vim-airline/vim-airline-themes
-    sjl/gundo.vim
     w0ng/vim-hybrid
     ludovicchabant/vim-lawrencium
     tmhedberg/matchit

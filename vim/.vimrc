@@ -339,10 +339,6 @@ autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !e
         \ let b:syntastic_checkers = ['vcom'] |
         \ let b:syntastic_vhdl_vcom_args = '-work ' . GetSimulationDir() | endif
 
-" ---------- Gundo ----------
-nnoremap <F5> :GundoToggle<CR>
-let g:gundo_prefer_python3 = 1
-
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
 autocmd FileType verilog set commentstring=\/\/\ %s
