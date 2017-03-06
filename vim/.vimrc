@@ -336,8 +336,8 @@ let g:syntastic_c_checkers = ['splint', 'gcc']
 let g:syntastic_c_splint_args = '-weak'
 
 autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
-        \ let b:syntastic_checkers = ['modelsim'] |
-        \ let b:syntastic_vhdl_modelsim_args = '-work ' . GetSimulationDir() | endif
+        \ let b:syntastic_checkers = ['vcom'] |
+        \ let b:syntastic_vhdl_vcom_args = '-work ' . GetSimulationDir() | endif
 
 " ---------- Gundo ----------
 nnoremap <F5> :GundoToggle<CR>
