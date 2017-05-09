@@ -338,7 +338,7 @@ let g:syntastic_c_splint_args = '-weak'
 
 autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
         \ let b:syntastic_checkers = ['vcom'] |
-        \ let b:syntastic_vhdl_vcom_args = '-work ' . GetSimulationDir() | endif
+        \ let b:syntastic_vhdl_vcom_args = '-2008 -work ' . GetSimulationDir() | endif
 
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
