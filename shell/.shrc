@@ -55,15 +55,6 @@ esac
 
 unset hostname
 
-# Welcome message
-if hash archey 2> /dev/null; then
-    # Archey offline with colors
-    archey -o -c
-fi
-echo -ne "Today is "; date
-echo -ne "Up time: "; uptime | awk /'up/'
-echo ""
-
 # Refresh function
 rf() {
     . "$HOME/.profile" >/dev/null
