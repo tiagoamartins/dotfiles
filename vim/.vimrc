@@ -336,9 +336,12 @@ let g:syntastic_python_flake8_args = '--max-line-length=90'
 let g:syntastic_c_checkers = ['splint', 'gcc']
 let g:syntastic_c_splint_args = '-weak'
 
+let g:syntastic_vhdl_checkers = ['ghdl']
+
 autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
-        \ let b:syntastic_checkers = ['vcom'] |
-        \ let b:syntastic_vhdl_vcom_args = '-2008 -work ' . GetSimulationDir() | endif
+        \ let b:syntastic_checkers = ['vcom', 'ghdl'] |
+        \ let b:syntastic_vhdl_vcom_args = '-2008 -work ' . GetSimulationDir() |
+        \ let b:syntastic_vhdl_ghdl_args = '--workdir=' . GetSimulationDir() | endif
 
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
