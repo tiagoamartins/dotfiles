@@ -397,3 +397,6 @@ autocmd FileType mail setlocal formatoptions+=aw
 if filereadable(glob($MYVIMRC . ".local"))
     source $MYVIMRC.local
 endif
+
+" ---------- ARM Assembly ----------
+autocmd BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
