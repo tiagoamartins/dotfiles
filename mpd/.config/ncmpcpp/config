@@ -6,7 +6,7 @@ ncmpcpp_directory = "~/.cache/ncmpcpp"
 # MPD configuration
 mpd_host = "localhost"
 mpd_port = "6600"
-mpd_music_dir = "smb://starfiler.local/Music"
+mpd_music_dir = "nfs://starfiler.local/srv/nfs/music"
 mpd_connection_timeout = "5"
 mpd_crossfade_time = "3"
 
