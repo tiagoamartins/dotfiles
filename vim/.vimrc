@@ -268,6 +268,21 @@ if has("spell")
 
     " Limit it to just the top 10 items
     set spellsuggest=best,10
+
+    " Set spelling for mail, gitcommit and markdown
+    autocmd FileType mail setlocal spell
+    autocmd FileType gitcommit setlocal spell
+    autocmd FileType markdown setlocal spell
+
+    " Word completion
+    set complete+=kspell
+endif
+
+if exists("+spelllang")
+    set spelllang=en_us
+    " Change spelling language
+    nmap <silent> <leader>pt :set spelllang=pt_br<CR>
+    nmap <silent> <leader>en :set spelllang=en_us<CR>
 endif
 
 " ---------- File Open ----------
