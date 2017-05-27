@@ -7,6 +7,7 @@
 **/.vim/temp/
 **/.vim/vendor/
 **/.vim/bundle/
+**/.vim/spell/
 
 # Ignore ncmpcpp error log
 **/.ncmpcpp/error.log
