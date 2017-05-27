@@ -162,6 +162,9 @@ if has("autocmd")
 
     " Treat .rss files as XML
     autocmd BufNewFile,BufRead *.rss setfiletype xml
+
+    " Vim files
+    autocmd FileType vim setlocal expandtab softtabstop=4 shiftwidth=4
 endif
 
 " ---------- Fonts ----------
