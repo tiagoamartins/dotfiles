@@ -238,9 +238,6 @@ nnoremap gV `[v`]
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 
-" Save session
-nnoremap <leader>s :mksession<CR>
-
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=space:∙,tab:→\ ,eol:¬,trail:-,extends:>,precedes:<,nbsp:+
 
