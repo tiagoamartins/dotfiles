@@ -358,6 +358,10 @@ autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !e
         \ let b:syntastic_vhdl_vcom_args = '-2008 -work ' . GetSimulationDir() |
         \ let b:syntastic_vhdl_ghdl_args = '--workdir=' . GetSimulationDir() | endif
 
+" Get project checkers from .projections.json
+autocmd User ProjectionistActivate let b:syntastic_checkers =
+        \ [get(projectionist#query('checkers'), 0, ['', ''])[1]]
+
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
 autocmd FileType verilog set commentstring=\/\/\ %s
