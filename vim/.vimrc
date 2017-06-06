@@ -155,7 +155,7 @@ if has("autocmd")
     " Syntax of these languages is fussy over tabs vs. spaces
     autocmd FileType make setlocal noexpandtab
     autocmd FileType html setlocal noexpandtab
-    autocmd FileType yaml setlocal expandtab softtabstop=2 shiftwidth=2
+    autocmd FileType yaml setlocal expandtab softtabstop=4 shiftwidth=4
 
     " Add wrap to Markdown files
     autocmd FileType markdown setlocal wrap
