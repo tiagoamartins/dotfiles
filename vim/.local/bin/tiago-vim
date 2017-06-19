@@ -19,7 +19,6 @@ vendors=(
     tpope/vim-commentary
     tpope/vim-dispatch
     tpope/vim-fugitive
-    tpope/vim-pathogen
     tpope/vim-projectionist
     tpope/vim-repeat
     tpope/vim-surround
@@ -57,10 +56,10 @@ vim_clone() {
     esac
     case "$repo" in
         *@*)
-            dest="$HOME/.vim/bundle"
+            dest="$HOME/.vim/pack/bundle/start"
             ;;
         */*)
-            dest="$HOME/.vim/vendor"
+            dest="$HOME/.vim/pack/vendor/start"
             ;;
     esac
     mkdir -p "$dest"

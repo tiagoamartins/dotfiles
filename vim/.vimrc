@@ -24,27 +24,30 @@ set fileformats=unix,dos,mac
 set t_Co=256
 
 " ---------- Pathogen ----------
-let pathogen_readme = expand("$DOTVIM/vendor/pathogen/README.markdown")
+if v:version < 800
+    let pack_start = expand($DOTVIM . "/pack/vendor/start")
+    let pathogen_readme = pack_start . "/pathogen/README.markdown"
 
-if !filereadable(pathogen_readme)
-    echo "Installing Pathogen..."
-    echo ""
-    if !isdirectory($DOTVIM . "/vendor")
-        call mkdir($DOTVIM . "/vendor", "p")
+    if !filereadable(pathogen_readme)
+        echo "Installing Pathogen..."
+        echo ""
+        if !isdirectory(pack_start)
+            call mkdir(pack_start, "p")
+        endif
+        silent execute "!git clone https://github.com/tpope/vim-pathogen " . pack_start . "/pathogen"
     endif
-    silent execute "!git clone https://github.com/tpope/vim-pathogen " . $DOTVIM . "/vendor/pathogen"
-endif
 
-if has("vim_starting")
+    if has("vim_starting")
+        " Required:
+        " Set the runtime path to include Pathogen
+        runtime! pack/vendor/start/pathogen/autoload/pathogen.vim
+    endif
+
     " Required:
-    " Set the runtime path to include Pathogen
-    runtime! vendor/pathogen/autoload/pathogen.vim
+    " Initialize and pass a path where Pathogen should get plugins
+    execute pathogen#infect()
 endif
 
-" Required:
-" Initialize and pass a path where Pathogen should get plugins
-execute pathogen#infect("vendor/{}")
-execute pathogen#infect("bundle/{}")
 filetype plugin on              " Enable plugins to detect file types
 
 " Make sure Pathogen works with Vim Sessions

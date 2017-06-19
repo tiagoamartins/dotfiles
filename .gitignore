@@ -5,8 +5,7 @@
 # Vim plugins and temporaries
 **/.vim/.netrwhist
 **/.vim/temp/
-**/.vim/vendor/
-**/.vim/bundle/
+**/.vim/pack/
 **/.vim/spell/
 
 # Ignore ncmpcpp error log
