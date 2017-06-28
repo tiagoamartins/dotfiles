@@ -339,19 +339,17 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#syntastic#enabled = 1
 
 " ---------- Syntastic ----------
-let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_error_symbol = 'X'
 let g:syntastic_warning_symbol = 'Δ'
 let g:syntastic_style_error_symbol = 'X'
 let g:syntastic_style_warning_symbol = 'Δ'
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
-
 let g:syntastic_c_checkers = ['gcc']
-
+let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
 let g:syntastic_vhdl_checkers = ['ghdl']
 
 autocmd FileType vhdl call s:set_simulation_dir()
