@@ -374,8 +374,21 @@ function! s:set_simulation_dir() abort
 endfunction
 
 " Get project checkers from .projections.json
-autocmd User ProjectionistActivate let b:syntastic_checkers =
-        \ [get(projectionist#query('checkers'), 0, ['', ''])[1]]
+autocmd User ProjectionistActivate call s:activate()
+function! s:activate() abort
+    let checkers = []
+    for [root, value] in projectionist#query('checkers')
+        if type(value) == type([])
+            call extend(checkers, value)
+        elseif type(value) !=# type({})
+            call add(checkers, value)
+        endif
+        unlet value
+    endfor
+    if !empty(checkers)
+        let b:syntastic_checkers = checkers
+    endif
+endfunction
 
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
