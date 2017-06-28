@@ -356,10 +356,22 @@ let g:syntastic_c_splint_args = '-weak'
 
 let g:syntastic_vhdl_checkers = ['ghdl']
 
-autocmd BufRead *.vhd if isdirectory('work') || (exists('b:projectionist') && !empty('b:projectionist')) |
-        \ let b:syntastic_checkers = ['vcom', 'ghdl'] |
-        \ let b:syntastic_vhdl_vcom_args = '-2008 -work ' . GetSimulationDir() |
-        \ let b:syntastic_vhdl_ghdl_args = '--workdir=' . GetSimulationDir() | endif
+autocmd FileType vhdl call s:set_simulation_dir()
+function! s:set_simulation_dir() abort
+    if exists('b:projectionist') && !empty('b:projectionist')
+        for [root, value] in projectionist#query('simulation')
+            let sim_dir = '"' . expand(root . '/' . value) . '"'
+            break
+        endfor
+    elseif isdirectory('work')
+        let sim_dir = 'work'
+    endif
+
+    if exists('sim_dir')
+        let b:syntastic_vhdl_vcom_args = '-2008 -work ' . sim_dir
+        let b:syntastic_vhdl_ghdl_args = '--workdir=' . sim_dir
+    endif
+endfunction
 
 " Get project checkers from .projections.json
 autocmd User ProjectionistActivate let b:syntastic_checkers =
@@ -389,16 +401,6 @@ function! Preserve(command)
     " Clean up: restore previous search history, and cursor position
     let @/=_s
     call cursor(l, c)
-endfunction
-
-function! GetSimulationDir() abort
-    if exists('b:projectionist') && !empty('b:projectionist')
-        for [root, value] in projectionist#query('simulation')
-            return '"' . expand(root . '/' . value) . '"'
-        endfor
-    endif
-
-    return 'work'
 endfunction
 
 " ---------- Mappings ----------
