@@ -8,43 +8,10 @@
 # }}}1
 # Prompt {{{1
 
-_repo_prompt_info() {
-    case "$PWD" in
-        /net/*|/Volumes/*) return ;;
-    esac
-    if [ -d .svn ]; then
-        ref=.svn
-    elif [ -d .hg ]; then
-        ref=${$(hg branch 2> /dev/null)} || \
-            return
-    else
-        ref=${$(git symbolic-ref HEAD 2> /dev/null)#refs/heads/} || \
-            ref=${$(git rev-parse HEAD 2> /dev/null)[1][1,7]} || \
-            return
-    fi
-    case "$TERM" in
-        *-256color|tmux)
-            basecolor=$'\e[1;38;5;244m'
-            branchcolor=$'\e[1;38;5;136m'
-            ;;
-        *-88color|rxvt-unicode)
-            basecolor=$'\e[1;38;5;83m'
-            branchcolor=$'\e[1;38;5;72m'
-            ;;
-        xterm*)
-            basecolor=$'\e[01;37m'
-            branchcolor=$'\e[01;37m'
-            ;;
-        *)
-            basecolor="$fg_bold[white]"
-            branchcolor="$fg_bold[white]"
-            ;;
-    esac
-    print -Pn '%%{$basecolor%%}[%%{$branchcolor%%}%20>..>$ref%<<%%{$basecolor%%}]%%{\e[00m%%}'
-}
-
 autoload -Uz colors && colors
 
+local basecolor="$fg_bold[white]"
+local branchcolor="$fg_bold[white]"
 local usercolor="$fg_bold[blue]"
 local atcolor="$fg_bold[white]"
 local hostcolor="$fg_bold[yellow]"
@@ -53,6 +20,8 @@ local hashcolor="$fg_bold[white]"
 # Use echotc Co?
 case "$TERM" in
     *-256color|tmux)
+        basecolor=$'\e[1;38;5;244m'
+        branchcolor=$'\e[1;38;5;136m'
         usercolor=$'\e[1;38;5;33m'
         atcolor=$'\e[1;38;5;136m'
         hostcolor=$'\e[1;38;5;166m'
@@ -60,17 +29,30 @@ case "$TERM" in
         hashcolor=$'\e[1;38;5;231m'
         ;;
     *-88color|rxvt-unicode)
+        basecolor=$'\e[1;38;5;83m'
+        branchcolor=$'\e[1;38;5;72m'
         usercolor=$'\e[1;38;5;23m'
         atcolor=$'\e[1;38;5;72m'
         hostcolor=$'\e[1;38;5;68m'
         dircolor=$'\e[1;38;5;26m'
         hashcolor=$'\e[1;38;5;79m'
         ;;
+    xterm*)
+        basecolor=$'\e[01;37m'
+        branchcolor=$'\e[01;37m'
+        ;;
 esac
 [ $UID = '0' ] && usercolor="$fg_bold[red]"
 reset_color=$'\e[00m'
 
-PROMPT="%{$usercolor%}%n%{$atcolor%}@%{${hostcolor}%}%m%{$hashcolor%}:%{$dircolor%}%30<...<%~%<<%{$reset_color%}\$(_repo_prompt_info) %{$hashcolor%}%# %{$reset_color%}"
+autoload -Uz vcs_info
+precmd_vcs_info() { vcs_info }
+precmd_functions+=( precmd_vcs_info )
+zstyle ':vcs_info:*' enable git hg svn
+zstyle ':vcs_info:*' formats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%<<%{$basecolor%}]"
+zstyle ':vcs_info::*' actionformats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%{$basecolor%}|%F{red}%a%<<%{$basecolor%}]"
+
+PROMPT="%{$usercolor%}%n%{$atcolor%}@%{${hostcolor}%}%m%{$hashcolor%}:%{$dircolor%}%30<...<%~%<<%{$reset_color%}\${vcs_info_msg_0_} %{$hashcolor%}%# %{$reset_color%}"
 RPS1="%(?..(%{"$'\e[01;35m'"%}%?%{$reset_color%}%)%<<)"
 setopt promptsubst
 
