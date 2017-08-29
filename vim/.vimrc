@@ -366,7 +366,7 @@ function! s:set_simulation_dir() abort
 
     if exists('sim_dir')
         let b:syntastic_vhdl_vcom_args = '-2008 -work ' . sim_dir
-        let b:syntastic_vhdl_ghdl_args = '--workdir=' . sim_dir
+        let b:syntastic_vhdl_ghdl_args = '--std=08 --workdir=' . sim_dir
     endif
 endfunction
 
