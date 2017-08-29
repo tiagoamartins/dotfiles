@@ -67,7 +67,7 @@ rf() {
 }
 
 # Aliases
-alias d='ls -lah'
+alias d='ls -lah --group-directories-first'
 alias ll='ls -l'
 alias cp='cp -i'
 alias mv='mv -i'
