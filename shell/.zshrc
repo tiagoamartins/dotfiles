@@ -50,7 +50,7 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 zstyle ':vcs_info:*' enable git hg svn
 zstyle ':vcs_info:*' formats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%<<%{$basecolor%}]"
-zstyle ':vcs_info::*' actionformats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%{$basecolor%}|%F{red}%a%<<%{$basecolor%}]"
+zstyle ':vcs_info:*' actionformats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%{$basecolor%}|%F{red}%a%<<%{$basecolor%}]"
 
 PROMPT="%{$usercolor%}%n%{$atcolor%}@%{${hostcolor}%}%m%{$hashcolor%}:%{$dircolor%}%30<...<%~%<<%{$reset_color%}\${vcs_info_msg_0_} %{$hashcolor%}%# %{$reset_color%}"
 RPS1="%(?..(%{"$'\e[01;35m'"%}%?%{$reset_color%}%)%<<)"
