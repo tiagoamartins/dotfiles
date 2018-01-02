@@ -244,7 +244,10 @@ nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=space:∙,tab:→\ ,eol:¬,trail:-,extends:>,precedes:<,nbsp:+
+set listchars=tab:→\ ,eol:¶,trail:␣,extends:»,precedes:«,nbsp:+
+if has("patch-7.4.710")
+    set listchars+=space:∙
+endif
 
 " ---------- Buffers ----------
 
