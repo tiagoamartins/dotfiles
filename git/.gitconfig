@@ -5,6 +5,7 @@
 [pretty]
 	fixes = Fixes: %h (\"%s\")
 [alias]
+	wip = log --graph --oneline --decorate origin/master..HEAD
 	tree = log --graph --oneline --decorate --all
 	st = status
 	ci = commit
