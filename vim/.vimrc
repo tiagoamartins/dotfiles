@@ -352,6 +352,7 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_c_checkers = ['gcc']
 let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
+let g:syntastic_python_flake8_args = '--ignore="W503"'
 let g:syntastic_rst_checkers = ['sphinx']
 let g:syntastic_vhdl_checkers = ['ghdl', 'vcom']
 
