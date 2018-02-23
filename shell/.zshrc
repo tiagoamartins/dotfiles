@@ -19,7 +19,7 @@ local dircolor="$fg_bold[cyan]"
 local hashcolor="$fg_bold[white]"
 # Use echotc Co?
 case "$TERM" in
-    *-256color|tmux)
+    *-256color)
         basecolor=$'\e[1;38;5;244m'
         branchcolor=$'\e[1;38;5;136m'
         usercolor=$'\e[1;38;5;33m'
