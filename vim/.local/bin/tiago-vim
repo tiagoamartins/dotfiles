@@ -51,11 +51,11 @@ vim_clone() {
             repo="git://github.com/$1.git"
             ;;
         *)
-            repo="git@github.com:tiagoamartins/$1.git"
+            repo="git://github.com/tiagoamartins/$1.git"
             ;;
     esac
     case "$repo" in
-        *@*)
+        *tiagoamartins*)
             dest="$HOME/.vim/pack/bundle/start"
             ;;
         */*)
