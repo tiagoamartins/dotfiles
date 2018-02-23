@@ -64,7 +64,7 @@ vim_clone() {
     esac
     mkdir -p "$dest"
     cd "$dest"
-    basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | tr '[:upper:]' '[:lower:]'`
+    basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | sed -e 's/\-vim$//' | tr '[:upper:]' '[:lower:]'`
     if [ -d $basename ]; then
         cd $basename
         git pull --rebase
