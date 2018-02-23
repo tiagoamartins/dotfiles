@@ -338,23 +338,14 @@ let g:airline#extensions#tabline#tab_nr_type = 2    " Show splits and tab number
 let g:airline#extensions#whitespace#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
-let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
-" ---------- Syntastic ----------
-let g:syntastic_error_symbol = 'X'
-let g:syntastic_warning_symbol = 'Δ'
-let g:syntastic_style_error_symbol = 'X'
-let g:syntastic_style_warning_symbol = 'Δ'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" ---------- ALE ----------
+let g:ale_sign_error = 'X'
+let g:ale_sign_warning = 'Δ'
 
-let g:syntastic_c_checkers = ['gcc']
-let g:syntastic_python_checkers = ['flake8', 'pyflakes', 'pylint']
-let g:syntastic_python_flake8_args = '--ignore="W503"'
-let g:syntastic_rst_checkers = ['sphinx']
-let g:syntastic_vhdl_checkers = ['ghdl', 'vcom']
+let g:ale_python_flake8_options='--ignore=W503'
+let g:ale_c_gcc_options='-std=gnu11 -Wall'
 
 autocmd FileType vhdl call s:set_simulation_dir()
 function! s:set_simulation_dir() abort
@@ -368,25 +359,8 @@ function! s:set_simulation_dir() abort
     endif
 
     if exists('sim_dir')
-        let b:syntastic_vhdl_vcom_args = '-2008 -work ' . sim_dir
-        let b:syntastic_vhdl_ghdl_args = '--std=08 --workdir=' . sim_dir
-    endif
-endfunction
-
-" Get project checkers from .projections.json
-autocmd User ProjectionistActivate call s:activate()
-function! s:activate() abort
-    let checkers = []
-    for [root, value] in projectionist#query('checkers')
-        if type(value) == type([])
-            call extend(checkers, value)
-        elseif type(value) !=# type({})
-            call add(checkers, value)
-        endif
-        unlet value
-    endfor
-    if !empty(checkers)
-        let b:syntastic_checkers = checkers
+        let b:ale_vhdl_vcom_options = '-2008 -work ' . sim_dir
+        let b:ale_vhdl_ghdl_options = '--std=08 --workdir=' . sim_dir
     endif
 endfunction
 

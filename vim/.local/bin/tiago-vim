@@ -30,7 +30,6 @@ vendors=(
     ludovicchabant/vim-lawrencium
     tmhedberg/matchit
     AndrewRadev/splitjoin.vim
-    scrooloose/syntastic
     WeiChungWu/vim-SystemVerilog
     godlygeek/tabular
     SirVer/ultisnips
@@ -40,6 +39,7 @@ vendors=(
     reconquest/vim-pythonx
     joe-skb7/cscope-maps
     ARM9/arm-syntax-vim
+    w0rp/ale
 )
 
 vim_clone() {
