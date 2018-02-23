@@ -411,3 +411,9 @@ endif
 
 " ---------- ARM Assembly ----------
 autocmd BufNewFile,BufRead *.s,*.S set filetype=arm " arm = armv6/7
+
+" ---------- Easytags ----------
+set tags=./tags
+let g:easytags_async = 1
+let g:easytags_dynamic_files = 1
+let g:easytags_syntax_keyword = 'always'
