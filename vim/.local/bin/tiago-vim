@@ -40,8 +40,6 @@ vendors=(
     joe-skb7/cscope-maps
     ARM9/arm-syntax-vim
     w0rp/ale
-    xolox/vim-easytags
-    xolox/vim-misc
 )
 
 vim_clone() {
