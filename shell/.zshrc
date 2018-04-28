@@ -51,6 +51,36 @@ precmd_functions+=( precmd_vcs_info )
 zstyle ':vcs_info:*' enable git hg svn
 zstyle ':vcs_info:*' formats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%<<%{$basecolor%}]"
 zstyle ':vcs_info:*' actionformats "%{$basecolor%}[%{$branchcolor%}%20>..>%b%{$basecolor%}|%F{red}%a%<<%{$basecolor%}]"
+zstyle ':vcs_info:hg*:*' get-revision true
+zstyle ':vcs_info:hg*:*' get-bookmarks true
+zstyle ':vcs_info:hg*:*' get-mq false
+zstyle ':vcs_info:hg*:*' branchformat "%b" # only show branch
+zstyle ':vcs_info:hg+gen-hg-bookmark-string:*' hooks hgbookmarks
+
+function +vi-hgbookmarks() {
+    # The default is to connect all bookmark names by
+    # commas. This mixes things up a little.
+    # Imagine, there's one type of bookmarks that is
+    # special to you. Say, because it's *your* work.
+    # Those bookmarks look always like this: "sh/*"
+    # (because your initials are sh, for example).
+    # This makes the bookmarks string use only those
+    # bookmarks. If there's more than one, it
+    # concatenates them using commas.
+    # The bookmarks returned by `hg' are available in
+    # the function's positional parameters.
+    local s="${(Mj:,:)@:#*}"
+    # Now, the communication with the code that calls
+    # the hook functions is done via the hook_com[]
+    # hash. The key at which the `gen-hg-bookmark-string'
+    # hook looks is `hg-bookmark-string'. So:
+    hook_com[hg-bookmark-string]=$s
+    # And to signal that we want to use the string we
+    # just generated, set the special variable `ret' to
+    # something other than the default zero:
+    ret=1
+    return 0
+}
 
 PROMPT="%{$usercolor%}%n%{$atcolor%}@%{${hostcolor}%}%m%{$hashcolor%}:%{$dircolor%}%30<...<%~%<<%{$reset_color%}\${vcs_info_msg_0_} %{$hashcolor%}%# %{$reset_color%}"
 RPS1="%(?..(%{"$'\e[01;35m'"%}%?%{$reset_color%}%)%<<)"
