@@ -17,23 +17,32 @@ set sessionoptions-=options
 " ---------- Mouse ----------
 set mouse=a                     " Allow mouse use for all modes
 
+" ---------- Home Path ----------
+" Get the vim files directory
+" In Windows/Linux, take in a difference of '.vim' and 'vimfiles'
+if has("win32") || has ("win64")
+    let $VIM_HOME = expand("$HOME/vimfiles")
+else
+    let $VIM_HOME = expand("$HOME/.vim")
+endif
+
 " ---------- Backups ----------
 if exists('*mkdir')
     " Backup directories
     " Persist (g)undo tree between sessions
     if has("persistent_undo")
-        if !isdirectory($DOTVIM . "/temp/undo")
-            call mkdir($DOTVIM . "/temp/undo", "p")
+        if !isdirectory($VIM_HOME . "/temp/undo")
+            call mkdir($VIM_HOME . "/temp/undo", "p")
         endif
-        set undodir=$DOTVIM/temp/undo//
+        set undodir=$VIM_HOME/temp/undo//
         set undofile
         set undolevels=100
     endif
 
-    if !isdirectory($DOTVIM . "/temp/backup")
-        call mkdir($DOTVIM . "/temp/backup", "p")
+    if !isdirectory($VIM_HOME . "/temp/backup")
+        call mkdir($VIM_HOME . "/temp/backup", "p")
     endif
-    set backupdir=$DOTVIM/temp/backup//
+    set backupdir=$VIM_HOME/temp/backup//
     set backup                  " Keeps a backup after closing the file
     set writebackup             " Creates a backup file after overwriting the file
     set noswapfile              " Swap files are a nuisance
@@ -42,7 +51,7 @@ endif
 set history=100
 
 if has('viminfo')
-    set viminfo='100,n$DOTVIM/temp/viminfo
+    set viminfo='100,n$VIM_HOME/temp/viminfo
 endif
 
 " Don't backup files in temp directories or shm

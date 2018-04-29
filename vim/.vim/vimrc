@@ -1,12 +1,3 @@
-" ---------- Home Path ----------
-" Get the vim files directory
-" In Windows/Linux, take in a difference of ".vim" and "$VIM/vimfiles".
-if has("win32") || has ("win64")
-    let $DOTVIM = expand("$HOME/vimfiles")
-else
-    let $DOTVIM = expand("$HOME/.vim")
-endif
-
 " ---------- Vim Defaults ----------
 let mapleader = '\'             " Leader is backslash
 
