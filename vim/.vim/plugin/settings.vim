@@ -31,37 +31,72 @@ endif
 
 " Backups {{{1
 " ------------
-if exists('*mkdir')
-    " Backup directories
-    " Persist (g)undo tree between sessions
-    if has("persistent_undo")
-        if !isdirectory($VIM_HOME . "/temp/undo")
-            call mkdir($VIM_HOME . "/temp/undo", "p")
-        endif
-        set undodir=$VIM_HOME/temp/undo//
-        set undofile
-        set undolevels=100
+if exists('$SUDO_USER')         " Don't create root-owned files
+    set nobackup
+    set nowritebackup
+else
+    let s:backup_dir = expand($VIM_HOME . '/temp/backup')
+    if exists('*mkdir') && !isdirectory(s:backup_dir)
+        call mkdir(s:backup_dir, 'p')
     endif
-
-    if !isdirectory($VIM_HOME . "/temp/backup")
-        call mkdir($VIM_HOME . "/temp/backup", "p")
-    endif
-    set backupdir=$VIM_HOME/temp/backup//
-    set backup                  " Keeps a backup after closing the file
-    set writebackup             " Creates a backup file after overwriting the file
-    set directory=              " Avoid creating swap folder
-    set noswapfile              " Swap files are a nuisance
-endif
-
-set history=100
-
-if has('viminfo')
-    set viminfo+=n$VIM_HOME/temp/viminfo
+    set backupdir=$VIM_HOME/temp/backup
+    set backup                  " Keep backup after closing the file
+    set writebackup             " Create backup file after overwriting the file
 endif
 
 " Don't backup files in temp directories or shm
-if exists('&backupskip')
-    set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+if has('wildignore')
+    if &backupskip !~ '/tmp/\*'
+        set backupskip+=/tmp/*  " Make sure temp files have no backup (security reason)
+    endif
+    set backupskip+=*/shm/*
+endif
+
+if exists('$SUDO_USER')         " Don't create root-owned files
+    set noswapfile
+else
+    let s:swap_dir = expand($VIM_HOME . '/temp/swap')
+    if exists('*mkdir') && !isdirectory(s:swap_dir)
+        call mkdir(s:swap_dir, 'p')
+    endif
+    set directory=$VIM_HOME/temp/swap//
+    set swapfile
+endif
+
+" History {{{1
+" ------------
+if has('cmdline_hist')
+    set history=100
+endif
+
+if has('viminfo')
+    if exists('$SUDO_USER')     " Don't create root-owned files
+        set viminfo=
+    else
+        set viminfo+=n$VIM_HOME/temp/viminfo
+
+        if !empty(glob($VIM_HOME . '/temp/viminfo'))
+            if !filereadable(expand($VIM_HOME . '/temp/viminfo'))
+                echoerr expand('warning: ' . $VIM_HOME .
+                              \'/temp/viminfo exists but is not readable')
+            endif
+        endif
+    endif
+endif
+
+" Persist undo tree between sessions
+if has('persistent_undo')
+    if exists('$SUDO_USER')     " Don't create root-owned files
+        set noundofile
+    else
+        let s:undo_dir = $VIM_HOME . '/temp/undo'
+        if exists('*mkdir') && !isdirectory(s:undo_dir)
+            call mkdir(s:undo_dir, "p")
+        endif
+        set undodir=$VIM_HOME/temp/undo
+        set undofile
+        set undolevels=100
+    endif
 endif
 
 " UI Configuration {{{1
