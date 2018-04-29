@@ -63,16 +63,6 @@ if has("spell")
     autocmd FileType markdown setlocal spell
 endif
 
-" ---------- File Open ----------
-" Make sure Vim returns to the same line when you reopen a file.
-augroup line_return
-    au!
-    au BufReadPost *
-                \ if line("'\"") > 0 && line("'\"") <= line("$") |
-                \     execute 'normal! g`"zvzz' |
-                \ endif
-augroup END
-
 " ---------- Airline ----------
 let g:airline_theme = "hybridline"
 let g:airline_powerline_fonts = 1                   " Disable use of powerline fonts
