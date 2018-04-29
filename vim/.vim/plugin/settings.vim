@@ -52,7 +52,7 @@ endif
 set history=100
 
 if has('viminfo')
-    set viminfo='100,n$VIM_HOME/temp/viminfo
+    set viminfo+=n$VIM_HOME/temp/viminfo
 endif
 
 " Don't backup files in temp directories or shm
