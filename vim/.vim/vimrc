@@ -114,7 +114,6 @@ endfunction
 
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
-autocmd FileType matlab set commentstring=\%\ %s
 
 " ---------- UltiSnips ----------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
