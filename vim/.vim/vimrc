@@ -1,28 +1,11 @@
 " ---------- Vim Defaults ----------
 let mapleader = '\'             " Leader is backslash
 
-" ---------- Pathogen ----------
-if v:version < 800
-    let pack_start = expand($DOTVIM . "/pack/vendor/start")
-    let pathogen_readme = pack_start . "/pathogen/README.markdown"
-
-    if !filereadable(pathogen_readme)
-        echo "Installing Pathogen..."
-        echo ""
-        if !isdirectory(pack_start)
-            call mkdir(pack_start, "p")
-        endif
-        silent execute "!git clone https://github.com/tpope/vim-pathogen " . pack_start . "/pathogen"
-    endif
-
+if &loadplugins && !has('packages')
     if has("vim_starting")
-        " Required:
-        " Set the runtime path to include Pathogen
-        runtime! pack/vendor/start/pathogen/autoload/pathogen.vim
+        runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
     endif
 
-    " Required:
-    " Initialize and pass a path where Pathogen should get plugins
     execute pathogen#infect()
 endif
 
