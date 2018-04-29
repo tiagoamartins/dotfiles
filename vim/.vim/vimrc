@@ -33,14 +33,6 @@ endif
 " ---------- Indentation ----------
 filetype indent on              " Indent depends on filetype
 
-augroup VhdlTabular
-    autocmd!
-    autocmd FileType vhdl nnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<CR>
-    autocmd FileType vhdl vnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<CR>
-    autocmd FileType vhdl nnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<CR>
-    autocmd FileType vhdl vnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<CR>
-augroup END
-
 " ---------- Spelling ----------
 if has("spell")
     " Change menu color
@@ -110,9 +102,6 @@ function! s:set_simulation_dir() abort
         let b:ale_vhdl_ghdl_options = '--std=08 --workdir=' . sim_dir
     endif
 endfunction
-
-" ---------- Commentary ----------
-autocmd FileType vhdl set commentstring=--\ %s
 
 " ---------- UltiSnips ----------
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
