@@ -110,6 +110,17 @@ set showmatch                   " Highlight matching {[()]}
 set nowrap                      " Turn off line wrapping
 set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
 
+" Symbols for visualization of special characters
+set listchars=eol:¶             " Pilcrow sign (U+00B6, UTF-8: C2 B6)
+set listchars+=tab:→\           " Rightwards arrow (U+2192, UTF-8: E2 86 92) followed by space (has to be escaped with '\')
+set listchars+=extends:»        " Right-pointing double angle quotation mark (U+00BB, UTF-8: C2 BB)
+set listchars+=precedes:«       " Left-pointing double angle quotation mark (U+00AB, UTF-8: C2 AB)
+set listchars+=trail:•          " Bullet (U+2022, UTF-8: E2 80 A2)
+set listchars+=nbsp:○           " White circle (U+25CB, UTF-8: E2 97 8B)
+if v:version > 704 || v:version == 704 && has("patch710")
+    set listchars+=space:∙      " Bullet operator (U+2219, UTF-8: E2 88 99)
+endif
+
 " Spacing {{{1
 " ------------
 set tabstop=8                   " Set tab character visually to a number of spaces characters
@@ -166,12 +177,6 @@ if has('folding')
     set foldenable              " Enable folding
     set foldmethod=marker       " Enable indent folding
     set foldlevelstart=99       " Start unfolded
-endif
-
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:→\ ,eol:¶,trail:␣,extends:»,precedes:«,nbsp:+
-if has("patch-7.4.710")
-    set listchars+=space:∙
 endif
 
 " Buffers {{{1
