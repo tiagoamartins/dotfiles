@@ -4,6 +4,7 @@ if &compatible
     set nocompatible            " Be iMproved
 endif
 
+set hidden                      " Allow you to hide buffers with unsaved changes without being prompted
 set encoding=utf-8
 set fileencodings=utf-8
 
@@ -182,12 +183,6 @@ if has('folding')
     set foldmethod=marker       " Enable indent folding
     set foldlevelstart=99       " Start unfolded
 endif
-
-" Buffers {{{1
-" ------------
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
 
 " Windowing {{{1
 " --------------
