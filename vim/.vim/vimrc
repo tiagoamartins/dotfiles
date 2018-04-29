@@ -73,19 +73,6 @@ augroup line_return
                 \ endif
 augroup END
 
-" ---------- Abbreviations ----------
-" no one is really happy until you have this shortcuts
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
-cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
-cnoreabbrev W w
-cnoreabbrev Q q
-cnoreabbrev Qall qall
-
 " ---------- Airline ----------
 let g:airline_theme = "hybridline"
 let g:airline_powerline_fonts = 1                   " Disable use of powerline fonts
