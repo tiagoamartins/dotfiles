@@ -26,9 +26,6 @@ if has("autocmd")
     " Enable file type detection
     filetype on
 
-    " Add wrap to Markdown files
-    autocmd FileType markdown setlocal wrap
-
     " Treat .rss files as XML
     autocmd BufNewFile,BufRead *.rss setfiletype xml
 
@@ -55,7 +52,6 @@ if has("spell")
     " Set spelling for mail, gitcommit and markdown
     autocmd FileType mail setlocal spell
     autocmd FileType gitcommit setlocal spell
-    autocmd FileType markdown setlocal spell
 endif
 
 " ---------- Airline ----------
