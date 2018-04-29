@@ -114,7 +114,6 @@ endfunction
 
 " ---------- Commentary ----------
 autocmd FileType vhdl set commentstring=--\ %s
-autocmd FileType verilog set commentstring=\/\/\ %s
 autocmd FileType systemverilog set commentstring=\/\/\ %s
 autocmd FileType matlab set commentstring=\%\ %s
 
