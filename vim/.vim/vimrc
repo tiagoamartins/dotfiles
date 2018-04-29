@@ -1,5 +1,25 @@
-" ---------- Vim Defaults ----------
 let mapleader = '\'             " Leader is backslash
+
+filetype on                     " Enable file type detection
+filetype plugin on              " Enable plugins to detect file types
+filetype indent on              " Indent depends on filetype
+
+syntax on                       " Enable syntax processing
+
+set background=dark             " Set a dark background profile
+try
+    let g:hybrid_custom_term_colors = 1
+    colorscheme hybrid          " Set color scheme
+catch
+    colorscheme peachpuff
+endtry
+
+" Change drop-down menu color
+highlight PmenuSel ctermfg=black ctermbg=lightgray
+
+if filereadable(glob($MYVIMRC . ".local"))
+    source $MYVIMRC.local
+endif
 
 if &loadplugins && !has('packages')
     if has("vim_starting")
@@ -9,34 +29,3 @@ if &loadplugins && !has('packages')
     execute pathogen#infect()
 endif
 
-filetype plugin on              " Enable plugins to detect file types
-
-" ---------- Colors ----------
-syntax enable                   " Enable syntax processing
-set background=dark             " Set a dark background profile
-try
-    let g:hybrid_custom_term_colors = 1
-    colorscheme hybrid              " Set color scheme
-catch
-    colorscheme peachpuff
-endtry
-
-" Only do this part when compiled with support for autocommands
-if has("autocmd")
-    " Enable file type detection
-    filetype on
-endif
-
-" ---------- Indentation ----------
-filetype indent on              " Indent depends on filetype
-
-" ---------- Spelling ----------
-if has("spell")
-    " Change menu color
-    highlight PmenuSel ctermfg=black ctermbg=lightgray
-endif
-
-" ---------- Local Configurations ----------
-if filereadable(glob($MYVIMRC . ".local"))
-    source $MYVIMRC.local
-endif
