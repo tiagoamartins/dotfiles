@@ -157,11 +157,16 @@ set smartindent                 " Turn on smart indent
 
 " Folding {{{1
 " ------------
-set foldenable                  " Enable folding
-set foldlevelstart=10           " Open most folds by default
-set foldnestmax=10              " Maximum of 10 nested folds
+if has('folding')
+    if has('windows')
+        set fillchars=vert:┃    " Box drawings heavy vertical (U+2503, UTF-8: E2 94 83)
+        set fillchars+=fold:·   " Middle dot (U+00B7, UTF-8: C2 B7)
+    endif
 
-set foldmethod=marker           " Enable indent folding
+    set foldenable              " Enable folding
+    set foldmethod=marker       " Enable indent folding
+    set foldlevelstart=99       " Start unfolded
+endif
 
 " Use the same symbols as TextMate for tabstops and EOLs
 set listchars=tab:→\ ,eol:¶,trail:␣,extends:»,precedes:«,nbsp:+
