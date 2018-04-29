@@ -45,6 +45,7 @@ if exists('*mkdir')
     set backupdir=$VIM_HOME/temp/backup//
     set backup                  " Keeps a backup after closing the file
     set writebackup             " Creates a backup file after overwriting the file
+    set directory=              " Avoid creating swap folder
     set noswapfile              " Swap files are a nuisance
 endif
 
