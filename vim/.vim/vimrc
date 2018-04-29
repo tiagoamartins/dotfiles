@@ -25,9 +25,6 @@ endtry
 if has("autocmd")
     " Enable file type detection
     filetype on
-
-    " Treat .rss files as XML
-    autocmd BufNewFile,BufRead *.rss setfiletype xml
 endif
 
 " ---------- Indentation ----------
