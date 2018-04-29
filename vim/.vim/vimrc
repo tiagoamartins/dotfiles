@@ -8,19 +8,7 @@ else
 endif
 
 " ---------- Vim Defaults ----------
-if &compatible
-    set nocompatible            " Be iMproved
-endif
-
-set encoding=utf-8
-set fileencodings=utf-8
-
 let mapleader = '\'             " Leader is backslash
-
-set fileformats=unix,dos,mac
-
-" Use 256 colors terminal
-set t_Co=256
 
 " ---------- Pathogen ----------
 if v:version < 800
@@ -49,78 +37,6 @@ endif
 
 filetype plugin on              " Enable plugins to detect file types
 
-" Make sure Pathogen works with Vim Sessions
-set sessionoptions-=options
-
-" ---------- Mouse ----------
-set mouse=a                     " Allow mouse use for all modes
-
-" ---------- Backups ----------
-
-if exists('*mkdir')
-    " Backup directories
-    " Persist (g)undo tree between sessions
-    if has("persistent_undo")
-        if !isdirectory($DOTVIM . "/temp/undo")
-            call mkdir($DOTVIM . "/temp/undo", "p")
-        endif
-        set undodir=$DOTVIM/temp/undo//
-        set undofile
-        set undolevels=100
-    endif
-
-    if !isdirectory($DOTVIM . "/temp/backup")
-        call mkdir($DOTVIM . "/temp/backup", "p")
-    endif
-    set backupdir=$DOTVIM/temp/backup//
-    set backup                  " Keeps a backup after closing the file
-    set writebackup             " Creates a backup file after overwriting the file
-    set noswapfile              " Swap files are a nuisance
-endif
-
-set history=100
-
-if has('viminfo')
-    set viminfo='100,n$DOTVIM/temp/viminfo
-endif
-
-" Don't backup files in temp directories or shm
-if exists('&backupskip')
-    set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-endif
-
-" Don't keep swap files in temp directories or shm
-if has('autocmd')
-    augroup swapskip
-        autocmd!
-        silent! autocmd BufNewFile,BufReadPre
-                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                    \ setlocal noswapfile
-    augroup END
-endif
-
-" Don't keep undo files in temp directories or shm
-if has('persistent_undo') && has('autocmd')
-    augroup undoskip
-        autocmd!
-        silent! autocmd BufWritePre
-                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                    \ setlocal noundofile
-    augroup END
-endif
-
-" Don't keep viminfo for files in temp directories or shm
-if has('viminfo')
-    if has('autocmd')
-        augroup viminfoskip
-            autocmd!
-            silent! autocmd BufNewFile,BufReadPre
-                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                        \ setlocal viminfo=
-        augroup END
-    endif
-endif
-
 " ---------- Colors ----------
 syntax enable                   " Enable syntax processing
 set background=dark             " Set a dark background profile
@@ -130,24 +46,6 @@ try
 catch
     colorscheme peachpuff
 endtry
-
-" ---------- UI Configuration ----------
-set number                      " Enable line numbering, taking up 6 spaces
-set relativenumber              " Enable relative line numbering, with the number option set it goes to hybrid mode (Vim 7.4+)
-set cursorline                  " Highlight the current line
-set wildmenu                    " Visual autocomplete for command menu
-set lazyredraw                  " Redraw only when it needs to
-set showmatch                   " Highlight matching {[()]}
-set nowrap                      " Turn off line wrapping
-set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
-
-" ---------- Spacing ----------
-set tabstop=8                   " Set tab character visually to a number of spaces characters
-set softtabstop=0               " Number of spaces in tab when editing
-set shiftwidth=8                " Indent width for autoindent
-set noexpandtab                 " Turn tabs into whitespace
-set backspace=indent,eol,start  " Set backspace to be able to delete previous characters
-set textwidth=0                 " Width necessary to auto split lines
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -169,42 +67,12 @@ if has("autocmd")
     autocmd FileType vim setlocal expandtab softtabstop=4 shiftwidth=4
 endif
 
-" ---------- Fonts ----------
-if has("gui_running")
-    if has("gui_win32")
-        " On Vim 7.4.16 the following line still doesn't work with gui_gtk
-        set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
-
-    elseif has("gui_mac") || has("gui_macvim")
-        set guifont=Menlo\ Regular:h11
-
-    else "gui_gtk
-        let terminess = system("fc-list | grep -c \"Terminess Powerline\"")
-        let terminus = system("fc-list | grep -c Terminus")
-
-        if (terminess > 0)
-            set guifont=Terminess\ Powerline\ 12
-        elseif (terminus > 0)
-            set guifont=Terminus\ 12
-        else
-            set guifont=Monospace\ 11
-        endif
-    endif
-endif
-
 " ---------- Searching ----------
-set incsearch                   " Search as characters are entered
-set hlsearch                    " Highlight matches
-set ignorecase                  " By default ignore case
-set smartcase                   " Unless upper case is explicit
-set matchtime=2                 " Tenths of a second to show the matching pattern
-
 " Turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
 " ---------- Indentation ----------
 filetype indent on              " Indent depends on filetype
-set smartindent                 " Turn on smart indent
 
 "Shortcut to auto indent entire file
 nmap <leader>$ :call Preserve("%s/\\s\\+$//e")<CR>
@@ -219,14 +87,8 @@ augroup VhdlTabular
 augroup END
 
 " ---------- Folding ----------
-set foldenable                  " Enable folding
-set foldlevelstart=10           " Open most folds by default
-set foldnestmax=10              " Maximum of 10 nested folds
-
 " Set space to toggle a fold
 nnoremap <space> za
-
-set foldmethod=marker           " Enable indent folding
 
 " ---------- Movement ----------
 
@@ -243,51 +105,21 @@ nnoremap gV `[v`]
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
 
-" Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:→\ ,eol:¶,trail:␣,extends:»,precedes:«,nbsp:+
-if has("patch-7.4.710")
-    set listchars+=space:∙
-endif
-
-" ---------- Buffers ----------
-
-" This allows buffers to be hidden if you've modified a buffer.
-" This is almost a must if you wish to use buffers in this way.
-set hidden
-
-" ---------- Windowing ----------
-set splitbelow                  " New splits appear below for horizontal splits
-set splitright                  " New splits appear at right for vertical splits
-set bufhidden=hide              " Hide buffer when not in window (to prevent relogin with FTP edit)
-
-" ---------- Status Line ----------
-set laststatus=2                " Always have a status line
-
 " ---------- Spelling ----------
 if has("spell")
-    " Turn spelling off by default
-    set nospell
-
     " Toggle spelling with F4 key
     map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
 
     " Change menu color
     highlight PmenuSel ctermfg=black ctermbg=lightgray
 
-    " Limit it to just the top 10 items
-    set spellsuggest=best,10
-
     " Set spelling for mail, gitcommit and markdown
     autocmd FileType mail setlocal spell
     autocmd FileType gitcommit setlocal spell
     autocmd FileType markdown setlocal spell
-
-    " Word completion
-    set complete+=kspell
 endif
 
 if exists("+spelllang")
-    set spelllang=en_us
     " Change spelling language
     nmap <silent> <leader>pt :set spelllang=pt_br<CR>
     nmap <silent> <leader>en :set spelllang=en_us<CR>
