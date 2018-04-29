@@ -34,9 +34,6 @@ filetype indent on              " Indent depends on filetype
 if has("spell")
     " Change menu color
     highlight PmenuSel ctermfg=black ctermbg=lightgray
-
-    " Set spelling for mail, gitcommit and markdown
-    autocmd FileType gitcommit setlocal spell
 endif
 
 " ---------- Functions ----------
