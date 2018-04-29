@@ -26,9 +26,6 @@ if has("autocmd")
     " Enable file type detection
     filetype on
 
-    " Syntax of these languages is fussy over tabs vs. spaces
-    autocmd FileType yaml setlocal expandtab softtabstop=4 shiftwidth=4
-
     " Add wrap to Markdown files
     autocmd FileType markdown setlocal wrap
 
