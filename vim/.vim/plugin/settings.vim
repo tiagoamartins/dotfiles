@@ -64,38 +64,6 @@ if exists('&backupskip')
     set backupskip+=/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
 endif
 
-" Don't keep swap files in temp directories or shm
-if has('autocmd')
-    augroup swapskip
-        autocmd!
-        silent! autocmd BufNewFile,BufReadPre
-                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                    \ setlocal noswapfile
-    augroup END
-endif
-
-" Don't keep undo files in temp directories or shm
-if has('persistent_undo') && has('autocmd')
-    augroup undoskip
-        autocmd!
-        silent! autocmd BufWritePre
-                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                    \ setlocal noundofile
-    augroup END
-endif
-
-" Don't keep viminfo for files in temp directories or shm
-if has('viminfo')
-    if has('autocmd')
-        augroup viminfoskip
-            autocmd!
-            silent! autocmd BufNewFile,BufReadPre
-                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
-                        \ setlocal viminfo=
-        augroup END
-    endif
-endif
-
 " UI Configuration {{{1
 " ---------------------
 set number                      " Enable line numbering, taking up 6 spaces
