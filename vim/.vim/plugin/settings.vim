@@ -1,4 +1,5 @@
-" ---------- Vim Defaults ----------
+" General {{{1
+" ------------
 if &compatible
     set nocompatible            " Be iMproved
 endif
@@ -14,10 +15,12 @@ set t_Co=256
 " Make sure Pathogen works with Vim Sessions
 set sessionoptions-=options
 
-" ---------- Mouse ----------
+" Mouse {{{1
+" ----------
 set mouse=a                     " Allow mouse use for all modes
 
-" ---------- Home Path ----------
+" Home Directory {{{1
+" -------------------
 " Get the vim files directory
 " In Windows/Linux, take in a difference of '.vim' and 'vimfiles'
 if has("win32") || has ("win64")
@@ -26,7 +29,8 @@ else
     let $VIM_HOME = expand("$HOME/.vim")
 endif
 
-" ---------- Backups ----------
+" Backups {{{1
+" ------------
 if exists('*mkdir')
     " Backup directories
     " Persist (g)undo tree between sessions
@@ -92,7 +96,8 @@ if has('viminfo')
     endif
 endif
 
-" ---------- UI Configuration ----------
+" UI Configuration {{{1
+" ---------------------
 set number                      " Enable line numbering, taking up 6 spaces
 set relativenumber              " Enable relative line numbering, with the number option set it goes to hybrid mode (Vim 7.4+)
 set cursorline                  " Highlight the current line
@@ -102,7 +107,8 @@ set showmatch                   " Highlight matching {[()]}
 set nowrap                      " Turn off line wrapping
 set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
 
-" ---------- Spacing ----------
+" Spacing {{{1
+" ------------
 set tabstop=8                   " Set tab character visually to a number of spaces characters
 set softtabstop=0               " Number of spaces in tab when editing
 set shiftwidth=8                " Indent width for autoindent
@@ -110,7 +116,8 @@ set noexpandtab                 " Turn tabs into whitespace
 set backspace=indent,eol,start  " Set backspace to be able to delete previous characters
 set textwidth=0                 " Width necessary to auto split lines
 
-" ---------- Fonts ----------
+" Fonts {{{1
+" ----------
 if has("gui_running")
     if has("gui_win32")
         " On Vim 7.4.16 the following line still doesn't work with gui_gtk
@@ -133,17 +140,20 @@ if has("gui_running")
     endif
 endif
 
-" ---------- Searching ----------
+" Searching {{{1
+" --------------
 set incsearch                   " Search as characters are entered
 set hlsearch                    " Highlight matches
 set ignorecase                  " By default ignore case
 set smartcase                   " Unless upper case is explicit
 set matchtime=2                 " Tenths of a second to show the matching pattern
 
-" ---------- Indentation ----------
+" Indentation {{{1
+" ----------------
 set smartindent                 " Turn on smart indent
 
-" ---------- Folding ----------
+" Folding {{{1
+" ------------
 set foldenable                  " Enable folding
 set foldlevelstart=10           " Open most folds by default
 set foldnestmax=10              " Maximum of 10 nested folds
@@ -156,21 +166,24 @@ if has("patch-7.4.710")
     set listchars+=space:∙
 endif
 
-" ---------- Buffers ----------
-
+" Buffers {{{1
+" ------------
 " This allows buffers to be hidden if you've modified a buffer.
 " This is almost a must if you wish to use buffers in this way.
 set hidden
 
-" ---------- Windowing ----------
+" Windowing {{{1
+" --------------
 set splitbelow                  " New splits appear below for horizontal splits
 set splitright                  " New splits appear at right for vertical splits
 set bufhidden=hide              " Hide buffer when not in window (to prevent relogin with FTP edit)
 
-" ---------- Status Line ----------
+" Status Line {{{1
+" ----------------
 set laststatus=2                " Always have a status line
 
-" ---------- Spelling ----------
+" Spelling {{{1
+" -------------
 if has("spell")
     " Turn spelling off by default
     set nospell
