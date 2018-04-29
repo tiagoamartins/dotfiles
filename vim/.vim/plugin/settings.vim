@@ -7,8 +7,6 @@ endif
 set encoding=utf-8
 set fileencodings=utf-8
 
-set fileformats=unix,dos,mac
-
 " Use 256 colors terminal
 set t_Co=256
 
@@ -162,9 +160,15 @@ set ignorecase                  " By default ignore case
 set smartcase                   " Unless upper case is explicit
 set matchtime=2                 " Tenths of a second to show the matching pattern
 
-" Indentation {{{1
+" Formatting {{{1
 " ----------------
 set smartindent                 " Turn on smart indent
+set fileformats=unix,dos,mac
+
+set formatoptions+=n            " Smart auto-indenting inside numbered lists
+if v:version > 703 || v:version == 703 && has('patch541')
+    set formatoptions+=j        " Remove comment leader when joining comment lines
+endif
 
 " Folding {{{1
 " ------------
