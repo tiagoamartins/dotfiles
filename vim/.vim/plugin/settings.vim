@@ -16,7 +16,7 @@ else
     let $VIM_HOME = expand("$HOME/.vim")
 endif
 
-" Backups {{{1
+" Backup & Swap {{{1
 " ------------
 if exists('$SUDO_USER')         " Don't create root-owned files
     set nobackup
@@ -37,6 +37,10 @@ if has('wildignore')
         set backupskip+=/tmp/*  " Make sure temp files have no backup (security reason)
     endif
     set backupskip+=*/shm/*
+endif
+
+if exists('&swapsync')
+    set swapsync=               " Let OS sync swapfiles lazily
 endif
 
 if exists('$SUDO_USER')         " Don't create root-owned files
