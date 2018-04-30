@@ -164,30 +164,6 @@ set smarttab                    " <Tab>/<BS> indent/dedent in leading whitespace
 set backspace=indent,eol,start  " Set backspace to be able to delete previous characters
 set textwidth=0                 " Width necessary to auto split lines
 
-" Fonts {{{1
-" ----------
-if has("gui_running")
-    if has("gui_win32")
-        " On Vim 7.4.16 the following line still doesn't work with gui_gtk
-        set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
-
-    elseif has("gui_mac") || has("gui_macvim")
-        set guifont=Menlo\ Regular:h11
-
-    else "gui_gtk
-        let terminess = system("fc-list | grep -c \"Terminess Powerline\"")
-        let terminus = system("fc-list | grep -c Terminus")
-
-        if (terminess > 0)
-            set guifont=Terminess\ Powerline\ 12
-        elseif (terminus > 0)
-            set guifont=Terminus\ 12
-        else
-            set guifont=Monospace\ 11
-        endif
-    endif
-endif
-
 " Searching {{{1
 " --------------
 set incsearch                   " Search as characters are entered
@@ -245,3 +221,27 @@ if has('syntax')
     set complete+=kspell        " Word completion
     set spelllang=en_us
 endif
+" GUI {{{1
+" ----------
+if has("gui_running")
+    if has("gui_win32")
+        " On Vim 7.4.16 the following line still doesn't work with gui_gtk
+        set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
+
+    elseif has("gui_mac") || has("gui_macvim")
+        set guifont=Menlo\ Regular:h11
+
+    else "gui_gtk
+        let terminess = system("fc-list | grep -c \"Terminess Powerline\"")
+        let terminus = system("fc-list | grep -c Terminus")
+
+        if (terminess > 0)
+            set guifont=Terminess\ Powerline\ 12
+        elseif (terminus > 0)
+            set guifont=Terminus\ 12
+        else
+            set guifont=Monospace\ 11
+        endif
+    endif
+endif
+
