@@ -28,7 +28,6 @@ vendors=(
     vim-airline/vim-airline-themes
     w0ng/vim-hybrid
     ludovicchabant/vim-lawrencium
-    tmhedberg/matchit
     AndrewRadev/splitjoin.vim
     WeiChungWu/vim-SystemVerilog
     godlygeek/tabular
