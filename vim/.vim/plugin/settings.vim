@@ -90,6 +90,15 @@ if has('persistent_undo')
     endif
 endif
 
+if has('mksession')
+    let s:view_dir = $VIM_HOME . '/temp/view'
+    if exists('*mkdir') && !isdirectory(s:view_dir)
+        call mkdir(s:view_dir, "p")
+    endif
+    set viewdir=$VIM_HOME/temp/view
+    set viewoptions=cursor,folds    " Save/restore just these (with `:{mk,load}view`)
+endif
+
 " UI Configuration {{{1
 " ---------------------
 set number                      " Enable line numbering, taking up 6 spaces
