@@ -232,17 +232,10 @@ set switchbuf=usetab            " Try to reuse windows/tabs when switching buffe
 
 " Spelling {{{1
 " -------------
-if has("spell")
-    " Turn spelling off by default
-    set nospell
-
-    " Limit it to just the top 10 items
-    set spellsuggest=best,10
-
-    " Word completion
-    set complete+=kspell
-endif
-
-if exists("+spelllang")
+if has('syntax')
+    set nospell                 " Turn spelling off by default
+    set spellsuggest=best,10    " Limit it to just the top 10 items
+    set spellcapcheck=          " Don't check for capital letters at start of sentence
+    set complete+=kspell        " Word completion
     set spelllang=en_us
 endif
