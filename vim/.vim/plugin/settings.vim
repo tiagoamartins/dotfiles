@@ -158,7 +158,9 @@ set shortmess+=t                " Truncate file messages at start
 set tabstop=8                   " Set tab character visually to a number of spaces characters
 set softtabstop=0               " Number of spaces in tab when editing
 set shiftwidth=8                " Indent width for autoindent
-set noexpandtab                 " Turn tabs into whitespace
+set noexpandtab                 " Don't turn tabs into whitespace
+set shiftround                  " Always indent by multiple of shiftwidth
+set smarttab                    " <Tab>/<BS> indent/dedent in leading whitespace
 set backspace=indent,eol,start  " Set backspace to be able to delete previous characters
 set textwidth=0                 " Width necessary to auto split lines
 
