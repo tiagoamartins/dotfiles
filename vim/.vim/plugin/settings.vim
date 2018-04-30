@@ -221,13 +221,14 @@ endif
 
 " Windowing {{{1
 " --------------
-set splitbelow                  " New splits appear below for horizontal splits
-set splitright                  " New splits appear at right for vertical splits
-set bufhidden=hide              " Hide buffer when not in window (to prevent relogin with FTP edit)
-
-" Status Line {{{1
-" ----------------
-set laststatus=2                " Always have a status line
+if has('windows')
+    set splitbelow              " New splits appear below for horizontal splits
+endif
+if has('vertsplit')
+    set splitright              " New splits appear at right for vertical splits
+endif
+set bufhidden=hide              " Hide buffer and not unload when not in window (to prevent relogin with FTP edit)
+set switchbuf=usetab            " Try to reuse windows/tabs when switching buffers
 
 " Spelling {{{1
 " -------------
