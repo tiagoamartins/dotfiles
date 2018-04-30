@@ -1,22 +1,10 @@
 " General {{{1
 " ------------
-if &compatible
-    set nocompatible            " Be iMproved
-endif
-
+set nocompatible                " Be IMproved
+set mouse=a                     " Allow mouse use for all modes
 set hidden                      " Allow you to hide buffers with unsaved changes without being prompted
 set encoding=utf-8
 set fileencodings=utf-8
-
-" Use 256 colors terminal
-set t_Co=256
-
-" Make sure Pathogen works with Vim Sessions
-set sessionoptions-=options
-
-" Mouse {{{1
-" ----------
-set mouse=a                     " Allow mouse use for all modes
 
 " Home Directory {{{1
 " -------------------
