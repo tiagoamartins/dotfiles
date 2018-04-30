@@ -21,7 +21,7 @@ else
 endif
 
 " Backup & Swap {{{1
-" ------------
+" ------------------
 if exists('$SUDO_USER')         " Don't create root-owned files
     set nobackup
     set nowritebackup
@@ -177,7 +177,7 @@ set smartcase                   " Unless upper case is explicit
 set matchtime=2                 " Tenths of a second to show the matching pattern
 
 " Formatting {{{1
-" ----------------
+" ---------------
 set smartindent                 " Turn on smart indent
 set nojoinspaces                " Don't autoinsert two spaces after '.', '?', '!' for join command
 set fileformats=unix,dos,mac
@@ -226,7 +226,7 @@ if has('syntax')
     set spelllang=en_us
 endif
 " GUI {{{1
-" ----------
+" --------
 if has("gui_running")
     if has("gui_win32")
         " On Vim 7.4.16 the following line still doesn't work with gui_gtk
@@ -248,4 +248,3 @@ if has("gui_running")
         endif
     endif
 endif
-

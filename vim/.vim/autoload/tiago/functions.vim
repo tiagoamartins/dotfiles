@@ -9,4 +9,3 @@ function! tiago#functions#preserve_cursor(command)
     let @/=_s
     call cursor(l, c)
 endfunction
-

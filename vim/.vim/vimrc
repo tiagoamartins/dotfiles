@@ -28,4 +28,3 @@ if &loadplugins && !has('packages')
 
     execute pathogen#infect()
 endif
-
