@@ -144,6 +144,15 @@ if v:version > 704 || v:version == 704 && has("patch710")
     set listchars+=space:∙      " Bullet operator (U+2219, UTF-8: E2 88 99)
 endif
 
+set shortmess+=A                " Ignore annoying swapfile messages
+set shortmess+=I                " No splash screen
+set shortmess+=O                " File-read message overwrites previous
+set shortmess+=T                " Truncate non-file messages in middle
+set shortmess+=W                " Don't echo '[w]'/'[written]' when writing
+set shortmess+=a                " Use abbreviations in messages eg. '[RO]' instead of '[readonly]'
+set shortmess+=o                " Overwrite file-written messages
+set shortmess+=t                " Truncate file messages at start
+
 " Spacing {{{1
 " ------------
 set tabstop=8                   " Set tab character visually to a number of spaces characters
