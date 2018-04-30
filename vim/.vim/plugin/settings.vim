@@ -199,7 +199,13 @@ set matchtime=2                 " Tenths of a second to show the matching patter
 " Formatting {{{1
 " ----------------
 set smartindent                 " Turn on smart indent
+set nojoinspaces                " Don't autoinsert two spaces after '.', '?', '!' for join command
 set fileformats=unix,dos,mac
+
+if has('virtualedit')
+    set virtualedit=block       " Allow cursor to move where there is no text in visual block mode
+endif
+set whichwrap=b,h,l,s,<,>,[,],~ " Allow <BS>/h/l/<Space>/<Left>/<Right>/~ to cross line boundaries
 
 set formatoptions+=n            " Smart auto-indenting inside numbered lists
 if v:version > 703 || v:version == 703 && has('patch541')
