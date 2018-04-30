@@ -85,7 +85,7 @@ if has('persistent_undo')
             call mkdir(s:undo_dir, "p")
         endif
         set undodir=$VIM_HOME/temp/undo
-        set undofile
+        set undofile            " Actually use undo files
         set undolevels=100
     endif
 endif
