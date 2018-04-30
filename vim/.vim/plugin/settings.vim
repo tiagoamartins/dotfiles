@@ -102,13 +102,36 @@ endif
 " UI Configuration {{{1
 " ---------------------
 set number                      " Enable line numbering, taking up 6 spaces
-set relativenumber              " Enable relative line numbering, with the number option set it goes to hybrid mode (Vim 7.4+)
+if exists('+relativenumber')
+    set relativenumber          " Enable relative line numbering, with the number option set it goes to hybrid mode (Vim 7.4+)
+endif
 set cursorline                  " Highlight the current line
-set wildmenu                    " Visual autocomplete for command menu
 set lazyredraw                  " Redraw only when it needs to
 set showmatch                   " Highlight matching {[()]}
 set nowrap                      " Turn off line wrapping
+set laststatus=2                " Always show status line
 set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
+set sidescrolloff=3             " Same as 'scrolloff', but for columns
+if has('linebreak')
+    set linebreak               " Wrap long lines at characters in 'breakat'
+    let &showbreak='⤷ '         " Arrow pointing downwards then curving rightwards (U+2937, UTF-8: E2 A4 'B7)
+endif
+
+if has('syntax')
+    set colorcolumn=+1          " Show column line 1 char after 'textwidth'
+endif
+
+if has('cmdline_info')
+    set noshowcmd               " Don't show extra info at end (right) of command line
+endif
+
+if has('wildmenu')
+    set wildmenu                " Visual autocomplete for command menu
+endif
+if has('wildignore')
+    set wildignore+=*.o,*.rej   " Patterns to ignore during file-navigation
+endif
+set wildmode=longest:full,full  " Shell-like autocomplete to unambiguous portion
 
 " Symbols for visualization of special characters
 set listchars=eol:¶             " Pilcrow sign (U+00B6, UTF-8: C2 B6)
