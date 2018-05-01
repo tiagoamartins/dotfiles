@@ -6,6 +6,14 @@ filetype indent on              " Indent depends on filetype
 
 syntax on                       " Enable syntax processing
 
+if &loadplugins && !has('packages')
+    if has("vim_starting")
+        runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
+    endif
+
+    execute pathogen#infect()
+endif
+
 set background=dark             " Set a dark background profile
 try
     let g:hybrid_custom_term_colors = 1
@@ -19,12 +27,4 @@ highlight PmenuSel ctermfg=black ctermbg=lightgray
 
 if filereadable(glob($MYVIMRC . ".local"))
     source $MYVIMRC.local
-endif
-
-if &loadplugins && !has('packages')
-    if has("vim_starting")
-        runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
-    endif
-
-    execute pathogen#infect()
 endif
