@@ -73,7 +73,7 @@ if has('viminfo')
         if !empty(glob($VIM_HOME . '/temp/viminfo'))
             if !filereadable(expand($VIM_HOME . '/temp/viminfo'))
                 echoerr expand('warning: ' . $VIM_HOME .
-                              \'/temp/viminfo exists but is not readable')
+                            \'/temp/viminfo exists but is not readable')
             endif
         endif
     endif

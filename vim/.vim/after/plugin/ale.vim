@@ -5,8 +5,8 @@ let g:ale_python_flake8_options='--ignore=W503'
 let g:ale_c_gcc_options='-std=gnu11 -Wall'
 
 let g:ale_linters = {
-\   'cpp': ['gcc']
-\}
+            \   'cpp': ['gcc']
+            \}
 
 autocmd User ProjectionistActivate call s:activate()
 function! s:activate() abort
