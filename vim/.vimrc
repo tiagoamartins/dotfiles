@@ -6,6 +6,15 @@ filetype indent on              " Indent depends on filetype
 
 syntax on                       " Enable syntax processing
 
+" Prefer python 3 over python 2
+if has('pythonx')
+    if has('python3')
+        set pyxversion=3
+    elseif has('python')
+        set pyxversion=2
+    endif
+endif
+
 if &loadplugins && !has('packages')
     if has("vim_starting")
         runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
