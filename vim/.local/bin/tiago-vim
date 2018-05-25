@@ -27,6 +27,7 @@ vendors=(
     tpope/vim-unimpaired
     vim-airline/vim-airline
     vim-airline/vim-airline-themes
+    vim-scripts/indentpython.vim
     w0ng/vim-hybrid
     ludovicchabant/vim-lawrencium
     AndrewRadev/splitjoin.vim
