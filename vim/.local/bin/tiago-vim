@@ -41,6 +41,7 @@ vendors=(
     ARM9/arm-syntax-vim
     w0rp/ale
     janko-m/vim-test
+    Shirk/vim-gas
     tmux-plugins/vim-tmux
 )
 
