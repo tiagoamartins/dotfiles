@@ -5,6 +5,7 @@ let g:ale_python_flake8_options='--ignore=W503'
 let g:ale_c_gcc_options='-std=gnu11 -Wall'
 
 let g:ale_linters = {
+            \   'c': ['gcc'],
             \   'cpp': ['gcc']
             \}
 
