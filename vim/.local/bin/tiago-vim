@@ -41,6 +41,7 @@ vendors=(
     ARM9/arm-syntax-vim
     w0rp/ale
     janko-m/vim-test
+    tmux-plugins/vim-tmux
 )
 
 vim_clone() {
