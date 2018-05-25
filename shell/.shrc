@@ -73,11 +73,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
-
 alias j='jobs'
-
 alias cls='clear'
-
 alias gst='git status'
 
 [ "$VISUAL" != vim ] || alias vi='vim'
