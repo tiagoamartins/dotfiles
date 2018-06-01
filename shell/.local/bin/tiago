@@ -1,6 +1,13 @@
 #!/bin/sh
 # vim:set et sw=4:
 
+# remember whether extglob was originally set, so we know whether to unset it
+shopt -q extglob
+# Note, 0 (true) from shopt -q is "false" in a math context.
+extglob_set=$?
+# set extglob if it wasn't originally set.
+((extglob_set)) && shopt -s extglob
+
 [ -n "$ENV" ] || . "$HOME/.profile" > /dev/null
 
 basename=`basename "$0"`
@@ -237,3 +244,6 @@ case "$basename" in
         exit 1
         ;;
 esac
+
+# unset extglob if it wasn't originally set
+((extglob_set)) && shopt -u extglob
