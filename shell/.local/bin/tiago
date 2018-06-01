@@ -127,37 +127,47 @@ setup_shell() {
     fi
 }
 
+extract() {
+    local c e i
+
+    (($#)) || return
+
+    for i
+    do
+        c=''
+        e=1
+
+        if [ ! -r $i ]
+        then
+            echo "`basename "$0"`: file is unreadable: '$i'" >&2
+            continue
+        fi
+
+        case $i in
+            *.t@(gz|lz|xz|b@(2|z?(2))|a@(z|r?(.@(Z|bz?(2)|gz|lzma|xz)))))
+                   c=(bsdtar xvf);;
+            *.7z)  c=(7z x);;
+            *.Z)   c=(uncompress);;
+            *.bz2) c=(bunzip2);;
+            *.exe) c=(cabextract);;
+            *.gz)  c=(gunzip);;
+            *.rar) c=(unrar x);;
+            *.xz)  c=(unxz);;
+            *.zip) c=(unzip);;
+            *)
+                echo "`basename "$0"`: unrecognized file extension: '$i'" >&2
+                continue;;
+        esac
+
+        command "${c[@]}" "$i"
+        ((e = e || $?))
+    done
+    return "$e"
+}
 
 case "$basename" in
     extract)
-        [ $# -gt 0 ] || exit 1
-
-
-        if [ ! -r $1 ]; then
-            echo "`basename "$0"`: file is unreadable: '$1'" >&2
-            exit 1
-        fi
-
-        case $1 in
-            *.t@\(gz|lz|xz|b@\(2|z?\(2\)\)|a@\(z|r?\(.@\(Z|bz?\(2\)|gz|lzma|xz\)\)\)\))
-                   extractor='bsdtar xvf' ;;
-            *.7z)  extractor='7z x'       ;;
-            *.Z)   extractor='uncompress' ;;
-            *.bz2) extractor='bunzip2'    ;;
-            *.exe) extractor='cabextract' ;;
-            *.gz)  extractor='gunzip'     ;;
-            *.rar) extractor='unrar x'    ;;
-            *.tar) extractor='tar xvf'    ;;
-            *.xz)  extractor='unxz'       ;;
-            *.zip) extractor='unzip'      ;;
-            *)
-                echo "`basename "$0"`: Unrecognized file extension: '$1'" >&2
-                exit 1
-                ;;
-        esac
-
-        exec $extractor "$@"
-        shift
+        extract $@
         ;;
 
     host)
