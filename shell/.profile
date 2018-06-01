@@ -11,8 +11,9 @@ BASH_ENV=$HOME/.zshenv
 export PATH ENV BASH_ENV RSYNC_RSH
 
 # Export all variables defined locally
-if [ -r "$HOME/.env.local" ]; then
-    eval "`command grep '^[A-Z].*=' "$HOME/.env.local"|sed -e 's/^/export /'`"
+if [ -r "$HOME/.env.local" ]
+then
+	eval "`command grep '^[A-Z].*=' "$HOME/.env.local"|sed -e 's/^/export /'`"
 fi
 
 # Set word split for Zsh
@@ -21,19 +22,23 @@ fi
 [ ! -r "$HOME/.profile.local" ] || . "$HOME/.profile.local"
 
 # Less as default pager
-if [ -z "$PAGER" ] && type less >/dev/null 2>&1; then
-    PAGER=less
-    export PAGER
+if [ -z "$PAGER" ] && type less >/dev/null 2>&1
+then
+	PAGER=less
+	export PAGER
 fi
 LESS="FRX#10"
-if [ -z "$LESSOPEN" ] && type lesspipe >/dev/null 2>&1; then
-    LESSOPEN='|lesspipe %s'
-elif [ -z "$LESSOPEN" ]; then
-    LESSOPEN='|"$HOME/.lessfilter" %s'
+if [ -z "$LESSOPEN" ] && type lesspipe >/dev/null 2>&1
+then
+	LESSOPEN='|lesspipe %s'
+elif [ -z "$LESSOPEN" ]
+then
+	LESSOPEN='|"$HOME/.lessfilter" %s'
 fi
 # Set default editor as vim
-if [ -z "$VISUAL" ]; then
-    type vim >/dev/null 2>&1 && VISUAL=vim || VISUAL=vi
+if [ -z "$VISUAL" ]
+then
+	type vim >/dev/null 2>&1 && VISUAL=vim || VISUAL=vi
 fi
 EDITOR=$VISUAL
 export LESS LESSOPEN VISUAL EDITOR
@@ -41,11 +46,12 @@ export LESS LESSOPEN VISUAL EDITOR
 # Validate and append directories in PATH variable
 IFS=:
 newpath=$HOME/.local/bin
-for dir in $PATHPREPEND $PATH; do
-    case :$newpath: in
-        *:$dir:*) ;;
-        *) [ -z "$dir" -o ! -d "$dir" ] || newpath=$newpath:$dir ;;
-    esac
+for dir in $PATHPREPEND $PATH
+do
+	case :$newpath: in
+		*:$dir:*) ;;
+		*) [ -z "$dir" -o ! -d "$dir" ] || newpath=$newpath:$dir;;
+	esac
 done
 PATH=$newpath
 

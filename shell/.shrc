@@ -12,58 +12,62 @@ set -o noclobber
 [ "$TERM" != linux ] || TMOUT=3600
 
 gethostname() {
-    if [ -n "$COMPUTERNAME" ]; then
-        # Windows
-        echo "$COMPUTERNAME"
-    elif [ -r /proc/sys/kernel/hostname ]; then
-        cat /proc/sys/kernel/hostname
-    else
-        hostname | cut -d. -f1
-    fi
+	if [ -n "$COMPUTERNAME" ]
+	then
+		# Windows
+		echo "$COMPUTERNAME"
+	elif [ -r /proc/sys/kernel/hostname ]
+	then
+		cat /proc/sys/kernel/hostname
+	else
+		hostname | cut -d. -f1
+	fi
 }
 
 hostname=`gethostname`
 
 # Change terminal window title
-if [ -t 1 ]; then
-    # Set XON/XOFF flow control
-    [ ! -x /bin/stty ] || stty -ixon
-    if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]; then
-        tty=`tty 2>/dev/null|sed -e 's,^/dev/,,'`
-        case "$TERM" in
-            screen*|tmux*)
-                [ "$STY" -o "$TMUX" ] || h=$hostname
-                printf '\033]1;%s@%s\a' "$tty" "$hostname"
-                [ -n "$TMUX" ] || printf '\033k%s@%s\033\\' "$tty" "$h"
-                unset h
-                ;;
-            xterm*|rxvt*|Eterm*|kterm*|putty*|dtterm*|ansi*|cygwin*)
-                printf '\033]1;%s@%s\a' "$tty" "$hostname"
-                ;;
-        esac
-        unset tty h
-    fi
+if [ -t 1 ]
+then
+	# Set XON/XOFF flow control
+	[ ! -x /bin/stty ] || stty -ixon
+	if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]
+	then
+		tty=`tty 2>/dev/null|sed -e 's,^/dev/,,'`
+		case "$TERM" in
+			screen*|tmux*)
+				[ "$STY" -o "$TMUX" ] || h=$hostname
+				printf '\033]1;%s@%s\a' "$tty" "$hostname"
+				[ -n "$TMUX" ] || printf '\033k%s@%s\033\\' "$tty" "$h"
+				unset h;;
+			xterm*|rxvt*|Eterm*|kterm*|putty*|dtterm*|ansi*|cygwin*)
+				printf '\033]1;%s@%s\a' "$tty" "$hostname";;
+		esac
+		unset tty h
+	fi
 fi
 
 # Set prompt if not set
-if [ -z "$PS1" ]; then
-    [ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
+if [ -z "$PS1" ]
+then
+	[ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
 fi
 case $PS1 in
-    ?' ') PS1="$LOGNAME@$hostname `basename $0|sed -e 's/^-//'` $PS1" ;;
+	?' ') PS1="$LOGNAME@$hostname `basename $0|sed -e 's/^-//'` $PS1";;
 esac
 
 unset hostname
 
 # Refresh function
 rf() {
-    . "$HOME/.profile" >/dev/null
-    dp=`echo $DISPLAY|sed -e 's/\..*$//'`
-    if [ -r "$HOME/.env.$dp" ]; then
-        . "$HOME/.env.$dp"
-    fi
-    unset dp
-    hash -r
+	. "$HOME/.profile" >/dev/null
+	dp=`echo $DISPLAY|sed -e 's/\..*$//'`
+	if [ -r "$HOME/.env.$dp" ]
+	then
+		. "$HOME/.env.$dp"
+	fi
+	unset dp
+	hash -r
 }
 
 # Aliases
@@ -79,28 +83,31 @@ alias gst='git status'
 
 [ "$VISUAL" != vim ] || alias vi='vim'
 
-if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]; then
-    # Linux coloring
-    eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
-    case "$TERM" in
-        xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS"|sed -e 's/01;3/00;9/g'` ;;
-    esac
-    alias ls='ls -hF --color=auto'
+if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
+then
+	# Linux coloring
+	eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
+	case "$TERM" in
+		xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS"|sed -e 's/01;3/00;9/g'`;;
+	esac
+	alias ls='ls -hF --color=auto'
 else
-    # BSD coloring
-    alias ls='CLICOLOR=1 LSCOLORS=ExGxFxdxCxfxDxabadacad ls -hF'
+	# BSD coloring
+	alias ls='CLICOLOR=1 LSCOLORS=ExGxFxdxCxfxDxabadacad ls -hF'
 fi
 
-if ! grep --color 2>&1 | grep un >/dev/null; then
-    alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
+if ! grep --color 2>&1 | grep un >/dev/null
+then
+	alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
 fi
 
 # Remove unused gp as alias
 unalias gp >/dev/null 2>&1
 
 # Alias commands in tiago script
-for cmd in `tiago aliases`; do
-    alias $cmd="\"\$HOME\"/.local/bin/tiago $cmd"
+for cmd in `tiago aliases`
+do
+	alias $cmd="\"\$HOME\"/.local/bin/tiago $cmd"
 done
 unset cmd
 
