@@ -1,120 +1,115 @@
-#!/usr/bin/env sh
-# vim:set et sw=4:
+#!/usr/bin/env bash
 
 [ -n "$ENV" ] || . "$HOME/.profile" > /dev/null
 
 basename=`basename "$0"`
-if [ "$basename" = "tiago-vim" ]; then
-    tiago="$basename " basename="$1"
-    shift
+if [ "$basename" = "tiago-vim" ]
+then
+	tiago="$basename " basename="$1"
+	shift
 fi
 
 bundles=(
-    vim-vhdl
-    vim-snippets
+	vim-vhdl
+	vim-snippets
 )
 
 vendors=(
-    tpope/vim-abolish
-    tpope/vim-commentary
-    tpope/vim-dispatch
-    tpope/vim-fugitive
-    tpope/vim-git
-    tpope/vim-projectionist
-    tpope/vim-repeat
-    tpope/vim-surround
-    tpope/vim-speeddating
-    tpope/vim-unimpaired
-    vim-airline/vim-airline
-    vim-airline/vim-airline-themes
-    vim-scripts/indentpython.vim
-    w0ng/vim-hybrid
-    ludovicchabant/vim-lawrencium
-    AndrewRadev/splitjoin.vim
-    WeiChungWu/vim-SystemVerilog
-    godlygeek/tabular
-    SirVer/ultisnips
-    mhinz/vim-signify
-    vivien/vim-linux-coding-style
-    5long/pytest-vim-compiler
-    joe-skb7/cscope-maps
-    ARM9/arm-syntax-vim
-    w0rp/ale
-    janko-m/vim-test
-    Shirk/vim-gas
-    tmux-plugins/vim-tmux
+	tpope/vim-abolish
+	tpope/vim-commentary
+	tpope/vim-dispatch
+	tpope/vim-fugitive
+	tpope/vim-git
+	tpope/vim-projectionist
+	tpope/vim-repeat
+	tpope/vim-surround
+	tpope/vim-speeddating
+	tpope/vim-unimpaired
+	vim-airline/vim-airline
+	vim-airline/vim-airline-themes
+	vim-scripts/indentpython.vim
+	w0ng/vim-hybrid
+	ludovicchabant/vim-lawrencium
+	AndrewRadev/splitjoin.vim
+	WeiChungWu/vim-SystemVerilog
+	godlygeek/tabular
+	SirVer/ultisnips
+	mhinz/vim-signify
+	vivien/vim-linux-coding-style
+	5long/pytest-vim-compiler
+	joe-skb7/cscope-maps
+	ARM9/arm-syntax-vim
+	w0rp/ale
+	janko-m/vim-test
+	Shirk/vim-gas
+	tmux-plugins/vim-tmux
 )
 
 vim_clone() {
-    case "$1" in
-        *://*|*@*)
-            repo="$1"
-            ;;
-        */*)
-            repo="git://github.com/$1.git"
-            ;;
-        *)
-            repo="git://github.com/tiagoamartins/$1.git"
-            ;;
-    esac
-    case "$repo" in
-        *tiagoamartins*)
-            dest="$HOME/.vim/pack/bundle/start"
-            ;;
-        */*)
-            dest="$HOME/.vim/pack/vendor/start"
-            ;;
-    esac
-    mkdir -p "$dest"
-    cd "$dest"
-    basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | sed -e 's/\-vim$//' | tr '[:upper:]' '[:lower:]'`
-    if [ -d $basename ]; then
-        cd $basename
-        git pull --rebase
-    else
-        git clone "$repo" "$basename" || exit 1
-        cd ./$basename
-        if [ vim --serverlist 2> /dev/null ]; then
-            for server in $(vim --serverlist); do
-                vim --servername "$server" --remote-expr "pathogen#surround('$PWD')" >/dev/null
-                vim --servername "$server" --remote-expr "pathogen#execute('filetype off', 'filetype on')"
-                vim --servername "$server" --remote-expr "call('pathogen#execute', map(split(glob('$PWD/plugin/**.vim'), \"\n\"), '\"source \".v:val'))"
-            done
-        fi
-    fi
-    echo $PWD
-    if [ -d doc ]; then
-        vim -u NONE -c'helptags doc' -cq > /dev/null 2>&1 < /dev/null
-    fi
+	case "$1" in
+		*://*|*@*)
+			repo="$1";;
+		*/*)
+			repo="git://github.com/$1.git";;
+		*)
+			repo="git://github.com/tiagoamartins/$1.git";;
+	esac
+	case "$repo" in
+		*tiagoamartins*)
+			dest="$HOME/.vim/pack/bundle/start";;
+		*/*)
+			dest="$HOME/.vim/pack/vendor/start";;
+	esac
+	mkdir -p "$dest"
+	cd "$dest"
+	basename=`basename "$repo" .git | sed -e 's/^vim-//' | sed -e 's/\.vim$//' | sed -e 's/\-vim$//' | tr '[:upper:]' '[:lower:]'`
+	if [ -d $basename ]
+	then
+		cd $basename
+		git pull --rebase
+	else
+		git clone "$repo" "$basename" || exit 1
+		cd ./$basename
+		if [ vim --serverlist 2> /dev/null ]
+		then
+			for server in $(vim --serverlist)
+			do
+				vim --servername "$server" --remote-expr "pathogen#surround('$PWD')" >/dev/null
+				vim --servername "$server" --remote-expr "pathogen#execute('filetype off', 'filetype on')"
+				vim --servername "$server" --remote-expr "call('pathogen#execute', map(split(glob('$PWD/plugin/**.vim'), \"\n\"), '\"source \".v:val'))"
+			done
+		fi
+	fi
+	echo $PWD
+	if [ -d doc ]
+	then
+		vim -u NONE -c'helptags doc' -cq > /dev/null 2>&1 < /dev/null
+	fi
 }
 
 case "$basename" in
-    bundle-list)
-        IFS=$'\n'
-        echo "Bundles:"
-        echo "${bundles[*]}"
-        echo ""
-        echo "Vendors:"
-        echo "${vendors[*]}"
-        unset IFS
-        ;;
+	bundle-list)
+		IFS=$'\n'
+		echo "Bundles:"
+		echo "${bundles[*]}"
+		echo ""
+		echo "Vendors:"
+		echo "${vendors[*]}"
+		unset IFS;;
 
-    bundle-install)
-        for i in "${bundles[@]}" "${vendors[@]}"; do
-            vim_clone $i
-        done
-        ;;
+	bundle-install)
+		for i in "${bundles[@]}" "${vendors[@]}"
+		do
+			vim_clone $i
+		done;;
 
-    clone)
-        vim_clone "$@"
-        ;;
+	clone)
+		vim_clone "$@";;
 
-    '')
-        echo "Usage: `basename "$0"` <command> [options]"
-        ;;
+	'')
+		echo "Usage: `basename "$0"` <command> [options]";;
 
-    *)
-        echo "`basename "$0"` $basename: unknown command." >&2
-        exit 1
-        ;;
+	*)
+		echo "`basename "$0"` $basename: unknown command." >&2
+		exit 1;;
 esac
