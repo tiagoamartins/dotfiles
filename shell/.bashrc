@@ -1,5 +1,6 @@
 # ~/.bashrc
 
+# Load .shrc if available
 [ ! -r "$HOME/.shrc" ] || . "$HOME/.shrc"
 
 # Make directory variables able to change directory

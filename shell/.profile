@@ -4,7 +4,7 @@
 PATH=$HOME/.local/bin:/usr/local/bin:${PATH:-/usr/bin:/bin}:/usr/sbin:/sbin
 # Set shell startup file when in POSIX mode
 ENV=$HOME/.shrc
-# Set bash startup file
+# Set bash scripts startup file
 BASH_ENV=$HOME/.zshenv
 # Set SSH as rsync shell transporter without agent (-a) nor X11 (-x) forwarding
 [ -n "$RSYNC_RSH" ] || RSYNC_RSH='ssh -ax'
@@ -27,6 +27,12 @@ then
 	PAGER=less
 	export PAGER
 fi
+
+# Less options:
+# -F   exit less if content fit on the first screen
+# -R   output only color as "raw" commands to the screen
+# -X   avoid clearing the screen after exit
+# -#10 shift 10 columns when using left and right arrows
 LESS="FRX#10"
 if [ -z "$LESSOPEN" ] && type lesspipe >/dev/null 2>&1
 then

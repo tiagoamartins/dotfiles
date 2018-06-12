@@ -33,7 +33,14 @@ then
 	[ ! -x /bin/stty ] || stty -ixon
 	if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]
 	then
+		# Get TTY name and number
 		tty=`tty 2>/dev/null|sed -e 's,^/dev/,,'`
+		# Codes:
+		# \033    (ESC)    Escape
+		# \033]   (ESC ])  Operating System Controls (OSC)
+		# \033]1; (OSC 1;) Change Icon Name
+		# \033k   (ESC k)  Change title string
+		# \033\\  (ESC \)  String terminator
 		case "$TERM" in
 			screen*|tmux*)
 				[ "$STY" -o "$TMUX" ] || h=$hostname
@@ -47,7 +54,7 @@ then
 	fi
 fi
 
-# Set prompt if not set
+# Set prompt different for root
 if [ -z "$PS1" ]
 then
 	[ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
@@ -87,6 +94,7 @@ if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
 then
 	# Linux coloring
 	eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
+	# Convert bold to bright colors
 	case "$TERM" in
 		xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS"|sed -e 's/01;3/00;9/g'`;;
 	esac
