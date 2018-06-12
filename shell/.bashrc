@@ -37,8 +37,7 @@ esac
 # Get TTY number
 if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]
 then
-	ttybracket=" [`tty|sed -e s,^/dev/,,`]"
-	ttyat="`tty|sed -e s,^/dev/,,`@"
+	ttyname="`tty | sed -e s,^/dev/,,`"
 fi
 
 # Set prompt as 'user@host:directory $ '
@@ -47,7 +46,7 @@ PS1='\[\e['$usercolor'm\]\u\[\e['$atcolor'm\]@\[\e['$hostcolor'm\]\h\[\e[0;1m\]:
 # Set icon name and window title
 case "$TERM" in
 	screen*|xterm*|rxvt*|Eterm*|kterm*|dtterm*|ansi*|cygwin*|tmux*)
-		PS1='\[\e]1;'$ttyat'\h\007\e]2;\u@\h:\w'$ttybracket'\007\]'"${PS1//01;3/00;9}";;
+		PS1='\[\e]1;'$ttyname'@\h\007\e]2;\u@\h:\w ['$ttyname']\007\]'"${PS1//01;3/00;9}";;
 	linux*|vt220*) ;;
 	*)
 		PS1='\u@\h:\w \$ ';;
@@ -56,7 +55,7 @@ esac
 # Set screen/tmux window title
 case $TERM in
 	screen*|tmux*)
-		PS1="$PS1"'\[\ek'"$ttyat`[ "$STY" -o "$TMUX" ] || echo '\h'`"'\e\\\]';;
+		PS1="$PS1"'\[\ek'"$ttyname'@'`[ "$STY" -o "$TMUX" ] || echo '\h'`"'\e\\\]';;
 esac
 
 # Load completion
@@ -93,4 +92,4 @@ _tiago() {
 complete -F _tiago tiago
 
 # Cleanup
-unset hostcolor usercolor dircolor ttybracket ttyat
+unset hostcolor usercolor dircolor ttyname
