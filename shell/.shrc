@@ -94,7 +94,7 @@ alias gst='git status'
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
 then
 	# Linux coloring
-	eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
+	eval `dircolors -b "$HOME/.dir_colors"`
 	# Convert bold to bright colors
 	case "$TERM" in
 		xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS" | sed -e 's/01;3/00;9/g'`;;
