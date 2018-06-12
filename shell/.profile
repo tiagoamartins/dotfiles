@@ -16,9 +16,6 @@ then
 	eval "`command grep '^[A-Z].*=' "$HOME/.env.local" | sed -e 's/^/export /'`"
 fi
 
-# Source local profile file
-[ ! -r "$HOME/.profile.local" ] || . "$HOME/.profile.local"
-
 # Less as default pager
 if [ -z "$PAGER" ] && type less > /dev/null 2>&1
 then
@@ -39,6 +36,7 @@ elif [ -z "$LESSOPEN" ]
 then
 	LESSOPEN='| "$HOME/.lessfilter" %s'
 fi
+
 # Set default editor as vim
 if [ -z "$VISUAL" ]
 then
@@ -65,3 +63,6 @@ PATH=$newpath
 # Cleanup local variables
 unset IFS dir newpath
 [ -z "$ZSH_VERSION" ] || setopt noshwordsplit
+
+# Source local profile file
+[ ! -r "$HOME/.profile.local" ] || . "$HOME/.profile.local"
