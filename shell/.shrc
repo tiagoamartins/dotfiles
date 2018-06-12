@@ -110,9 +110,6 @@ then
 	alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
 fi
 
-# Remove unused gp as alias
-unalias gp >/dev/null 2>&1
-
 # Alias commands in tiago script
 for cmd in `tiago aliases`
 do
