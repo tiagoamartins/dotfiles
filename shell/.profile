@@ -13,7 +13,7 @@ export PATH ENV BASH_ENV RSYNC_RSH
 # Export all variables defined locally
 if [ -r "$HOME/.env.local" ]
 then
-	eval "`command grep '^[A-Z].*=' "$HOME/.env.local"|sed -e 's/^/export /'`"
+	eval "`command grep '^[A-Z].*=' "$HOME/.env.local" | sed -e 's/^/export /'`"
 fi
 
 # Set word split for Zsh
@@ -22,7 +22,7 @@ fi
 [ ! -r "$HOME/.profile.local" ] || . "$HOME/.profile.local"
 
 # Less as default pager
-if [ -z "$PAGER" ] && type less >/dev/null 2>&1
+if [ -z "$PAGER" ] && type less > /dev/null 2>&1
 then
 	PAGER=less
 	export PAGER
@@ -34,17 +34,17 @@ fi
 # -X   avoid clearing the screen after exit
 # -#10 shift 10 columns when using left and right arrows
 LESS="FRX#10"
-if [ -z "$LESSOPEN" ] && type lesspipe >/dev/null 2>&1
+if [ -z "$LESSOPEN" ] && type lesspipe > /dev/null 2>&1
 then
-	LESSOPEN='|lesspipe %s'
+	LESSOPEN='| lesspipe %s'
 elif [ -z "$LESSOPEN" ]
 then
-	LESSOPEN='|"$HOME/.lessfilter" %s'
+	LESSOPEN='| "$HOME/.lessfilter" %s'
 fi
 # Set default editor as vim
 if [ -z "$VISUAL" ]
 then
-	type vim >/dev/null 2>&1 && VISUAL=vim || VISUAL=vi
+	type vim > /dev/null 2>&1 && VISUAL=vim || VISUAL=vi
 fi
 EDITOR=$VISUAL
 export LESS LESSOPEN VISUAL EDITOR

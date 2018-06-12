@@ -91,7 +91,7 @@ _set_title() {
 	print -Pn '\e]2;%n@%m:%~'
 	if [ -n "$1" ]
 	then
-		print -Pnr ' (%24>..>$1%>>)'|tr '\0-\037' '?'
+		print -Pnr ' (%24>..>$1%>>)' | tr '\0-\037' '?'
 	fi
 	print -Pn " [%l]\a"
 }
@@ -193,7 +193,7 @@ _tiago() {
 	if [[ $CURRENT = 2 ]]
 	then
 		local tmp
-		tmp=($(grep '^	[a-z-]*[|)]' "$HOME/.local/bin/$cmd" 2>/dev/null | sed -e 's/).*//' | tr '|' ' '))
+		tmp=($(grep '^	[a-z-]*[|)]' "$HOME/.local/bin/$cmd" 2> /dev/null | sed -e 's/).*//' | tr '|' ' '))
 		_describe -t commands "${words[1]} command" tmp --
 	else
 
@@ -241,7 +241,7 @@ bindkey -M emacs '^X^[' vi-cmd-mode
 bindkey -M emacs ' ' magic-space
 bindkey -M viins ' ' magic-space
 
-bindkey -M isearch '^J' accept-search 2>/dev/null
+bindkey -M isearch '^J' accept-search 2> /dev/null
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
@@ -261,7 +261,7 @@ bindkey -M emacs "^XD" describe-key-briefly
 fg-widget() {
 	if [[ $#BUFFER -eq 0 ]]
 	then
-		if jobs %- >/dev/null 2>&1
+		if jobs %- > /dev/null 2>&1
 		then
 			BUFFER='fg %-'
 		else

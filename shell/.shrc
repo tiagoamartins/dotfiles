@@ -1,7 +1,7 @@
 #! sh
 
 # If profile was not sourced before do it now
-[ -n "$ENV" ] || . "$HOME/.profile" >/dev/null
+[ -n "$ENV" ] || . "$HOME/.profile" > /dev/null
 
 # Default keys as emacs style
 set -o emacs
@@ -31,10 +31,11 @@ if [ -t 1 ]
 then
 	# Set XON/XOFF flow control
 	[ ! -x /bin/stty ] || stty -ixon
+
 	if [ -x /usr/bin/tty -o -x /usr/local/bin/tty ]
 	then
 		# Get TTY name and number
-		tty=`tty 2>/dev/null|sed -e 's,^/dev/,,'`
+		tty=`tty 2> /dev/null | sed -e 's,^/dev/,,'`
 		# Codes:
 		# \033    (ESC)    Escape
 		# \033]   (ESC ])  Operating System Controls (OSC)
@@ -57,18 +58,18 @@ fi
 # Set prompt different for root
 if [ -z "$PS1" ]
 then
-	[ "`id|sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
+	[ "`id | sed -e 's/^uid=\([0-9]*\).*$/\1/'`" -eq 0 ] && PS1='# ' || PS1='$ '
 fi
 case $PS1 in
-	?' ') PS1="$LOGNAME@$hostname `basename $0|sed -e 's/^-//'` $PS1";;
+	?' ') PS1="$LOGNAME@$hostname `basename "$0" | sed -e 's/^-//'` $PS1";;
 esac
 
 unset hostname
 
 # Refresh function
 rf() {
-	. "$HOME/.profile" >/dev/null
-	dp=`echo $DISPLAY|sed -e 's/\..*$//'`
+	. "$HOME/.profile" > /dev/null
+	dp=`echo $DISPLAY | sed -e 's/\..*$//'`
 	if [ -r "$HOME/.env.$dp" ]
 	then
 		. "$HOME/.env.$dp"
@@ -96,7 +97,7 @@ then
 	eval `dircolors -b "$HOME/.dir_colors" | head -n 1`
 	# Convert bold to bright colors
 	case "$TERM" in
-		xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS"|sed -e 's/01;3/00;9/g'`;;
+		xterm*|screen*|tmux*) LS_COLORS=`echo "$LS_COLORS" | sed -e 's/01;3/00;9/g'`;;
 	esac
 	alias ls='ls -hF --color=auto'
 else
@@ -104,7 +105,7 @@ else
 	alias ls='CLICOLOR=1 LSCOLORS=ExGxFxdxCxfxDxabadacad ls -hF'
 fi
 
-if ! grep --color 2>&1 | grep un >/dev/null
+if ! grep --color 2>&1 | grep un > /dev/null
 then
 	alias grep='grep --color=auto --exclude=".*.swp" --exclude="*~" --exclude=tags'
 fi

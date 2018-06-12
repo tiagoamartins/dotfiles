@@ -4,7 +4,7 @@
 [ ! -r "$HOME/.shrc" ] || . "$HOME/.shrc"
 
 # Make directory variables able to change directory
-shopt -s extglob cdable_vars 2>/dev/null
+shopt -s extglob cdable_vars 2> /dev/null
 
 # Don't save history upon exiting
 export HISTCONTROL=ignoredups
