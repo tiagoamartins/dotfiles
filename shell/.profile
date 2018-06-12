@@ -16,8 +16,6 @@ then
 	eval "`command grep '^[A-Z].*=' "$HOME/.env.local" | sed -e 's/^/export /'`"
 fi
 
-# Set word split for Zsh
-[ -z "$ZSH_VERSION" ] || setopt shwordsplit
 # Source local profile file
 [ ! -r "$HOME/.profile.local" ] || . "$HOME/.profile.local"
 
@@ -48,6 +46,9 @@ then
 fi
 EDITOR=$VISUAL
 export LESS LESSOPEN VISUAL EDITOR
+
+# Set word split for Zsh
+[ -z "$ZSH_VERSION" ] || setopt shwordsplit
 
 # Validate and append directories in PATH variable
 IFS=:
