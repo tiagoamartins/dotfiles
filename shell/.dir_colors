@@ -74,9 +74,9 @@ DIR 01;34			# directory
 LINK 01;36			# symbolic link. (If you set this to 'target' instead of a
 				# numerical value, the color is as for the file pointed to.)
 # MULTIHARDLINK 00		# regular file with more than one link
-FIFO 00;33			# pipe
+FIFO 04;33			# pipe
 SOCK 01;35			# socket
-# DOOR 01;44			# door
+DOOR 01;46			# door
 BLK 00;35			# block device driver
 CHR 01;33			# character device driver
 ORPHAN 00;41			# symlink to nonexistent file
