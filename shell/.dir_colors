@@ -162,6 +162,20 @@ EXEC 01;32
 .ind 01;30
 .idx 01;30
 .blg 01;30
+# "unimportant" files as logs and backups
+.log 01;30
+.lof 01;30
+.lol 01;30
+.lot 01;30
+.out 01;30
+.toc 01;30
+*~ 01;30
+*# 01;30
+.part 01;30
+.incomplete 01;30
+.tmp 01;30
+.temp 01;30
+.cache 01;30
 
 # System libraries, etc. (yellow)
 .so 00;33
