@@ -186,7 +186,7 @@ zmodload -i zsh/complist
 zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
-compinit
+compinit -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
 # End of lines added by compinstall
 
 compdef _tiago tiago
