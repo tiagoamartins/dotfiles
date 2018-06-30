@@ -191,7 +191,7 @@ EXEC 01;32
 .patch 00;31
 
 # Miscellaneous
-.dpkg-dist 01;37 # (bright white)
-*core 01;37      # (bright white)
-.lnk 01;36       # (bright green)
-.url 01;36       # (bright green)
+.dpkg-dist 01;37	# (bright white)
+*core 01;37		# (bright white)
+.lnk 01;36		# (bright green)
+.url 01;36		# (bright green)
