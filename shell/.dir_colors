@@ -141,6 +141,8 @@ EXEC 01;32
 .cpio 01;31
 .7z 01;31
 .rz 01;31
+.apk 01;31
+.gem 01;31
 
 # Backup and temporary files (bright black)
 *~ 01;30
