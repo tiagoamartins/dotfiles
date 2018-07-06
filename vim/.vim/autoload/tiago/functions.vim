@@ -15,37 +15,37 @@ function! tiago#functions#adjust_comment_textwidth()
         return
     end
 
-    if !exists('s:normal_textwidth')
-        let s:normal_textwidth = &textwidth
+    if !exists('s:n_tw')
+        let s:n_tw = &textwidth
     endif
 
-    if !exists('s:normal_formatoptions')
-        let s:normal_formatoptions = &formatoptions
+    if !exists('s:n_fopt')
+        let s:n_fopt = &formatoptions
     endif
 
-    if !exists('b:comment_textwidth')
-        if !exists('g:comment_textwidth')
+    if !exists('b:c_textwidth')
+        if !exists('g:c_textwidth')
             return
         end
-        let l:comment_textwidth = g:comment_textwidth
+        let l:c_tw = g:c_textwidth
     else
-        let l:comment_textwidth = b:comment_textwidth
+        let l:c_tw = b:c_textwidth
     endif
 
-    if !exists('b:comment_formatoptions')
-        if !exists('g:comment_formatoptions')
+    if !exists('b:c_formatoptions')
+        if !exists('g:c_formatoptions')
             return
         end
-        let l:comment_formatoptions = g:comment_formatoptions
+        let l:c_fopt = g:c_formatoptions
     else
-        let l:comment_formatoptions = b:comment_formatoptions
+        let l:c_fopt = b:c_formatoptions
     endif
 
     let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
 
     if cur_syntax == "Comment"
-        execute "setlocal textwidth=" . l:comment_textwidth
-        execute "setlocal formatoptions=" . l:comment_formatoptions
+        execute "setlocal textwidth=" . l:c_tw
+        execute "setlocal formatoptions=" . l:c_fopt
     elseif cur_syntax == "String"
         " Check to see if we're in a docstring
         let lnum = line(".")
@@ -53,15 +53,15 @@ function! tiago#functions#adjust_comment_textwidth()
         while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
             if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
                 " Assume that any longstring is a docstring
-                execute "setlocal textwidth=" . l:comment_textwidth
-                execute "setlocal formatoptions=" . l:comment_formatoptions
+                execute "setlocal textwidth=" . l:c_tw
+                execute "setlocal formatoptions=" . l:c_fopt
             endif
 
             let lnum -= 1
         endwhile
     else
-        execute "setlocal textwidth=" . s:normal_textwidth
-        execute "setlocal formatoptions=" . s:normal_formatoptions
+        execute "setlocal textwidth=" . s:n_tw
+        execute "setlocal formatoptions=" . s:n_fopt
     endif
 endfunction
 

@@ -2,8 +2,8 @@ setlocal formatoptions-=t
 setlocal foldmethod=manual
 setlocal textwidth=79
 
-let b:comment_textwidth=72
-let b:comment_formatoptions='t' . &formatoptions
+let b:c_textwidth=72
+let b:c_formatoptions='t' . &formatoptions
 
 if has('autocmd')
     autocmd CursorMoved,CursorMovedI *
