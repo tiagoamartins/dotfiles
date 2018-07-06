@@ -10,6 +10,7 @@ let g:airline_symbols.crypt = 'œ'
 let g:airline_symbols.notexists = '∅'
 let g:airline_symbols.whitespace = 'Ξ'
 
+let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 1
 
 let g:airline#extensions#tabline#enabled = 1        " Enable the list of buffers
