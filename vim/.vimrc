@@ -31,7 +31,7 @@ try
         set termguicolors       " Use guifg/guibg instead of ctermfg/ctermbg in terminal
     endif
 catch
-    colorscheme peachpuff
+    colorscheme default
 endtry
 set background=dark             " Set a dark background profile
 
