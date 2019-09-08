@@ -16,6 +16,7 @@ bundles=(
 
 vendors=(
 	tpope/vim-abolish
+	tpope/vim-apathy
 	tpope/vim-commentary
 	tpope/vim-dispatch
 	tpope/vim-fugitive
@@ -27,7 +28,6 @@ vendors=(
 	tpope/vim-unimpaired
 	vim-airline/vim-airline
 	vim-airline/vim-airline-themes
-	vim-scripts/indentpython.vim
 	w0ng/vim-hybrid
 	ludovicchabant/vim-lawrencium
 	AndrewRadev/splitjoin.vim
@@ -37,12 +37,11 @@ vendors=(
 	mhinz/vim-signify
 	vivien/vim-linux-coding-style
 	5long/pytest-vim-compiler
-	joe-skb7/cscope-maps
 	ARM9/arm-syntax-vim
 	w0rp/ale
 	janko-m/vim-test
 	Shirk/vim-gas
-	tmux-plugins/vim-tmux
+	tweekmonster/braceless.vim
 )
 
 vim_clone() {
