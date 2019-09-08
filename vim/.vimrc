@@ -1,10 +1,14 @@
 let mapleader = '\'             " Leader is backslash
 
-filetype on                     " Enable file type detection
-filetype plugin on              " Enable plugins to detect file types
-filetype indent on              " Indent depends on filetype
+if has('autocmd')
+    filetype on                 " Enable file type detection
+    filetype plugin on          " Enable plugins to detect file types
+    filetype indent on          " Indent depends on filetype
+endif
 
-syntax on                       " Enable syntax processing
+if has('syntax') && !exists('g:syntax_on')
+    syntax enable               " Enable syntax processing
+endif
 
 " Prefer python 3 over python 2
 if has('pythonx')
