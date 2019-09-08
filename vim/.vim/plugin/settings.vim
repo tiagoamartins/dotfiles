@@ -6,10 +6,6 @@ set hidden                      " Allow you to hide buffers with unsaved changes
 set encoding=utf-8
 set fileencodings=utf-8
 
-if has('termguicolors')
-    set termguicolors           " Use guifg/guibg instead of ctermfg/ctermbg in terminal
-endif
-
 " Home Directory {{{1
 " -------------------
 " Get the vim files directory

@@ -23,13 +23,17 @@ if &loadplugins && !has('packages')
     execute pathogen#infect()
 endif
 
-set background=dark             " Set a dark background profile
 try
     let g:hybrid_custom_term_colors = 1
     colorscheme hybrid          " Set color scheme
+
+    if has('termguicolors') && &term !~ ".*rxvt.*"
+        set termguicolors       " Use guifg/guibg instead of ctermfg/ctermbg in terminal
+    endif
 catch
     colorscheme peachpuff
 endtry
+set background=dark             " Set a dark background profile
 
 " Change drop-down menu color
 highlight PmenuSel ctermfg=black ctermbg=lightgray
