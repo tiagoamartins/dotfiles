@@ -221,9 +221,15 @@ if has('syntax')
     set complete+=kspell        " Word completion
     set spelllang=en_us
 endif
+
 " GUI {{{1
 " --------
 if has("gui_running")
+    set guioptions-=m           " Remove menu bar
+    set guioptions-=r           " Remove right-hand scroll bar
+    set guioptions-=L           " Remove left-hand scroll bar
+    set guioptions-=T           " Remove toolbar
+
     if has("gui_win32")
         " On Vim 7.4.16 the following line still doesn't work with gui_gtk
         set guifont=Consolas:h10:cDEFAULT,Inconsolata:h10,Courier\ New:h10
