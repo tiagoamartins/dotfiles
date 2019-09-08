@@ -10,6 +10,47 @@ function! tiago#functions#preserve_cursor(command)
     call cursor(l, c)
 endfunction
 
+function! tiago#functions#python_docstring_text_object(inner)
+    " TEXT OBJECT FOR IN/AROUND PYTHON DOCSTRING
+    "
+    " For docstrings in this format:
+    " ,------------------------------.
+    " | '''                          |
+    " | Module-level docstring.      |
+    " | Text object works on these.  |
+    " | '''                          |
+    " |                              |
+    " | class Widget():              |
+    " | '''                          |
+    " | Text object also works       |
+    " | on class-level docstrings.   |
+    " | '''                          |
+    " |                              |
+    " |     def __init__(self):      |
+    " |         '''                  |
+    " |         Method-level, too!   |
+    " |         '''                  |
+    " |         pass                 |
+    " |                              |
+    " '------------------------------'
+    " Text objects search up, but won't cross def/class lines.
+    "
+    " get current line number
+    let current = line('.')
+
+    let num_quotes = 0
+    " climb up to class/def line, or first line of buffer
+    while current > 0 && getline(current) !~# '^\s*\(class\|def\)\s*.*:$'
+        if getline(current) =~# "[ru]\\?\\('''\\|\"\"\"\\)"
+            " found a triple-quotation
+            let num_quotes = num_quotes + 1
+        endif
+        let current = current - 1
+    endwhile
+
+    return num_quotes % 2
+endfunction
+
 function! tiago#functions#adjust_comment_textwidth()
     if &textwidth == 0
         return
@@ -43,25 +84,18 @@ function! tiago#functions#adjust_comment_textwidth()
 
     let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
 
-    if cur_syntax == "Comment"
-        execute "setlocal textwidth=" . l:c_tw
-        execute "setlocal formatoptions=" . l:c_fopt
-    elseif cur_syntax == "String"
-        " Check to see if we're in a docstring
-        let lnum = line(".")
+    let l:cur_in_docstr = tiago#functions#python_docstring_text_object(1)
 
-        while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
-            if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
-                " Assume that any longstring is a docstring
-                execute "setlocal textwidth=" . l:c_tw
-                execute "setlocal formatoptions=" . l:c_fopt
-            endif
+    if !exists('s:in_docstr') || l:cur_in_docstr != s:in_docstr
+        let s:in_docstr = l:cur_in_docstr
 
-            let lnum -= 1
-        endwhile
-    else
-        execute "setlocal textwidth=" . s:n_tw
-        execute "setlocal formatoptions=" . s:n_fopt
+        if l:cur_in_docstr == 1
+            execute "setlocal textwidth=" . l:c_tw
+            execute "setlocal formatoptions=" . l:c_fopt
+        else
+            execute "setlocal textwidth=" . s:n_tw
+            execute "setlocal formatoptions=" . s:n_fopt
+        endif
     endif
 endfunction
 
