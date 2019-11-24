@@ -238,10 +238,10 @@ if has("gui_running")
         set guifont=Menlo\ Regular:h11
 
     else "gui_gtk
-        let terminus = system("fc-list | grep -c \"xos4 Terminus\"")
+        let terminus = system("fc-list | grep -c \"Terminus\"")
 
         if (terminus > 0)
-            set guifont=xos4\ Terminus\ 12
+            set guifont=Terminus\ 12
         else
             set guifont=Monospace\ 11
         endif
