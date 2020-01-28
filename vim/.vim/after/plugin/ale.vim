@@ -4,6 +4,8 @@ let g:ale_sign_warning = 'Δ'
 let g:ale_python_flake8_options='--ignore=W503'
 let g:ale_c_gcc_options='-std=gnu11 -Wall'
 
+let g:ale_c_parse_makefile = 1
+
 let g:ale_linters = {
             \   'c': ['gcc'],
             \   'cpp': ['gcc']
