@@ -28,15 +28,16 @@
 *color7: #707880
 *color15: #C5C8C6
 
-XTerm*Geometry: 120x52
+XTerm*Geometry: 291x85
 XTerm*termName: xterm-256color
-XTerm*faceName: xos4 Terminus
-XTerm*faceSize: 11
+XTerm*faceName: Terminus
+XTerm*faceSize: 12
 XTerm*locale: true
 XTerm*metaSendsEscape: true
+XTerm*allowWindowOps: true
 
-URxvt*geometry: 120x52
-URxvt*font: xft:xos4 Terminus:size=11
+URxvt*geometry: 291x85
+URxvt*font: xft:Terminus:size=12
 URxvt*scrollBar: false
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/c800
