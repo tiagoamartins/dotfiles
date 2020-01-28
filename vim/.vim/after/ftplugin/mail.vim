@@ -13,7 +13,7 @@ endif
 if has('autocmd')
     augroup mutt_composing
         autocmd!
-        autocmd BufEnter /tmp/mutt-* call tiago#functions#mutt_setup()
-        autocmd BufEnter /tmp/neomutt-* call tiago#functions#mutt_setup()
+        autocmd BufEnter /tmp/mutt-* call mail#setup_mutt()
+        autocmd BufEnter /tmp/neomutt-* call mail#setup_mutt()
     augroup END
 endif

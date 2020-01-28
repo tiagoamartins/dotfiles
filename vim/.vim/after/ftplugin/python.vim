@@ -7,5 +7,5 @@ let b:c_formatoptions='t' . &formatoptions
 
 if has('autocmd')
     autocmd CursorMoved,CursorMovedI *
-                \ call tiago#functions#adjust_comment_textwidth()
+                \ call python#adjust_comment_textwidth()
 endif

@@ -4,8 +4,8 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 " ---------- Indentation ----------
 "Shortcut to auto indent entire file
-nmap <leader>$ :call tiago#functions#preserve_cursor("%s/\\s\\+$//e")<CR>
-nmap <leader>= :call tiago#functions#preserve_cursor("normal gg=G")<CR>
+nmap <leader>$ :call cursor#preserve("%s/\\s\\+$//e")<CR>
+nmap <leader>= :call cursor#preserve("normal gg=G")<CR>
 
 " ---------- Folding ----------
 " Set space to toggle a fold

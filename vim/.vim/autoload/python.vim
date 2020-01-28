@@ -1,16 +1,4 @@
-function! tiago#functions#preserve_cursor(command)
-    " preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    " do the business:
-    execute a:command
-    " clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-function! tiago#functions#python_docstring_text_object(inner)
+function! python#docstring_text_object(inner)
     " TEXT OBJECT FOR IN/AROUND PYTHON DOCSTRING
     "
     " For docstrings in this format:
@@ -51,7 +39,7 @@ function! tiago#functions#python_docstring_text_object(inner)
     return num_quotes % 2
 endfunction
 
-function! tiago#functions#adjust_comment_textwidth()
+function! python#adjust_comment_textwidth()
     if &textwidth == 0
         return
     end
@@ -84,7 +72,7 @@ function! tiago#functions#adjust_comment_textwidth()
 
     let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
 
-    let l:cur_in_docstr = tiago#functions#python_docstring_text_object(1)
+    let l:cur_in_docstr = python#docstring_text_object(1)
 
     if !exists('s:in_docstr') || l:cur_in_docstr != s:in_docstr
         let s:in_docstr = l:cur_in_docstr
@@ -96,21 +84,5 @@ function! tiago#functions#adjust_comment_textwidth()
             execute "setlocal textwidth=" . s:n_tw
             execute "setlocal formatoptions=" . s:n_fopt
         endif
-    endif
-endfunction
-
-function! tiago#functions#mutt_setup()
-    execute "1,/^$/-1fold"
-    execute "normal }"
-
-    let lnum = line(".")
-
-    if lnum == line('$') || getline(lnum + 2) =~ '-- $'
-        put! =\"\n\"
-        execute "+1"
-    elseif getline(lnum + 1) =~ '-\+\s\+Forwarded message' || getline(lnum + 2) =~ '>'
-        put! =\"\n\n\"
-    else
-        execute "+1"
     endif
 endfunction
