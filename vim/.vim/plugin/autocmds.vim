@@ -35,4 +35,10 @@ if has('autocmd')
                         \ setlocal viminfo=
         augroup END
     endif
+
+    " Automatically call OSC52 function on yank to sync register with host clipboard
+    augroup yank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call yank#osc52() | endif
+    augroup END
 endif
