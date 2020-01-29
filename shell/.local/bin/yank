@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# Usage: yank [FILE...]
+#
+# Copies the contents of given files (or stdin if no files are given) to the
+# terminal that runs this program. If running inside tmux(1), then it also
+# copies the given contents into tmux's current clipboard buffer. If running
+# inside X11, then it also copies to the X11 clipboard.
+#
+# The copy to clipboard is done using  OSC 52 escape sequence. The maximum
+# length of an OSC 52 escape sequence is 100,000 bytes, of which 7 bytes are
+# occupied by a "\e]52;c;" header, 1 byte by a "\a" footer, and 99,992 bytes by
+# the base64-encoded result of 74,994 bytes of copyable text. For more than the
+# allowed length it emits a warning (on stderr) about the number of bytes
+# dropped.
+
+put() {
+	esc=$1
+	if [ -z "${TERM##tmux*}" ]
+	then
+		esc="\ePtmux;\e$esc\e\\"
+	elif [ -z "${TERM##screen*}" ]
+	then
+		esc="\eP\e$esc\e\\"
+	fi
+	printf "$esc"
+}
+
+max=74994
+buf=$(cat "$@")
+len=$(printf %s "$buf" | wc -c)
+
+if [ $len -gt $max ]
+then
+	echo "$0: input is $((len - max)) bytes too long" >&2
+fi
+
+# copy via OSC 52
+put "\e]52;c;$(printf %s "$buf" | head -c $max | base64 | tr -d '\r\n')\a"
+
+# also copy to tmux
+if [ -n "$TMUX" ]
+then
+	tmux set-buffer "$buf"
+fi
+
+# also copy via X11
+if [ -n "$DISPLAY" ]
+then
+	printf %s "$buf" | { xsel -i -b 2> /dev/null || xclip -sel c ;}
+fi
