@@ -5,10 +5,12 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_symbols.maxlinenr = '≡'
 let g:airline_symbols.crypt = 'œ'
+let g:airline_symbols.dirty = '●'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.maxlinenr = '≡'
 let g:airline_symbols.notexists = '∅'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.whitespace = '¬'
 
 let g:airline#extensions#hunks#enabled = 0
 let g:airline#extensions#branch#enabled = 1
