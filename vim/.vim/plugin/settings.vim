@@ -114,7 +114,7 @@ set scrolloff=3                 " Have a number of offset lines (or buffer) when
 set sidescrolloff=3             " Same as 'scrolloff', but for columns
 if has('linebreak')
     set linebreak               " Wrap long lines at characters in 'breakat'
-    let &showbreak='↪ '         " Rightwards arrow with hook (U+21AA, UTF-8: E2 86 AA)
+    let &showbreak='∟ '         " Right angle (U+221F, UTF-8: E2 88 9F)
 endif
 
 if has('syntax')
