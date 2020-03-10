@@ -35,3 +35,4 @@ nnoremap <silent> <Plug>TransposeCharacters xp2h :call repeat#set("\<Plug>Transp
 nmap cp <Plug>TransposeCharacters
 nnoremap <F8> :Make<CR>
 nnoremap <F9> :Dispatch<CR>
+nnoremap <leader>t :Switch<CR>
