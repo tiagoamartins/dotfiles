@@ -1,38 +1,38 @@
-" ---------- Searching ----------
+" Leader {{{1
+" -----------
+" Toggle value (using switch plugin)
+nnoremap <leader>t :Switch<cr>
 " Turn off search highlight
-nnoremap <leader><space> :nohlsearch<CR>
-
-" ---------- Indentation ----------
-"Shortcut to auto indent entire file
-nmap <leader>$ :call cursor#preserve("%s/\\s\\+$//e")<CR>
-nmap <leader>= :call cursor#preserve("normal gg=G")<CR>
-
-" ---------- Folding ----------
-" Set space to toggle a fold
-nnoremap <space> za
-
-" ---------- Movement ----------
-" Highlight last inserted text
-nnoremap gV `[v`]
-
-" ---------- Leader Shortcuts ----------
-" Edit vimrc/bashrc and load vimrc bindings
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC <BAR> AirlineRefresh<CR>
-
-" Toggle spelling with F4 key
-map <F4> :set spell!<CR><Bar>:echo "Spell Check: " . strpart("OffOn", 3 * &spell, 3)<CR>
-
-" ---------- Spelling ----------
+nnoremap <leader><space> :nohlsearch<cr>
+" Remove trailing space
+nnoremap <leader>$ :call cursor#preserve("%s/\\s\\+$//e")<cr>
+" Indent entire file
+nnoremap <leader>= :call cursor#preserve("normal gg=G")<cr>
+" Edit vimrc
+nnoremap <leader>ev :vsp $MYVIMRC<cr>
+" Load vimrc
+nnoremap <leader>sv :source $MYVIMRC <bar> AirlineRefresh<cr>
+" Change spelling language
 if exists("+spelllang")
-    " Change spelling language
-    nmap <silent> <leader>pt :set spelllang=pt_br<CR>
-    nmap <silent> <leader>en :set spelllang=en_us<CR>
+    nnoremap <silent> <leader>en :set spelllang=en_us<cr>
+    nnoremap <silent> <leader>pt :set spelllang=pt_br<cr>
 endif
 
-" ---------- Mappings ----------
-nnoremap <silent> <Plug>TransposeCharacters xp2h :call repeat#set("\<Plug>TransposeCharacters")<CR>
-nmap cp <Plug>TransposeCharacters
-nnoremap <F8> :Make<CR>
-nnoremap <F9> :Dispatch<CR>
-nnoremap <leader>t :Switch<CR>
+" Function keys {{{1
+" ------------------
+" Toggle spelling with F4 key
+noremap <f4> :set spell!<cr> <bar> :echo "spell check: " . strpart("offon", 3 * &spell, 3)<cr>
+" Run make (using dispatch plugin)
+nnoremap <f8> :Make<cr>
+" Run dispatch (using dispatch plugin)
+nnoremap <f9> :Dispatch<cr>
+
+" Normal mode {{{1
+" ----------------
+" Set space to toggle a fold
+nnoremap <space> za
+" Swap two characters with capability of repeat by '.' (using repeat plugin)
+nnoremap <silent> <plug>TransposeCharacters xp2h :call repeat#set("\<plug>TransposeCharacters")<cr>
+nmap cp <plug>TransposeCharacters
+" Highlight last inserted text
+nnoremap gV `[v`]
