@@ -36,6 +36,7 @@ XTerm*locale: true
 XTerm*metaSendsEscape: true
 XTerm*allowWindowOps: true
 XTerm*selectToClipboard: true
+XTerm*visualBell: true
 
 ! rxvt-unicode
 URxvt*geometry: 291x85
