@@ -37,7 +37,6 @@ try
 catch
     colorscheme default
 endtry
-set background=dark             " Set a dark background profile
 
 " Change drop-down menu color
 highlight PmenuSel ctermfg=black ctermbg=lightgray

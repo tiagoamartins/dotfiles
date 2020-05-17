@@ -45,6 +45,8 @@ fi
 EDITOR=$VISUAL
 export LESS LESSOPEN VISUAL EDITOR
 
+export COLORFGBG="15;0"
+
 # Set word split for Zsh
 [ -z "$ZSH_VERSION" ] || setopt shwordsplit
 
