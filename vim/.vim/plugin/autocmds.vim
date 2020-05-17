@@ -39,6 +39,9 @@ if has('autocmd')
     " Automatically call OSC52 function on yank to sync register with host clipboard
     augroup yank
         autocmd!
-        autocmd TextYankPost * if v:event.operator ==# 'y' | call yank#osc52(@0) | endif
+        autocmd TextYankPost *
+                    \ if v:event.operator ==# 'y' && v:event.regname ==# '+' |
+                    \     call yank#osc52(v:event.regcontents) |
+                    \ endif
     augroup END
 endif
