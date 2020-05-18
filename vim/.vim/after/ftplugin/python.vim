@@ -9,3 +9,7 @@ if has('autocmd')
     autocmd CursorMoved,CursorMovedI *
                 \ call python#adjust_comment_textwidth()
 endif
+
+BracelessEnable +indent +fold +hightlight
+
+let g:python_highlight_all = 1
