@@ -41,7 +41,7 @@ put "\e]52;c;$(printf %s "$buf" | head -c $max | base64 | tr -d '\r\n')\a"
 # also copy to tmux
 if [ -n "$TMUX" ]
 then
-	tmux set-buffer "$buf"
+	tmux set-buffer -- "$buf"
 fi
 
 # also copy via X11
