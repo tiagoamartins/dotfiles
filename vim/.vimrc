@@ -20,11 +20,15 @@ if has('pythonx')
 endif
 
 if &loadplugins && !has('packages')
-    if has("vim_starting")
-        runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
-    endif
+    if filereadable('pack/vendor/opt/pathogen/autoload/pathogen.vim')
+        if has("vim_starting")
+            runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
+        endif
 
-    execute pathogen#infect()
+        execute pathogen#infect()
+    else
+        echomsg "No package support detected!"
+    endif
 endif
 
 try
