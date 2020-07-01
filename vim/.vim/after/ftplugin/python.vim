@@ -10,6 +10,8 @@ if has('autocmd')
                 \ call python#adjust_comment_textwidth()
 endif
 
-BracelessEnable +indent +fold +hightlight
+if exists(':BracelessEnable')
+    BracelessEnable +indent +fold +hightlight
+endif
 
 let g:python_highlight_all = 1
