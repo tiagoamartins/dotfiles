@@ -1,0 +1,27 @@
+# Snippets for markdown file type
+
+snippet h "Markdown h1 header"
+${1:Header}
+${1/./=/g}
+$0
+endsnippet
+
+snippet h2 "Markdown h2 header"
+${1:Header}
+${1/./-/g}
+$0
+endsnippet
+
+snippet c "Markdown code block"
+\`\`\`
+${0:${VISUAL:\/* code *\/}}
+\`\`\`
+endsnippet
+
+snippet i "Markdown italic" w
+_${1:italic}_$0
+endsnippet
+
+snippet b "Markdown bold" w
+**${1:bold}**$0
+endsnippet

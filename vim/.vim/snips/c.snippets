@@ -1,0 +1,108 @@
+# Snippets for C file type
+
+snippet #d "C precompiler define statement"
+#define ${1:${VISUAL:SYMBOL}} ${2:value}$0
+endsnippet
+
+snippet #ifnd "C precompiler define if not before"
+#ifndef ${1/([A-Za-z0-9_]+).*/$1/}
+#define ${1:${VISUAL:SYMBOL}} ${2:value}
+#endif$0
+endsnippet
+
+snippet once "C header include once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+	snip.rv = '__' + re.sub(r'\W+','_', snip.fn).upper() + '__'
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${0:${VISUAL}}
+
+#endif /* $1 */
+endsnippet
+
+snippet #i "C precompiler if statement" !b
+#if ${1: /* condition */}
+${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+#endif
+endsnippet
+
+snippet "^#in" "C local header include statement" r
+#include "${1:`!p snip.rv = snip.basename + '.h'`}"$0
+endsnippet
+
+snippet "^#IN" "C global header include statement" r
+#include <${1:`!p snip.rv = snip.basename + '.h'`}>$0
+endsnippet
+
+snippet e "C enumeration statement" b
+enum ${1:name} {
+	${0:/* enumeration */}
+};
+endsnippet
+
+snippet t "C typedef statement" b
+typedef ${1:int} ${2:CustomType};
+endsnippet
+
+snippet s "C struct statement" b
+struct ${1:name} {
+	${0:/* data */}
+};
+endsnippet
+
+snippet main "C standard main function" b
+int main(int argc, char const *argv[])
+{
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+
+	return 0;
+}
+endsnippet
+
+snippet if "C if statement" b
+if (${1:/* condition */}) {
+	${VISUAL}${2:${VISUAL/(.*)/(?1::\/* Insert code here *\/)/}}
+}$0
+endsnippet
+
+snippet ei "C else if statement" w
+ else if (${1:/* condition */}) {
+	${VISUAL}${2:${VISUAL/(.*)/(?1::\/* Insert code here *\/)/}}
+}$0
+endsnippet
+
+snippet el "C else statement" w
+ else {
+	${1:/* Insert code here */}
+}$0
+endsnippet
+
+snippet for "C for statement" b
+for (${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${4:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}$0
+endsnippet
+
+snippet do "C do while statement" b
+do {
+	${VISUAL}${2:${VISUAL/(.*)/(?1::\/* Insert code here *\/)/}}
+} while(${1:/* condition */});$0
+endsnippet
+
+snippet p "C printf statement" b
+printf("${1:%s}"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet fp "C fprintf statement" b
+fprintf(${1:stderr}, "${2:%s}"${2/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$3${2/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
+
+snippet f "C function" b
+${1:void} ${2:func_name}(${3:/* arguments */})
+{
+	${VISUAL}${4:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}$0
+endsnippet

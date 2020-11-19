@@ -21,3 +21,8 @@
 
 # Ignore mail files
 **/mail/
+
+# Ignore python byte-compiled files
+__pycache__/
+*.py[cod]
+*$py.class

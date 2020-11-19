@@ -1,0 +1,22 @@
+# Snippets for json file type
+
+snippet s "JSON string data" b
+"${1:key}": "${2:value}",$0
+endsnippet
+
+snippet n "JSON number data" b
+"${1:key}": ${2:value},$0
+endsnippet
+
+snippet a "JSON array" b
+[
+	${VISUAL}$1
+],$0
+endsnippet
+
+snippet o "JSON object" b
+{
+	${VISUAL}$1
+},$0
+endsnippet
+
