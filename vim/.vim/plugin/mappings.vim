@@ -1,7 +1,7 @@
 " Leader {{{1
 " -----------
 " Toggle value (using switch plugin)
-nnoremap <leader>t :Switch<cr>
+nnoremap <leader>gt :Switch<cr>
 " Turn off search highlight
 nnoremap <leader><space> :nohlsearch<cr>
 " Remove trailing space
