@@ -124,7 +124,7 @@ alias gst='git status'
 alias diff='diff --color=auto'
 alias mutt='neomutt'
 
-[ "$VISUAL" != vim ] || alias vi='vim'
+alias vi=$VISUAL
 
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
 then

@@ -37,10 +37,15 @@ then
 	LESSOPEN='| "$HOME/.lessfilter" %s'
 fi
 
-# Set default editor as vim
-if [ -z "$VISUAL" ]
+# Set default editor as nvim
+if type nvim > /dev/null 2>&1
 then
-	type vim > /dev/null 2>&1 && VISUAL=vim || VISUAL=vi
+	VISUAL=nvim
+elif type vim > /dev/null 2>&1
+then
+	VISUAL=vim
+else
+	VISUAL=vi
 fi
 EDITOR=$VISUAL
 export LESS LESSOPEN VISUAL EDITOR

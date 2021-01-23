@@ -3,5 +3,7 @@ if has('packages')
         packadd! matchit
     endif
 else
-    source $VIMRUNTIME/macros/matchit.vim
+    if !has('nvim')
+        source $VIMRUNTIME/macros/matchit.vim
+    endif
 endif
