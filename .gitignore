@@ -2,25 +2,8 @@
 *.local
 !.local
 
-# Vim plugins and temporaries
-**/.vim/.netrwhist
-**/.vim/temp/
-**/.vim/pack/
-**/.vim/spell/
-
-# Ignore ncmpcpp error log
-**/.ncmpcpp/error.log
-
-# Ignore mpd files
-**/mpd/playlists
-**/mpd/database
-**/mpd/log
-**/mpd/pid
-**/mpd/state
-**/mpd/sticker.sql
-
-# Ignore mail files
-**/mail/
+# Ignore logs
+*.log
 
 # Ignore python byte-compiled files
 __pycache__/
@@ -29,3 +12,17 @@ __pycache__/
 
 # Ignore old files
 *.bak
+
+# Vim plugins and temporaries
+**/.vim/.netrwhist
+**/.vim/temp/
+**/.vim/pack/
+**/.vim/spell/
+
+# Ignore mpd database files
+**/mpd/playlists
+**/mpd/database
+**/mpd/log
+**/mpd/pid
+**/mpd/state
+**/mpd/sticker.sql
