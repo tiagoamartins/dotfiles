@@ -17,6 +17,9 @@ if exists("+spelllang")
     nnoremap <silent> <leader>en :set spelllang=en_us<cr>
     nnoremap <silent> <leader>pt :set spelllang=pt_br<cr>
 endif
+" Replace without loosing current yank
+vnoremap <leader>p "_dp
+vnoremap <leader>P "_dP
 
 " Function keys {{{1
 " ------------------
