@@ -31,7 +31,7 @@ else
     set writebackup             " Create backup file after overwriting the file
 endif
 
-" Don't backup files in temp directories or shm
+" Don't backup files in temp or shared memory directories
 if has('wildignore')
     if &backupskip !~ '/tmp/\*'
         set backupskip+=/tmp/*  " Make sure temp files have no backup (security reason)

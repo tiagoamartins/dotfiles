@@ -8,7 +8,7 @@ if has('autocmd')
                     \ endif
     augroup END
 
-    " Don't keep swap files in temp directories or shm
+    " Don't keep swap files in temp or shared memory directories
     augroup swapskip
         autocmd!
         silent! autocmd BufNewFile,BufReadPre
@@ -16,7 +16,7 @@ if has('autocmd')
                     \ setlocal noswapfile
     augroup END
 
-    " Don't keep undo files in temp directories or shm
+    " Don't keep undo files in temp or shared memory directories
     if has('persistent_undo')
         augroup undoskip
             autocmd!
@@ -26,7 +26,7 @@ if has('autocmd')
         augroup END
     endif
 
-    " Don't create viminfo temp directories or shm
+    " Don't create viminfo temp or shared memory directories
     if has('viminfo')
         augroup viminfoskip
             autocmd!

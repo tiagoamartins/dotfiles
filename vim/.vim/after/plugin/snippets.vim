@@ -1,11 +1,11 @@
 " Change snippets default directory.
-let g:UltiSnipsSnippetDirectories = ["snips"]
+let g:UltiSnipsSnippetDirectories = [expand($VIM_HOME . '/snips')]
 
 " Trigger configuration
 let g:UltiSnipsExpandTrigger = '<tab>'
 
 " If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit = 'vertical'
 
 " Automatic insert skeletons.
 augroup SnippetsSkeleton
