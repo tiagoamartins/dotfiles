@@ -125,6 +125,11 @@ if has('cmdline_info')
     set noshowcmd               " Don't show extra info at end (right) of command line
 endif
 
+set completeopt=menu            " Show menu when completing more than one option
+set completeopt+=preview        " Show extra information about the selected completion
+set completeopt+=noinsert       " Do not auto-insert any text
+set completeopt+=noselect       " Do not auto-select a match in the menu
+
 if has('wildmenu')
     set wildmenu                " Visual autocomplete for command menu
 endif
