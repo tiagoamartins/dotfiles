@@ -18,6 +18,7 @@ __pycache__/
 **/.vim/temp/
 **/.vim/pack/
 **/.vim/spell/
+**/.config/nvim/pack/
 
 # Ignore mpd database files
 **/mpd/playlists
