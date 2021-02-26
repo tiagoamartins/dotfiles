@@ -112,18 +112,17 @@ function aur-remove()
 }
 
 # Aliases
-alias d='ls -lah --group-directories-first'
-alias ll='ls -l'
+alias cls='clear'
 alias cp='cp -i'
+alias d='ls -lah --group-directories-first'
+alias diff='diff --color=auto'
+alias gst='git status'
+alias j='jobs'
+alias ll='ls -l'
+alias mutt='neomutt'
 alias mv='mv -i'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
-alias j='jobs'
-alias cls='clear'
-alias gst='git status'
-alias diff='diff --color=auto'
-alias mutt='neomutt'
-
 alias vi=$VISUAL
 
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
