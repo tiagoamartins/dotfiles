@@ -18,3 +18,7 @@ let g:loaded_node_provider = 0
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
+
+lua require'plugin/completion'
+lua require'plugin/lsp'
+lua require'plugin/treesitter'
