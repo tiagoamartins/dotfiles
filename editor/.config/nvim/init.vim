@@ -12,7 +12,7 @@ endif
 let g:loaded_ruby_provider = 0
 
 " disable node js support
-:let g:loaded_node_provider = 0
+let g:loaded_node_provider = 0
 
 " load vim's config
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
