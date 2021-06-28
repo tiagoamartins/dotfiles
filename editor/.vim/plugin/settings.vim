@@ -127,8 +127,10 @@ endif
 
 set completeopt=menu            " Show menu when completing more than one option
 set completeopt+=preview        " Show extra information about the selected completion
-set completeopt+=noinsert       " Do not auto-insert any text
-set completeopt+=noselect       " Do not auto-select a match in the menu
+if v:version > 704 || v:version == 704 && has("patch775")
+    set completeopt+=noinsert       " Do not auto-insert any text
+    set completeopt+=noselect       " Do not auto-select a match in the menu
+endif
 
 if has('wildmenu')
     set wildmenu                " Visual autocomplete for command menu
