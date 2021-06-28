@@ -31,7 +31,7 @@
 ! xterm
 XTerm*Geometry: 291x85
 XTerm*termName: xterm-256color
-XTerm*font: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
+XTerm*faceName: terminus:size=12
 XTerm*locale: true
 XTerm*metaSendsEscape: true
 XTerm*allowWindowOps: true
@@ -41,7 +41,7 @@ XTerm*visualBell: true
 ! rxvt-unicode
 URxvt*geometry: 291x85
 URxvt*termName: xterm-256color
-URxvt*font: -*-terminus-medium-*-*-*-16-*-*-*-*-*-iso10646-1
+URxvt*faceName: terminus:size=12
 URxvt*scrollBar: false
 URxvt*depth: 32
 URxvt*background: rgba:0000/0000/0200/dddd
