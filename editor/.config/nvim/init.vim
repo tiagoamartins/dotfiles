@@ -22,3 +22,4 @@ source ~/.vimrc
 lua require'plugin/completion'
 lua require'plugin/lsp'
 lua require'plugin/treesitter'
+lua require'plugin/interface'
