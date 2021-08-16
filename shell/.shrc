@@ -78,6 +78,19 @@ rf() {
 	hash -r
 }
 
+function aur-vcs()
+{
+	pushd ${AURDEST:-~/.cache/aurutils/sync} > /dev/null
+	aur repo --table | cut -f3 | sort -u | while IFS= read -r pkgbase
+	do
+		if [[ -d $pkgbase/.git ]]
+		then
+			env -C "$pkgbase" git rev-parse HEAD >! ${XDG_DATA_HOME:-~/.local/share}/aurutils/view/$pkgbase
+		fi
+	done
+	popd > /dev/null
+}
+
 function aur-gc()
 {
 	# Remove unused build files in aur-sync cache
