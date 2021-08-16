@@ -29,9 +29,9 @@ fi
 # -X   avoid clearing the screen after exit
 # -#10 shift 10 columns when using left and right arrows
 LESS="FRX#10"
-if [ -z "$LESSOPEN" ] && type lesspipe > /dev/null 2>&1
+if [ -z "$LESSOPEN" ] && type lesspipe.sh > /dev/null 2>&1
 then
-	LESSOPEN='| lesspipe %s'
+	LESSOPEN='| lesspipe.sh %s'
 elif [ -z "$LESSOPEN" ]
 then
 	LESSOPEN='| "$HOME/.lessfilter" %s'
