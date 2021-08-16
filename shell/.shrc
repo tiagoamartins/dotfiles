@@ -115,7 +115,6 @@ function aur-remove()
 alias aur-check='aur repo -d aur --list | aur vercmp'
 alias cls='clear'
 alias cp='cp -i'
-alias d='ls -lah --group-directories-first'
 alias dcm2nii='dcm2niix -v n -z y -f '"'"'%s_%p'"'"
 alias diff='diff --color=auto'
 alias gst='git status'
@@ -128,6 +127,13 @@ alias pacman-last='expac --timefmt='"'"'%Y-%m-%d %T'"'"' '"'"'%l\t%n'"'"' | sort
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
 alias vi=$VISUAL
+
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+	alias d='ls -lah'
+else
+	alias d='ls -lah --group-directories-first'
+fi
 
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
 then
