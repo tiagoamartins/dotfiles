@@ -14,6 +14,9 @@ let g:loaded_ruby_provider = 0
 " disable node js support
 let g:loaded_node_provider = 0
 
+" disable perl support
+let g:loaded_perl_provider = 0
+
 " load vim's config
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
