@@ -11,7 +11,7 @@ nnoremap <leader>= :call cursor#preserve("normal gg=G")<cr>
 " Edit vimrc
 nnoremap <leader>ev :vsp $MYVIMRC<cr>
 " Load vimrc
-nnoremap <leader>sv :source $MYVIMRC <bar> AirlineRefresh<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 " Change spelling language
 if exists("+spelllang")
     nnoremap <silent> <leader>en :set spelllang=en_us<cr>
