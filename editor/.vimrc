@@ -92,6 +92,8 @@ Plug 'vim-python/python-syntax'
 
 call plug#end()
 
+" Color schemes {{{1
+" ------------------
 try
     let g:hybrid_custom_term_colors = 1
     colorscheme hybrid          " Set color scheme
@@ -105,6 +107,7 @@ endtry
 
 " Change drop-down menu color
 highlight PmenuSel ctermfg=black ctermbg=lightgray
+" }}}1
 
 if filereadable(glob($MYVIMRC . ".local"))
     source $MYVIMRC.local
