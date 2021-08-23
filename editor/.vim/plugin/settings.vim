@@ -99,6 +99,7 @@ set cursorline                  " Highlight the current line
 set lazyredraw                  " Redraw only when it needs to
 set showmatch                   " Highlight matching {[()]}
 set nowrap                      " Turn off line wrapping
+set noshowmode                  " Remove mode change message
 set laststatus=2                " Always show status line
 set scrolloff=3                 " Have a number of offset lines (or buffer) when scrolling
 set sidescrolloff=3             " Same as 'scrolloff', but for columns
