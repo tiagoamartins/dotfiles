@@ -15,10 +15,10 @@ __pycache__/
 
 # Vim plugins and temporaries
 **/.vim/.netrwhist
+**/.vim/autoload/plug.vim
 **/.vim/temp/
-**/.vim/pack/
+**/.vim/plugged/
 **/.vim/spell/
-**/.config/nvim/pack/
 
 # Ignore mpd database files
 **/mpd/playlists

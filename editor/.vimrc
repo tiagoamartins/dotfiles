@@ -29,17 +29,68 @@ else
     let $VIM_HOME = expand("$HOME/.vim")
 endif
 
-if &loadplugins && !has('packages')
-    if filereadable('pack/vendor/opt/pathogen/autoload/pathogen.vim')
-        if has("vim_starting")
-            runtime! pack/vendor/opt/pathogen/autoload/pathogen.vim
-        endif
-
-        execute pathogen#infect()
-    else
-        echomsg "No package support detected!"
-    endif
+" Plugins {{{1
+" ------------
+let plug_file = expand($VIM_HOME . '/autoload/plug.vim')
+if empty(glob(plug_file))
+    silent execute '!curl -fLo ' . plug_file . ' --create-dirs'
+                \ . ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
+
+" Helper function for conditional plug
+function! Cond(cond, ...)
+    let opts = get(a:000, 0, {})
+    return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
+" Specify a directory for plugins
+call plug#begin(expand($VIM_HOME . '/plugged'))
+
+" Colors
+Plug 'w0ng/vim-hybrid'
+
+" Editing
+Plug 'AndrewRadev/switch.vim'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
+Plug 'SirVer/ultisnips'
+Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
+Plug 'hrsh7th/nvim-compe', Cond(has('nvim'))
+Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
+Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
+Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'))
+Plug 'nvim-treesitter/nvim-treesitter-refactor', Cond(has('nvim'))
+Plug 'nvim-treesitter/nvim-treesitter-textobjects', Cond(has('nvim'))
+Plug 'p00f/nvim-ts-rainbow', Cond(has('nvim'))
+Plug 'romgrk/nvim-treesitter-context', Cond(has('nvim'))
+Plug 'tpope/vim-apathy'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+
+" Interface
+Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
+Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
+
+" Plugins
+Plug 'aliev/vim-compiler-python'
+Plug 'janko-m/vim-test'
+Plug 'machakann/vim-swap'
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+
+" Syntax
+Plug 'ARM9/arm-syntax-vim'
+Plug 'Shirk/vim-gas'
+Plug 'WeiChungWu/vim-SystemVerilog'
+Plug 'tpope/vim-git'
+Plug 'vim-python/python-syntax'
+
+call plug#end()
 
 try
     let g:hybrid_custom_term_colors = 1
