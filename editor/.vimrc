@@ -19,6 +19,16 @@ if has('pythonx')
     endif
 endif
 
+" Home Directory {{{1
+" -------------------
+" Get the vim files directory
+" In Windows/Linux, take in a difference of '.vim' and 'vimfiles'
+if has("win32") || has ("win64")
+    let $VIM_HOME = expand("$HOME/vimfiles")
+else
+    let $VIM_HOME = expand("$HOME/.vim")
+endif
+
 if &loadplugins && !has('packages')
     if filereadable('pack/vendor/opt/pathogen/autoload/pathogen.vim')
         if has("vim_starting")

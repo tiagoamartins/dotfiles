@@ -6,16 +6,6 @@ set hidden                      " Allow you to hide buffers with unsaved changes
 set encoding=utf-8
 set fileencodings=utf-8
 
-" Home Directory {{{1
-" -------------------
-" Get the vim files directory
-" In Windows/Linux, take in a difference of '.vim' and 'vimfiles'
-if has("win32") || has ("win64")
-    let $VIM_HOME = expand("$HOME/vimfiles")
-else
-    let $VIM_HOME = expand("$HOME/.vim")
-endif
-
 " Backup & Swap {{{1
 " ------------------
 if exists('$SUDO_USER')         " Don't create root-owned files
