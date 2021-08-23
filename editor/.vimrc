@@ -47,7 +47,7 @@ endfunction
 call plug#begin(expand($VIM_HOME . '/plugged'))
 
 " Colors
-Plug 'w0ng/vim-hybrid'
+Plug 'tiagoamartins/vim-hybrid'
 
 " Editing
 Plug 'AndrewRadev/switch.vim'
@@ -96,6 +96,7 @@ call plug#end()
 " ------------------
 try
     let g:hybrid_custom_term_colors = 1
+    set background=dark
     colorscheme hybrid          " Set color scheme
 
     if has('termguicolors') && &term !~ ".*rxvt.*"
