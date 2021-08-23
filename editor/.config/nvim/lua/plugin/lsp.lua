@@ -1,4 +1,8 @@
-local nvim_lsp = require('lspconfig')
+local ok, nvim_lsp = pcall(require, 'lspconfig')
+
+if not ok then
+	return
+end
 
 local function on_attach(client, bufnr)
 	local function buf_map(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end

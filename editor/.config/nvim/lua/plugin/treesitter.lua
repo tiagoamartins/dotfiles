@@ -1,4 +1,10 @@
-require'nvim-treesitter.configs'.setup{
+local ok, treesitter = pcall(require, 'nvim-treesitter.configs')
+
+if not ok then
+	return
+end
+
+treesitter.setup{
 	ensure_installed = {'bash', 'c', 'html', 'json', 'lua', 'python', 'rst'},
 	context_commentstring = {
 		enable = true,
@@ -69,6 +75,12 @@ require'nvim-treesitter.configs'.setup{
 	}
 }
 
-require'treesitter-context.config'.setup{
+local ok, treesitter_context pcall(require, 'treesitter-context.config')
+
+if not ok then
+	return
+end
+
+treesitter_context.setup{
 	enable = true,
 }
