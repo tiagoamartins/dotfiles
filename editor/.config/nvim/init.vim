@@ -22,6 +22,10 @@ set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath = &runtimepath
 source ~/.vimrc
 
+if filereadable(glob("~/.vimrc.local"))
+    source ~/.vimrc.local
+endif
+
 lua require'plugin/compe'
 lua require'plugin/lsp'
 lua require'plugin/treesitter'
