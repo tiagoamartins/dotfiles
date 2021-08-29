@@ -67,7 +67,7 @@ function! s:UserColors() abort
 
     " Fallback to statusline colors when the current color scheme does not
     " define StatusLine colors.
-    if len(l:bg.cterm) == 0
+    if len(l:bg.cterm) == 0 || l:bg.cterm < 0
         let l:bg.cterm = s:fallback_bg.cterm
     endif
     if len(l:bg.gui) == 0
