@@ -51,11 +51,6 @@ function! s:Block(text, modifier, ...) abort
     return strlen(l:modifier) ? l:modifier . l:text . '%*' : l:text
 endfunction
 
-function! s:Mode(mode, lpad, rpad) abort
-    let [l:color, l:text] = get(s:modes, a:mode, ['%1*', 'normal'])
-    return s:Block(l:text, l:color, a:lpad, a:rpad)
-endfunction
-
 function! s:FileIcon() abort
     if !get(g:, 'statusline_nerd_icon', 0) || bufname('%') == ''
         return ''
@@ -117,6 +112,11 @@ function! s:WhitespaceCheck(modifier, lpad, rpad) abort
     endif
 
     return s:Block(b:statusline_whitespace_warning, a:modifier, a:lpad, a:rpad)
+endfunction
+
+function! statusline#Mode(mode, lpad, rpad) abort
+    let [l:color, l:text] = get(s:modes, a:mode, ['%1*', 'normal'])
+    return s:Block(l:text, l:color, a:lpad, a:rpad)
 endfunction
 
 function! statusline#File(modifier, lpad) abort
@@ -206,10 +206,10 @@ function! statusline#Plugins() abort
 endfunction
 
 function! statusline#ActiveStatusLine() abort
-    let l:statusline = s:Mode(mode(), 1, 1)
-    let l:statusline .= statusline#File('%<', 1)
-    let l:statusline .= statusline#Flags('%5*', 1)
-    let l:statusline .= statusline#GitBranch('%6*', 1)
+    let l:statusline = "%{%statusline#Mode(mode(), 1, 1)%}"
+    let l:statusline .= "%{%statusline#File('%<', 1)%}"
+    let l:statusline .= "%{%statusline#Flags('%5*', 1)%}"
+    let l:statusline .= "%{%statusline#GitBranch('%6*', 1)%}"
     let l:statusline .= '%='
     let l:statusline .= '%{&filetype}' " FileType
     let l:statusline .= " | %{&fenc != '' ? &fenc : &enc}[%{&ff}]" " Encoding & Fileformat
@@ -226,8 +226,8 @@ function! statusline#ActiveStatusLine() abort
 endfunction
 
 function! statusline#InactiveStatusLine() abort
-    let l:statusline = statusline#File('%<', 1)
-    let l:statusline .= statusline#Flags('', 1)
+    let l:statusline = "%{%statusline#File('%<', 1)%}"
+    let l:statusline .= "%{%statusline#Flags('', 1)%}"
     let l:statusline .= '%=%l:%c | %{statusline#FileSize()} | %p%% '
 
     return l:statusline
