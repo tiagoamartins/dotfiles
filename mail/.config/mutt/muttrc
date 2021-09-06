@@ -1,0 +1,118 @@
+# Paths {{{1
+set alias_file = `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/aliases.local`
+set certificate_file = `echo ${XDG_DATA_HOME:-$HOME/.local/share}/mutt/certificates`
+set folder = $HOME/.mail
+set header_cache = `echo ${XDG_CACHE_HOME:-$HOME/.cache}/mutt/headers`
+set mailcap_path = `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/mailcap`
+set message_cachedir = `echo ${XDG_CACHE_HOME:-$HOME/.cache}/mutt/messages`
+
+# Basic {{{1
+set charset = UTF-8
+set copy		# Store a copy of sent mail in the record
+set delete		# Don't confirm deletes
+set mail_check = 0	# Minimum time between scans
+set mail_check_stats
+set mbox_type = Maildir	# Mailbox type
+set mask = "!^\\.[^.]"	# Mask the dot from mailbox name
+set pipe_decode		# Strip headers and eval mimes when piping
+set send_charset = "us-ascii:utf-8"
+set thorough_search	# Strip headers and eval mimes before searching
+set timeout = 3		# Idle time before scanning
+unset allow_8bit	# 8-bit isn't safe
+unset beep		# No beeping software
+unset confirmappend	# Don't prompt every time we append to mailbox
+unset imap_passive	# Prevent mutt from opening new imap connection automatically.
+unset mark_old		# Read/new is good enough for me
+unset move		# Don't move to archive when read
+unset wait_key		# Don't prompt for <enter> so much
+
+set new_mail_command = "notify-send 'New Email' '%?n?%n new messages,? %?u?%u unread.?' &"
+
+# Aliases {{{1
+set reverse_alias
+set sort_alias = alias
+
+# Index view {{{1
+set date_format = "!%a, %b %d, %Y (%I:%M%P)"
+set index_format = "%4C (%-4.4c) %Z %[%b %d] %-20.20F %s"
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set sleep_time = 0	# Instantaneous mailbox change
+set sort = threads
+set sort_aux = reverse-last-date-received
+set sort_re		# Thread based on regex
+set uncollapse_jump	# Jump to next unread message for uncollapsed thread
+
+# Pager view {{{1
+set markers			# Show ugly plus signs (with discrete color, it's tolerable)
+set menu_scroll			# Scroll in menus
+set pager_context = 3		# Number of context lines to show
+set pager_index_lines = 10	# Number of index lines to show
+set pager_stop			# Don't go to next message automatically
+set tilde			# Show tildes like in vim
+set wrap = 80			# make text 80 columns long (easier to read)
+
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+# Composing view {{{1
+set attribution = "* %n <%a> [%{%Y-%m-%d %H:%M:%S %Z}]:\n"
+set edit_headers		# Show headers when composing
+set envelope_from		# Select which account to use as from:
+set fast_reply			# Skip to compose when replying
+set forward_decode		# Decode when forwarding
+set forward_format = "Fwd: %s"	# Format of subject when forwarding
+set forward_quote		# Include message in forwards
+set include			# Include message in replies
+set reply_to			# Reply to Reply to: field
+set reverse_name		# Reply as whomever it was to
+set sig_dashes			# Dashes before signature
+set text_flowed			# Add format=flowed to remove hard breaks on quoted text
+set mime_forward		# Forward message as MIME attachments
+set use_from
+
+# Editor {{{1
+set editor = `echo \$EDITOR`
+
+# Status bar {{{1
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# Sidebar {{{1
+set sidebar_delim_chars = "/."
+set sidebar_divider_char = "┃"
+set sidebar_folder_indent
+set sidebar_format = '%B%?F? [%F]?%* (%?N?%N/?%S)'
+set sidebar_indent_string = "  "
+set sidebar_short_path
+set sidebar_visible
+
+# SSL hardening {{{1
+set ssl_force_tls = yes
+set ssl_starttls = yes
+set ssl_use_sslv3 = no
+set ssl_use_tlsv1 = no
+set ssl_use_tlsv1_1 = no
+set ssl_use_tlsv1_2 = yes
+set ssl_verify_dates = yes
+set ssl_verify_host = yes
+# }}}1
+
+set crypt_verify_sig
+set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
+
+source $alias_file
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/alternates.local`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/autoviews`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/headers`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/folder-hooks`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/message-hooks`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/bindings`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/macros`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/colors`
+
+source "`echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/accounts.sh` |"
+
+# HTML is the last option
+alternative_order text/enriched text/plain text/html
+
+# Start with Gmail
+set spoolfile = "+gmail"

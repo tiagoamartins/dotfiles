@@ -1,0 +1,21 @@
+# From field gets 30% of remaining space
+# Remaining space is the total width minus the other fields (46 characters long),
+# minus the sidebar (30 characters long).
+#
+# Test  Date Range  Format String  Example
+# --------------------------------------------
+# %[d   Today       %[%I:%M%P]      12:34pm
+# %[m   This month  %[%a %d ]       Thu 12
+# %[y   This year   %[%b %d ]       Dec 10
+#  —    Older       %[%m/%y  ]      06/15
+set my_col_from = `echo $((25 * ($(tput cols)-46-30) / 100))`
+set index_format = "%4C (%-4.4c) %Z %?GI?%GI& ? %<[y?%<[m?%<[d?%[%I:%M%P]&%[%a %d ]>&%[%b %d ]>&%[%m/%y  ]> %-${my_col_from}.${my_col_from}F %?K?%15.15K&               ? %?X?¤& ? %?M?<%M> ?%s %> %?g?%g?"
+
+# Set default signature
+set signature = `echo ${XDG_CACHE_HOME:-$HOME/.config}/mutt/signature.local`
+
+source `echo ${XDG_CACHE_HOME:-$HOME/.config}/mutt/defaults.local`
+
+push <collapse-all>
+
+# vim: filetype=muttrc

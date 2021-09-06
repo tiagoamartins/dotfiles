@@ -1,0 +1,10 @@
+text/html; /usr/bin/xdg-open %s & sleep 5; test=test -n "$DISPLAY"; edit=gvim; compose=gvim; nametemplate=%s.html
+text/html; w3m -v -F -I %{charset} -T text/html %s; edit=vim; compose=vim; nametemplate=%s.html; needsterminal
+text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -stdin -dump -force_html; nametemplate=%s.html; copiousoutput
+text/*; less; copiousoutput
+image/*; /usr/bin/xdg-open %s
+application/pdf; /usr/bin/xdg-open %s
+application/x-gunzip; gunzip -c %s; copiousoutput
+application/x-tar-gz; gunzip -c %s | tar -tf - ; copiousoutput
+application/postscript; ps2ascii %s; copiousoutput
+application/vnd.openxmlformats-officedocument.*; /usr/bin/xdg-open %s

@@ -1,0 +1,9 @@
+[Unit]
+Description=Mailbox synchronization service
+Requires=gpg-agent.service
+Wants=network.target
+After=gpg-agent.service network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync -Va

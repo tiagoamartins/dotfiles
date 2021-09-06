@@ -1,0 +1,128 @@
+# Basic colors {{{1
+color	normal			color250	default		# gray
+color	error			color196	default		# red
+color	tilde			color238	default		# darker gray
+color	message			color41		default		# light green
+color	markers			color111	default		# light purple
+color	attachment		color240	default		# dark gray
+color	search			color235	brightyellow
+color	status			white		black
+color	indicator		color253	color237	# white with slightly brighter background
+color	tree			color136	default		# arrow in threads (yellow gold)
+
+# Basic monocolor {{{2
+mono	bold			bold
+mono	underline		underline
+mono	indicator		reverse
+mono	error			bold
+
+# Sidebar {{{1
+color	sidebar_divider		color240	default		# dark gray
+color	sidebar_flagged		red		default
+color	sidebar_highlight	color253	color237	# bright white
+color	sidebar_indicator	color208	default		# bright orange
+color	sidebar_new		color65		default		# dark green
+color	sidebar_spoolfile	blue		default
+
+# Index {{{1
+color	index			color244	default		'~A'		# all messages
+
+# Message status {{{2
+color	index			color239	default		'~P'		# messages from me
+color	index			color29		default		'~U'		# unread messages
+color	index			color35		default		'~N'		# new messages
+color	index			color64		default		'~S'		# superseded messages
+
+# Messages to me {{{2
+color	index			color24		default		'~p!~F'		# messages to me
+color	index			color27		default		'~U~p!~F'	# unread messages to me
+color	index			color33		default		'~N~p!~F'	# new messages to me
+
+# Replied messages {{{2
+color	index			color61		default		'~Q'		# messages that have been replied to
+
+# Flagged messages {{{2
+color	index			color125	default		'~F'		# flagged messages
+color	index			color161	default		'~U~F'		# unread flagged messages
+color	index			color197	default		'~N~F'		# new flagged messages
+color	index			color124	default		'~F~p'		# flagged messages to me
+color	index			color160	default		'~U~F~p'	# unread flagged messages to me
+color	index			color196	default		'~N~F~p'	# new flagged messages to me
+
+# Collapsed thread {{{2
+color	index			color244	color235	'~v'		# messages in a collapsed thread
+color	index			color24		color235	'~v~(~p)'	# collapsed thread with some directly to me
+color	index			color35		color235	'~v~(~U)'	# collapsed thread with some unread
+color	index			color35		color236	'~N~v~(~U)'	# collapsed thread with unread parent
+color	index			color125	color235	'~v~(~F)!~U'	# collapsed thread with flagged, no unread
+color	index			color161	color235	'~v~(~F~U)'	# collapsed thread with some unread & flagged
+color	index			color161	color236	'~N~v~(~F)'	# collapsed thread with unread parent, no unread inside, but some flagged
+color	index			color197	color236	'~N~v~(~F~U)'	# collapsed thread with unread parent & flagged
+color	index			color235	color196	'~v~(~D)'	# thread with deleted (doesn't differentiate between all or partial)
+
+# Warnings {{{2
+color	index			color172	default		'~='		# duplicate messages
+color	index			color166	default		'~E'		# expired messages
+color	index			color235	color160	'~D'		# deleted messages
+
+# Tagged {{{2
+color	index			color250	color239	'~T'		# tagged messages
+color	index			color232	color161	'~T ~D'		# tagged deleted messages
+
+# Message headers {{{1
+color	hdrdefault		color25		default				# dark blue
+color	header			color27		default		"^From"		# vivid blue
+color	header			color33		default		"^Subject"	# light blue
+
+# Body {{{1
+color	quoted			color39		default		# light blue
+color	quoted1			color35		default		# green
+color	quoted2			color185	default		# yellow
+color	quoted3			color208	default		# orange
+color	quoted4			color175	default		# light pink
+
+color	signature		color244	default		# gray
+
+# PGP {{{2
+color	body			color160	default		"(BAD signature)"		# red
+color	body			color37		default		"(Good signature)"		# light green
+color	body			default		default		"^gpg: Good signature .*"
+color	body			color241	default		"^gpg: "			# gray
+color	body			color235	color160	"^gpg: BAD signature from.*"	# gray in red background
+mono	body			bold				"^gpg: Good signature"
+mono	body			bold				"^gpg: BAD signature from.*"
+
+# URLs {{{2
+color	body			magenta		default		"([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+
+# Email addresses {{{2
+color	body			blue 		default		"((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# Various smilies {{{2
+color	body			color136	default		" [;:]-*[})>{(<|]"	# :-) etc...
+color	body			color136	default		" [;:][-o][)/(|]"	# emoticons
+color	body			color136	default		" [;:][)(|]"		# emoticons
+
+# *bold* {{{2
+color	bold			color70		default		# lime green
+color	body			color70		default		"(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"	# lime green
+mono	body			bold				"(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+
+# _underline_ {{{2
+color	underline		color70		default		# lime green
+color	body			color70		default		"(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"	# lime green
+mono	body			underline			"(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+
+# /italic/  (Sometimes gets directory names) {{{2
+color	body			color70		default		"(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"	# lime green
+mono	body			underline			"(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+
+# Border lines {{{2
+color	body			green		default		"( *[-+=#*~_]){6,}"
+
+# }}}2
+
+# Load local coloring
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/colors.local`
+
+# vim: filetype=muttrc

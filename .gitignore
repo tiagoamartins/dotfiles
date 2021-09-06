@@ -27,3 +27,7 @@ __pycache__/
 **/mpd/pid
 **/mpd/state
 **/mpd/sticker.sql
+
+# Ignore mail files
+**/mail/.mbsyncrc
+**/mail/**/default.target.wants

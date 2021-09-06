@@ -1,0 +1,23 @@
+# Ignore all headers
+ignore *
+unhdr_order *
+
+# Show only selected headers
+unignore subject:
+unignore from:
+unignore to:
+unignore cc:
+unignore bcc:
+unignore reply-to:
+unignore mail-followup-to
+unignore date:
+unignore Organization:
+unignore Newsgroups:
+unignore X-Junked-Because:
+unignore X-SpamProbe:
+unignore X-Virus-hagbard:
+
+# Order the visible header lines
+hdr_order subject: from: to: cc: bcc: reply-to: mail-followup-to: date: organization:
+
+# vim: filetype=muttrc

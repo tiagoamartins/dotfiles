@@ -1,0 +1,8 @@
+auto_view text/html
+auto_view application/pgp-encrypted
+auto_view text/calendar
+auto_view application/x-gunzip
+auto_view application/x-tar-gz
+auto_view application/postscript
+
+# vim: filetype=muttrc
