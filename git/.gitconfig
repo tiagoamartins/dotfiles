@@ -15,7 +15,7 @@
 	br = branch
 [push]
 	default = matching
-[include]
-	path = .gitconfig.local
 [init]
 	defaultBranch = master
+[include]
+	path = .gitconfig.local
