@@ -20,35 +20,57 @@ let s:modes = {
             \ 't':      ['%2*', 'terminal']
             \}
 
+function! s:TestFuncValid(func, text) abort
+    if !strlen(a:text)
+        return ''
+    end
+
+    return '%{strlen(' . get(a:func, 'name') . "()) ? '" . a:text . "' : ''}"
+endfunction
+
 function! s:Block(text, modifier, ...) abort
+    let l:t_int = exists('v:t_int') ? v:t_int : type(1)
     let l:t_func = exists('v:t_func') ? v:t_func : type(function('type'))
     let l:t_string = exists('v:t_string') ? v:t_string : type('')
-    let l:pad_left = repeat(' ', get(a:, 1, 0))
-    let l:pad_right = repeat(' ', get(a:, 2, 0))
+    let l:lpad = get(a:, 1, 0)
+    let l:rpad = get(a:, 2, 0)
+
+    if type(l:lpad) == l:t_int
+        let l:lpad = repeat(' ', l:lpad)
+    end
+    if type(l:rpad) == l:t_int
+        let l:rpad = repeat(' ', l:rpad)
+    end
 
     if type(a:text) == l:t_func
-        let l:text_raw = a:text()
+        let l:raw = '%{' . get(a:text, 'name') . '()}'
+        let l:lpad = s:TestFuncValid(a:text, l:lpad)
+        let l:rpad = s:TestFuncValid(a:text, l:rpad)
     elseif type(a:text) == l:t_string
-        let l:text_raw = a:text
+        let l:raw = a:text
     else
         throw 'statusline: wrong argument type for a:text'
     endif
 
-    if strlen(l:text_raw)
-        let l:text = l:pad_left . l:text_raw . l:pad_right
-    else
+    if !strlen(l:raw)
         return ''
     endif
 
-    if type(a:modifier) == l:t_func
-        let l:modifier = a:modifier(l:text)
-    elseif type(a:modifier) == l:t_string
-        let l:modifier = a:modifier
-    else
-        throw 'statusline: wrong argument type for a:modifier'
-    endif
+    if strlen(a:modifier)
+        let l:text = a:modifier . l:raw
 
-    return strlen(l:modifier) ? l:modifier . l:text . '%*' : l:text
+        if a:modifier =~# '%\d\*'
+            let l:text .= '%*'
+        end
+    else
+        let l:text = l:raw
+    end
+
+    return l:lpad . l:text . l:rpad
+endfunction
+
+function! s:BlockFunc(func, modifier, ...) abort
+    return call('s:Block', [function(a:func), a:modifier] + a:000)
 endfunction
 
 function! s:FileIcon() abort
@@ -86,7 +108,7 @@ function! s:ShortFilePath(path) abort
     endif
 endfunction
 
-function! s:WhitespaceCheck(modifier, lpad, rpad) abort
+function! s:WhitespaceCheck() abort
     " Mixed indent, bad expandtab or trailing spaces warning, see <https://github.com/millermedeiros/vim-statline>.
     if !exists('b:statusline_whitespace_warning')
         let l:warning = ''
@@ -111,25 +133,25 @@ function! s:WhitespaceCheck(modifier, lpad, rpad) abort
         let b:statusline_whitespace_warning = l:warning
     endif
 
-    return s:Block(b:statusline_whitespace_warning, a:modifier, a:lpad, a:rpad)
+    return b:statusline_whitespace_warning
 endfunction
 
-function! statusline#Mode(mode, lpad, rpad) abort
+function! statusline#Mode(mode) abort
     let [l:color, l:text] = get(s:modes, a:mode, ['%1*', 'normal'])
-    return s:Block(l:text, l:color, a:lpad, a:rpad)
+    return s:Block(' ' . l:text . ' ', l:color)
 endfunction
 
-function! statusline#File(modifier, lpad) abort
+function! statusline#File() abort
     if &buftype != ''
         let l:file = expand('%:t')
     else
         let l:file = s:ShortFilePath(expand('%'))
     endif
 
-    return s:Block(s:FileIcon() . l:file, a:modifier, a:lpad)
+    return s:FileIcon() . l:file
 endfunction
 
-function! statusline#Flags(modifier, lpad) abort
+function! statusline#Flags() abort
     let l:flags = []
     if (&modifiable && &modified)
         call add(l:flags, '+')
@@ -139,22 +161,15 @@ function! statusline#Flags(modifier, lpad) abort
         call add(l:flags, 'RO')
     endif
 
-    return s:Block(join(l:flags), a:modifier, a:lpad)
+    return join(l:flags)
 endfunction
 
-function! statusline#GitBranch(modifier, lpad) abort
+function! statusline#GitBranch() abort
     if !get(g:, 'statusline_git', 1) || !exists('g:loaded_fugitive')
         return ''
     endif
 
-    let l:pad_left = repeat(' ', a:lpad)
-    let l:branch = s:Block(fugitive#head(), a:modifier)
-
-    if strlen(l:branch)
-        return l:pad_left . '[' . l:branch . ']'
-    else
-        return ''
-    endif
+    return fugitive#head()
 endfunction
 
 " Find out current buffer's size and output it
@@ -184,21 +199,21 @@ endfunction
 function! statusline#Plugins() abort
     let l:status = []
 
-    let l:whitespace = s:WhitespaceCheck('%7*', 1, 1)
+    let l:whitespace = s:WhitespaceCheck()
     if strlen(l:whitespace)
-        call add(l:status, l:whitespace)
+        call add(l:status, s:Block(' ' . l:whitespace . ' ', '%7*'))
     endif
 
     " Neovim LSP diagnostics indicator
     if has('nvim-0.5')
         let l:warnings = luaeval('vim.lsp.diagnostic.get_count(0, [[Warning]])')
         if l:warnings > 0
-            call add(l:status, s:Block('warning [' . l:warnings . ']', '%8*', 0))
+            call add(l:status, s:Block('warning [' . l:warnings . ']', '%8*'))
         endif
 
         let l:errors = luaeval('vim.lsp.diagnostic.get_count(0, [[Error]])')
         if l:errors > 0
-            call add(l:status, s:Block('error [' . l:errors . ']', '%9*', 1, 1))
+            call add(l:status, s:Block(' error [' . l:errors . '] ', '%9*'))
         endif
     endif
 
@@ -206,10 +221,11 @@ function! statusline#Plugins() abort
 endfunction
 
 function! statusline#ActiveStatusLine() abort
-    let l:statusline = "%{%statusline#Mode(mode(), 1, 1)%}"
-    let l:statusline .= "%{%statusline#File('%<', 1)%}"
-    let l:statusline .= "%{%statusline#Flags('%5*', 1)%}"
-    let l:statusline .= "%{%statusline#GitBranch('%6*', 1)%}"
+    let l:statusline = statusline#Mode(mode())
+    let l:statusline .= '%<'
+    let l:statusline .= s:BlockFunc('statusline#File', '', 1)
+    let l:statusline .= s:BlockFunc('statusline#Flags', '%5*', 1)
+    let l:statusline .= s:BlockFunc('statusline#GitBranch', '%6*', '  [', ']')
     let l:statusline .= '%='
     let l:statusline .= '%{&filetype}' " FileType
     let l:statusline .= " | %{&fenc != '' ? &fenc : &enc}[%{&ff}]" " Encoding & Fileformat
@@ -226,8 +242,9 @@ function! statusline#ActiveStatusLine() abort
 endfunction
 
 function! statusline#InactiveStatusLine() abort
-    let l:statusline = "%{%statusline#File('%<', 1)%}"
-    let l:statusline .= "%{%statusline#Flags('', 1)%}"
+    let l:statusline = '%<'
+    let l:statusline .= s:BlockFunc('statusline#File', '', 1)
+    let l:statusline .= s:BlockFunc('statusline#Flags', '', 1)
     let l:statusline .= '%=%l:%c | %{statusline#FileSize()} | %p%% '
 
     return l:statusline
