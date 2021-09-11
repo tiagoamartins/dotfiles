@@ -72,6 +72,7 @@ Plug 'tpope/vim-unimpaired'
 " Interface
 Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
 Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
+Plug 'ray-x/lsp_signature.nvim', Cond(has('nvim'))
 
 " Plugins
 Plug 'aliev/vim-compiler-python'
