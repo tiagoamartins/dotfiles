@@ -45,7 +45,7 @@ then
 fi
 
 # also copy via X11
-if [ -n "$DISPLAY" ]
+if [ -n "$DISPLAY" ] && [[ "$OSTYPE" == "linux-gnu"* ]]
 then
 	printf %s "$buf" | { xsel -i -b 2> /dev/null || xclip -sel c ;}
 fi
