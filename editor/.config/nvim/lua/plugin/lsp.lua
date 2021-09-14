@@ -50,11 +50,23 @@ local function on_attach(client, bufnr)
 	end
 end
 
+local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
+
+if ok then
+	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities = cmp_lsp.update_capabilities(capabilities)
+else
+	local capabilities = {}
+end
+
 -- use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
 local servers = {'clangd'}
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup{on_attach = on_attach}
+	nvim_lsp[lsp].setup{
+		capabilities = capabilities,
+		on_attach = on_attach,
+	}
 end
 
 nvim_lsp['pyright'].setup{

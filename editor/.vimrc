@@ -68,6 +68,15 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
+" Completion
+Plug 'f3fora/cmp-spell', Cond(has('nvim'))
+Plug 'hrsh7th/cmp-buffer', Cond(has('nvim'))
+Plug 'hrsh7th/cmp-nvim-lsp', Cond(has('nvim'))
+Plug 'hrsh7th/cmp-path', Cond(has('nvim'))
+Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
+Plug 'quangnguyen30192/cmp-nvim-tags', Cond(has('nvim'))
+Plug 'quangnguyen30192/cmp-nvim-ultisnips', Cond(has('nvim'))
+
 " Interface
 Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
 Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
