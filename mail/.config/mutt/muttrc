@@ -54,7 +54,7 @@ set wrap = 80			# make text 80 columns long (easier to read)
 set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 
 # Composing view {{{1
-set attribution = "* %n <%a> [%{%Y-%m-%d %H:%M:%S %Z}]:\n"
+set attribution = "On %{!%a, %b %e, %Y at %I:%M %p %Z}, %n <%a> wrote:"
 set edit_headers		# Show headers when composing
 set envelope_from		# Select which account to use as from:
 set fast_reply			# Skip to compose when replying
