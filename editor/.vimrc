@@ -54,7 +54,6 @@ Plug 'AndrewRadev/switch.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
 Plug 'SirVer/ultisnips'
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
-Plug 'hrsh7th/nvim-compe', Cond(has('nvim'))
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
 Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
 Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'))
