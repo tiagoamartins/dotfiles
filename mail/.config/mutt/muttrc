@@ -112,7 +112,7 @@ source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/colors`
 source "`echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/accounts.sh` |"
 
 # HTML is the last option
-alternative_order text/enriched text/plain text/html
+alternative_order text/plain text/enriched text/html
 
 # Start with Gmail
 set spoolfile = "+gmail"
