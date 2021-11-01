@@ -27,7 +27,7 @@ function is_app_installed()
 	command -v "$1" > /dev/null
 }
 
-# copy via X11
+# copy via X11 or pbcopy
 if [[ "$OSTYPE" == "linux-gnu"* ]] && [ -z ${DISPLAY+x} ]
 then
 	if is_app_installed "xsel"
@@ -37,6 +37,9 @@ then
 	then
 		backend="xclip -in -selection clipboard"
 	fi
+elif [[ "$OSTYPE" == "darwin"* ]]
+then
+	backend="pbcopy"
 fi
 
 if [ ! -z ${backend+x} ]
