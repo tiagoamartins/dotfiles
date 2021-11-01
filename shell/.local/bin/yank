@@ -64,4 +64,15 @@ then
 	esc="\eP\e$esc\e\\"
 fi
 
-printf "$esc"
+if [ -z ${SSH_TTY+x} ]
+then
+	printf "$esc"
+else
+	if [ ! -z ${TMUX+x} ]
+	then
+		# refresh SSH_TTY on the attached tmux session
+		eval $(tmux show-environment SSH_TTY)
+	fi
+
+	printf "$esc" > "$SSH_TTY"
+fi
