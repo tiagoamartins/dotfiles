@@ -33,6 +33,7 @@ local config = {
 		['<C-y>'] = cmp.config.disable
 	},
 	sources = {
+		{ name = 'luasnip' },
 		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
 		{ name = 'tags' },
@@ -40,5 +41,32 @@ local config = {
 		{ name = 'buffer', keyword_length = 5 }
 	}
 }
+
+local ok, luasnip = pcall(require, 'luasnip')
+if ok then
+	config.snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end
+	}
+end
+
+local ok, lspkind = pcall(require, 'lspkind')
+if ok then
+	config.formatting = {
+		format = lspkind.cmp_format {
+			with_text = true,
+			menu = {
+				buffer = '[buf]',
+				luasnip = '[snip]',
+				nvim_lsp = '[lsp]',
+				nvim_lua = '[api]',
+				path = '[path]',
+				spell = '[spell]',
+				tags = '[tags]'
+			}
+		}
+	}
+end
 
 cmp.setup(config)

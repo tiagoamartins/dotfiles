@@ -52,6 +52,7 @@ Plug 'tiagoamartins/vim-hybrid'
 " Editing
 Plug 'AndrewRadev/switch.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
+Plug 'L3MON4D3/LuaSnip', Cond(has('nvim'))
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
 Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
@@ -77,9 +78,11 @@ Plug 'hrsh7th/cmp-nvim-lua', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-path', Cond(has('nvim'))
 Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'quangnguyen30192/cmp-nvim-tags', Cond(has('nvim'))
+Plug 'saadparwaiz1/cmp_luasnip', Cond(has('nvim'))
 
 " Interface
 Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
+Plug 'onsails/lspkind-nvim', Cond(has('nvim'))
 Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
 Plug 'ray-x/lsp_signature.nvim', Cond(has('nvim'))
 
