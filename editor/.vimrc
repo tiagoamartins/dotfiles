@@ -73,6 +73,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'f3fora/cmp-spell', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-buffer', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-nvim-lsp', Cond(has('nvim'))
+Plug 'hrsh7th/cmp-nvim-lua', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-path', Cond(has('nvim'))
 Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'quangnguyen30192/cmp-nvim-tags', Cond(has('nvim'))

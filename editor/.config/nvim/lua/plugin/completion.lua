@@ -33,6 +33,7 @@ local config = {
 		['<C-y>'] = cmp.config.disable
 	},
 	sources = {
+		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
 		{ name = 'tags' },
 		{ name = 'path' },
