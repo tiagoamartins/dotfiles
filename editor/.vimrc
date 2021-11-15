@@ -52,7 +52,6 @@ Plug 'tiagoamartins/vim-hybrid'
 " Editing
 Plug 'AndrewRadev/switch.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
-Plug 'SirVer/ultisnips'
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
 Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
 Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
@@ -75,7 +74,6 @@ Plug 'hrsh7th/cmp-nvim-lsp', Cond(has('nvim'))
 Plug 'hrsh7th/cmp-path', Cond(has('nvim'))
 Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
 Plug 'quangnguyen30192/cmp-nvim-tags', Cond(has('nvim'))
-Plug 'quangnguyen30192/cmp-nvim-ultisnips', Cond(has('nvim'))
 
 " Interface
 Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
