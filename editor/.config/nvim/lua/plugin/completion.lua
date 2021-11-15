@@ -1,28 +1,43 @@
 local ok, cmp = pcall(require, 'cmp')
-
 if not ok then
 	return
 end
 
-local t = function(str)
-	return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-	local col = vim.fn.col('.') - 1
-	return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-
-cmp.setup {
-	mapping = {
+local config = {
+	experimental = {
+		ghost_text = true,
+		native_menu = false
 	},
-	snippet = {
+	mapping = {
+		['<C-j>'] = cmp.mapping(
+			cmp.mapping.confirm({
+				behavior = cmp.ConfirmBehavior.Insert,
+				select = true
+			}),
+			{'i', 'c'}
+		),
+		['<C-Space>'] = cmp.mapping({
+			i = cmp.mapping.complete(),
+			c = function(
+				_ --[[fallback]]
+			)
+				if cmp.visible() then
+					if not cmp.confirm({select = true}) then
+						return
+					end
+				else
+					cmp.complete()
+				end
+			end
+		}),
+		['<C-y>'] = cmp.config.disable
 	},
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'tags' },
-		{ name = 'spell' },
 		{ name = 'path' },
-		{ name = 'buffer'},
+		{ name = 'buffer', keyword_length = 5 }
 	}
 }
+
+cmp.setup(config)
