@@ -53,7 +53,8 @@ Plug 'tiagoamartins/vim-hybrid'
 Plug 'AndrewRadev/switch.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
-Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
+Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
+                                    \ 'for': ['markdown', 'vim-plug']}
 Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
 Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'))
 Plug 'nvim-treesitter/nvim-treesitter-refactor', Cond(has('nvim'))
