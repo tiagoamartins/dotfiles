@@ -115,9 +115,6 @@ try
 catch
     colorscheme default
 endtry
-
-" Change drop-down menu color
-highlight PmenuSel ctermfg=black ctermbg=lightgray
 " }}}1
 
 if filereadable(glob($MYVIMRC . ".local"))
