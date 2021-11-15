@@ -52,6 +52,7 @@ Plug 'tiagoamartins/vim-hybrid'
 " Editing
 Plug 'AndrewRadev/switch.vim'
 Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
+Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
 Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
                                     \ 'for': ['markdown', 'vim-plug']}
