@@ -25,7 +25,7 @@ function! s:TestFuncValid(func, text) abort
         return ''
     end
 
-    return '%{strlen(' . get(a:func, 'name') . "()) ? '" . a:text . "' : ''}"
+    return '%{strlen(' . string(a:func) . "()) ? '" . a:text . "' : ''}"
 endfunction
 
 function! s:Block(text, modifier, ...) abort
@@ -43,7 +43,7 @@ function! s:Block(text, modifier, ...) abort
     end
 
     if type(a:text) == l:t_func
-        let l:raw = '%{' . get(a:text, 'name') . '()}'
+        let l:raw = '%{' . string(a:text) . '()}'
         let l:lpad = s:TestFuncValid(a:text, l:lpad)
         let l:rpad = s:TestFuncValid(a:text, l:rpad)
     elseif type(a:text) == l:t_string
