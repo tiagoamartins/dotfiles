@@ -82,8 +82,8 @@ Plug 'saadparwaiz1/cmp_luasnip', Cond(has('nvim'))
 
 " Interface
 Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
-Plug 'onsails/lspkind-nvim', Cond(has('nvim'))
 Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
+Plug 'onsails/lspkind-nvim', Cond(has('nvim'))
 Plug 'ray-x/lsp_signature.nvim', Cond(has('nvim'))
 
 " Plugins
