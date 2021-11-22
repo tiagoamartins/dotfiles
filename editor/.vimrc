@@ -88,13 +88,13 @@ Plug 'ray-x/lsp_signature.nvim', Cond(has('nvim'))
 
 " Plugins
 Plug 'aliev/vim-compiler-python'
-Plug 'janko-m/vim-test'
 Plug 'machakann/vim-swap'
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-projectionist'
+Plug 'vim-test/vim-test'
 
 " Syntax
 Plug 'ARM9/arm-syntax-vim'
