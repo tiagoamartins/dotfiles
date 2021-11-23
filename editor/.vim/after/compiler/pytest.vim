@@ -10,13 +10,23 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=pytest\ -o\ addopts=\ --tb=short\ -q
+CompilerSet makeprg=pytest\ -o\ addopts=\ --tb=short\ -q\ $*
 
 CompilerSet errorformat=
-            \%E_%\\+\ %.%#\ _%\\+,
-            \%C%f:%l:\ %.%#,
-            \%C%[%^E]%.%#,
-            \%ZE\ %#%m,
+            \%EE\ %\\{5}File\ \"%f\"\\,\ line\ %l,
+            \%CE\ %\\{3}%p^,
+            \%ZE\ %\\{3}%[%^\ ]%\\@=%m,
+            \%Afile\ %f\\,\ line\ %l,
+            \%ZE\ %#%mnot\ found,
+            \%CE\ %.%#,
+            \%-G_%\\+\ ERROR%.%#\ _%\\+,
+            \%A_%\\+\ %o\ _%\\+,
+            \%C%f:%l:\ in\ %o,
+            \%ZE\ %\\{3}%m,
+            \%EImportError%.%#\'%f\'\.,
+            \%C%.%#,
+            \%-G%[%^E]%.%#,
+            \%-G
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
