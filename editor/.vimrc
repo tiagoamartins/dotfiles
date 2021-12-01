@@ -37,12 +37,6 @@ if empty(glob(plug_file))
                 \ . ' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
 
-" Helper function for conditional plug
-function! Cond(cond, ...)
-    let opts = get(a:000, 0, {})
-    return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
 " Specify a directory for plugins
 call plug#begin(expand($VIM_HOME . '/plugged'))
 
@@ -51,40 +45,14 @@ Plug 'tiagoamartins/vim-hybrid'
 
 " Editing
 Plug 'AndrewRadev/switch.vim'
-Plug 'JoosepAlviste/nvim-ts-context-commentstring', Cond(has('nvim'))
-Plug 'L3MON4D3/LuaSnip', Cond(has('nvim'))
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
-Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
-                                    \ 'for': ['markdown', 'vim-plug']}
-Plug 'neovim/nvim-lspconfig', Cond(has('nvim'))
-Plug 'nvim-treesitter/nvim-treesitter', Cond(has('nvim'))
-Plug 'nvim-treesitter/nvim-treesitter-refactor', Cond(has('nvim'))
-Plug 'nvim-treesitter/nvim-treesitter-textobjects', Cond(has('nvim'))
-Plug 'p00f/nvim-ts-rainbow', Cond(has('nvim'))
-Plug 'romgrk/nvim-treesitter-context', Cond(has('nvim'))
 Plug 'tpope/vim-apathy'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-
-" Completion
-Plug 'f3fora/cmp-spell', Cond(has('nvim'))
-Plug 'hrsh7th/cmp-buffer', Cond(has('nvim'))
-Plug 'hrsh7th/cmp-nvim-lsp', Cond(has('nvim'))
-Plug 'hrsh7th/cmp-nvim-lua', Cond(has('nvim'))
-Plug 'hrsh7th/cmp-path', Cond(has('nvim'))
-Plug 'hrsh7th/nvim-cmp', Cond(has('nvim'))
-Plug 'quangnguyen30192/cmp-nvim-tags', Cond(has('nvim'))
-Plug 'saadparwaiz1/cmp_luasnip', Cond(has('nvim'))
-
-" Interface
-Plug 'lewis6991/gitsigns.nvim', Cond(has('nvim'))
-Plug 'nvim-lua/plenary.nvim', Cond(has('nvim'))
-Plug 'onsails/lspkind-nvim', Cond(has('nvim'))
-Plug 'ray-x/lsp_signature.nvim', Cond(has('nvim'))
 
 " Plugins
 Plug 'aliev/vim-compiler-python'
@@ -102,6 +70,36 @@ Plug 'Shirk/vim-gas'
 Plug 'WeiChungWu/vim-SystemVerilog'
 Plug 'tpope/vim-git'
 Plug 'vim-python/python-syntax'
+
+if has('nvim')
+    " Editing
+    Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
+                                        \ 'for': ['markdown', 'vim-plug']}
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/nvim-treesitter-refactor'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'p00f/nvim-ts-rainbow'
+    Plug 'romgrk/nvim-treesitter-context'
+
+    " Completion
+    Plug 'f3fora/cmp-spell'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-nvim-lua'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'quangnguyen30192/cmp-nvim-tags'
+    Plug 'saadparwaiz1/cmp_luasnip'
+
+    " Interface
+    Plug 'lewis6991/gitsigns.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'onsails/lspkind-nvim'
+    Plug 'ray-x/lsp_signature.nvim'
+endif
 
 call plug#end()
 
