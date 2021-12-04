@@ -265,6 +265,9 @@ case "$basename" in
 			esac
 		done;;
 
+	tmux)
+		exec "$HOME/.local/bin/tiago-tmux" "$@";;
+
 	'')
 		echo "Usage: `basename "$0"` <command> [options]";;
 
