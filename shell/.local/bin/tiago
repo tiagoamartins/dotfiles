@@ -29,21 +29,25 @@ then
 	exit 0
 fi
 
-inpath() {
+function inpath()
+{
 	type "$1" >/dev/null 2>&1
 }
 
-root_init() {
+function root_init()
+{
 	if inpath cygstart
 	then
-		as_root() {
+		function as_root()
+		{
 			"$@"
 		}
 	elif [ "`id -u`" -ne 0 ]
 	then
 		if inpath sudo && sudo -l > /dev/null 2>&1
 		then
-			as_root() {
+			function as_root()
+			{
 				if [ "$1" = exec ]
 				then
 					ex="exec"
@@ -53,7 +57,8 @@ root_init() {
 			}
 		else
 			echo "Warning: sudo not installed or not configured" >&2
-			as_root() {
+			function as_root()
+			{
 				if [ "$1" = exec ]
 				then
 					ex="exec"
@@ -63,13 +68,15 @@ root_init() {
 			}
 		fi
 	else
-		as_root() {
+		function as_root()
+		{
 			"$@"
 		}
 	fi
 }
 
-host_name() {
+function host_name()
+{
 	if [ -n "$COMPUTERNAME" ]
 	then
 		# Windows
@@ -82,7 +89,8 @@ host_name() {
 	fi
 }
 
-host_normalize() {
+function host_normalize()
+{
 	if [ localhost = "$1" -o - = "$1" -o -z "$1" ]
 	then
 		host_name
@@ -91,7 +99,8 @@ host_normalize() {
 	fi
 }
 
-host_lookup() {
+function host_lookup()
+{
 	awkhost='
 		$1 == "Host" {
 			me = 0;
@@ -121,11 +130,13 @@ host_lookup() {
 	awk "$awkhost" host="`host_normalize "$1"`" "$HOME/.ssh/config"
 }
 
-host_getfullname() {
+function host_getfullname()
+{
 	host_lookup "$1" HostName || echo "$1"
 }
 
-setup_basics() {
+function setup_basics()
+{
 	if [ ! -f "$HOME/.hushlogin" ]
 	then
 		touch "$HOME/.hushlogin"
@@ -134,7 +145,8 @@ setup_basics() {
 	[ -z "$basics" ] || echo "Initializing basic configuration."
 }
 
-setup_shell() {
+function setup_shell()
+{
 	zsh="`grep 'zsh$' /etc/shells 2>/dev/null|head -1`"
 	if [ -x "$zsh" ] && grep "^$LOGNAME:" /etc/passwd >/dev/null
 	then
@@ -146,7 +158,8 @@ setup_shell() {
 	fi
 }
 
-extract() {
+function extract()
+{
 	local c e i
 
 	(($#)) || return
