@@ -5,12 +5,10 @@
 
 # Make directory variables able to change directory
 shopt -s extglob cdable_vars 2> /dev/null
-shopt -s histappend
 
 # Don't save history upon exiting
 export HISTCONTROL=ignoredups
-export HISTSIZE=100
-export HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/bash/bash_history
+unset HISTFILE
 
 # Get user ID
 [ "$UID" ] || UID=`id -u`

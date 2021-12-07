@@ -141,15 +141,10 @@ unset hostcolor dircolor usercolor atcolor hashcolor reset_color
 
 # Options {{{1
 
-setopt histappend
 setopt rmstarsilent histignoredups
 setopt nonomatch
 setopt completeinword extendedglob
 setopt autocd cdable_vars
-
-HISTSIZE=100
-SAVEHIST=100
-HISTFILE=${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zhistory
 
 if [[ $ZSH_VERSION == 3.<->* ]]
 then
