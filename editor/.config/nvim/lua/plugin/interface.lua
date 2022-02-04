@@ -5,5 +5,7 @@ end
 
 local ok, lspsig = pcall(require, 'lsp_signature')
 if ok then
-	lspsig.setup()
+	lspsig.setup({
+		hint_prefix = '-> '
+	})
 end
