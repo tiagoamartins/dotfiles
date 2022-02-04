@@ -68,6 +68,15 @@ treesitter.setup{
 	},
 	refactor = {
 		highlight_definitions = { enable = true },
+		navigation = {
+			enable = true,
+			keymaps = {
+				goto_definition_lsp_fallback = "<leader>gd",
+				goto_next_usage = "<leader>]d",
+				goto_previous_usage = "<leader>[d",
+
+			}
+		}
 	},
 	rainbow = {
 		enable = true,
