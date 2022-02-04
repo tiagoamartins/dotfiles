@@ -134,7 +134,6 @@ alias gst='git status'
 alias j='jobs'
 alias ll='ls -l'
 alias mv='mv -i'
-alias o='xdg-open'
 alias pacman-last='expac --timefmt='"'"'%Y-%m-%d %T'"'"' '"'"'%l\t%n'"'"' | sort | tail -n 20'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
@@ -143,8 +142,10 @@ alias vi=$VISUAL
 if [[ "$OSTYPE" == "darwin"* ]]
 then
 	alias d='ls -lah'
+	alias o='open'
 else
 	alias d='ls -lah --group-directories-first'
+	alias o='xdg-open'
 fi
 
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
