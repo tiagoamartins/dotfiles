@@ -206,12 +206,12 @@ function! statusline#Plugins() abort
 
     " Neovim LSP diagnostics indicator
     if has('nvim-0.5')
-        let l:warnings = luaeval('vim.lsp.diagnostic.get_count(0, [[Warning]])')
+        let l:warnings = luaeval('#vim.diagnostic.get(0, {severity=vim.diagnostic.severity.WARN})')
         if l:warnings > 0
             call add(l:status, s:Block('warning [' . l:warnings . ']', '%8*'))
         endif
 
-        let l:errors = luaeval('vim.lsp.diagnostic.get_count(0, [[Error]])')
+        let l:errors = luaeval('#vim.diagnostic.get(0, {severity=vim.diagnostic.severity.ERROR})')
         if l:errors > 0
             call add(l:status, s:Block(' error [' . l:errors . '] ', '%9*'))
         endif
