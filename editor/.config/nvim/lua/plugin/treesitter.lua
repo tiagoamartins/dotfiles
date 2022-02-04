@@ -19,7 +19,7 @@ treesitter.setup{
 		enable = true,
 		disable = {'python',}
 	},
-	textobejcts = {
+	textobjects = {
 		select = {
 			enable = true,
 			keymaps = {
