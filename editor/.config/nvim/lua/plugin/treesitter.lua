@@ -85,7 +85,7 @@ treesitter.setup{
 	}
 }
 
-local ok, treesitter_context pcall(require, 'treesitter-context.config')
+local ok, treesitter_context = pcall(require, 'treesitter-context.config')
 
 if not ok then
 	return
