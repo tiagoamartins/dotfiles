@@ -2,3 +2,7 @@
 --tag-relative=yes
 --exclude=.git
 --exclude=.env
+
+--langdef=markdown
+--langmap=markdown:.md
+--regex-markdown=/^#[ \t](.*$)/\1/h,heading,headings/
