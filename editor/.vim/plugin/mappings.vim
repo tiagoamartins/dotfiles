@@ -21,6 +21,13 @@ endif
 vnoremap <leader>p "_dp
 vnoremap <leader>P "_dP
 
+" Tests {{{2
+nmap <silent> <leader>tn :TestNearest<cr>
+nmap <silent> <leader>tf :TestFile<cr>
+nmap <silent> <leader>ts :TestSuite<cr>
+nmap <silent> <leader>tl :TestLast<cr>
+nmap <silent> <leader>tv :TestVisit<cr>
+
 " Function keys {{{1
 " ------------------
 " Toggle spelling with F4 key
