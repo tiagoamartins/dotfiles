@@ -28,6 +28,12 @@ nmap <silent> <leader>ts :TestSuite<cr>
 nmap <silent> <leader>tl :TestLast<cr>
 nmap <silent> <leader>tv :TestVisit<cr>
 
+" Tabularize {{{2
+nnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<cr>
+vnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<cr>
+nnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<cr>
+vnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<cr>
+
 " Function keys {{{1
 " ------------------
 " Toggle spelling with F4 key

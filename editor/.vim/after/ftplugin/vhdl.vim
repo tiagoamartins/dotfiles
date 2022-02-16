@@ -170,14 +170,6 @@ setlocal foldtext=GetVhdlFoldText(v:foldstart,v:foldend,v:folddashes)
 
 " }}}1
 " External Plugins {{{1
-" Tabularize {{{2
-
-nnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<CR>
-vnoremap <buffer> <leader>a= :Tabularize /^[^<=]*\zs<=<CR>
-nnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<CR>
-vnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<CR>
-
-" }}}2
 " Matchit {{{2
 
 " Add matchit plugin new words.
