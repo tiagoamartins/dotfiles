@@ -75,8 +75,6 @@ if has('nvim')
     " Editing
     Plug 'JoosepAlviste/nvim-ts-context-commentstring'
     Plug 'L3MON4D3/LuaSnip'
-    Plug 'iamcco/markdown-preview.nvim', {'do': { -> mkdp#util#install() },
-                                        \ 'for': ['markdown', 'vim-plug']}
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/nvim-treesitter-refactor'
