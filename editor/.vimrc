@@ -29,6 +29,12 @@ else
     let $VIM_HOME = expand("$HOME/.vim")
 endif
 
+if has('nvim')
+    let $VIM_TEMP = expand($HOME . '/.cache/nvim/temp')
+else
+    let $VIM_TEMP = expand($VIM_HOME . '/temp')
+endif
+
 " Plugins {{{1
 " ------------
 let plug_file = expand($VIM_HOME . '/autoload/plug.vim')
