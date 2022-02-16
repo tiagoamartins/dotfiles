@@ -1,8 +1,5 @@
 #! sh
 
-# If profile was not sourced before do it now
-[ -n "$ENV" ] || . "$HOME/.profile" > /dev/null
-
 # Default keys as emacs style
 set -o emacs
 # Do not overwrite files with redirected outputs
