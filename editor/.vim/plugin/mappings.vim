@@ -36,18 +36,19 @@ vnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<cr>
 
 " Function keys {{{1
 " ------------------
-" Toggle spelling with F4 key
+" Toggle spelling
 noremap <f4> :set spell!<cr> <bar> :echo "spell check: " . strpart("offon", 3 * &spell, 3)<cr>
-" Run continue (using termdebug plugin)
+
+" dispatch plugin
+if exists(':Dispatch')
+    nnoremap <f9> :Dispatch<cr>
+    nnoremap <f10> :Make<cr>
+endif
+
+" termdebug plugin
 nnoremap <f5> :Continue<cr>
-" Run make (using dispatch plugin)
-nnoremap <f8> :Make<cr>
-" Run dispatch (using dispatch plugin)
-nnoremap <f9> :Dispatch<cr>
-" Run over (using termdebug plugin)
-nnoremap <f10> :Over<cr>
-" Run step (using termdebug plugin)
-nnoremap <f11> :Step<cr>
+nnoremap <f6> :Over<cr>
+nnoremap <f7> :Step<cr>
 
 " Normal mode {{{1
 " ----------------
