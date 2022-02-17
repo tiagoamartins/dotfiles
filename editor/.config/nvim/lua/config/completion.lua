@@ -55,7 +55,9 @@ local ok, lspkind = pcall(require, 'lspkind')
 if ok then
 	config.formatting = {
 		format = lspkind.cmp_format {
-			with_text = true,
+			mode = 'symbol_text',
+			preset = 'codicons',
+			maxwidth = 50,
 			menu = {
 				buffer = '[buf]',
 				luasnip = '[snip]',
