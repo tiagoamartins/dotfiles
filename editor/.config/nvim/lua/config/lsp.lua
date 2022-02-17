@@ -60,22 +60,12 @@ end
 
 -- use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = {'clangd', 'pyright'}
+local servers = {'clangd', 'pylsp'}
 for _, lsp in ipairs(servers) do
 	config = {
 		capabilities = capabilities,
 		on_attach = on_attach,
 	}
-
-	if lsp == 'pyright' then
-		config.settings = {
-			python = {
-				analysis = {
-					typeCheckingMode = 'off',
-				}
-			}
-		}
-	end
 
 	nvim_lsp[lsp].setup(config)
 end
