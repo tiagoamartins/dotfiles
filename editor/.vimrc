@@ -50,7 +50,6 @@ call plug#begin(expand($VIM_HOME . '/plugged'))
 Plug 'tiagoamartins/vim-hybrid'
 
 " Editing
-Plug 'AndrewRadev/switch.vim'
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'godlygeek/tabular', {'for': ['systemverilog', 'verilog', 'vhdl']}
 Plug 'tpope/vim-apathy'
