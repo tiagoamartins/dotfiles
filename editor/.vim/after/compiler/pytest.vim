@@ -10,7 +10,7 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=pytest\ -o\ addopts=\ --tb=short\ -q\ $*
+CompilerSet makeprg=python\ -m\ pytest\ -o\ addopts=\ --tb=short\ -q\ $*
 
 CompilerSet errorformat=
             \%EE\ %\\{5}File\ \"%f\"\\,\ line\ %l,
