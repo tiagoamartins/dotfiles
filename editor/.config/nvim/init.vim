@@ -26,8 +26,8 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 
-lua require'plugin/completion'
-lua require'plugin/lsp'
-lua require'plugin/treesitter'
-lua require'plugin/interface'
-lua require'plugin/snippets'
+lua require'config/completion'
+lua require'config/lsp'
+lua require'config/treesitter'
+lua require'config/interface'
+lua require'config/snippets'
