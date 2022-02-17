@@ -61,7 +61,6 @@ Plug 'tpope/vim-unimpaired'
 
 " Plugins
 Plug 'aliev/vim-compiler-python'
-Plug 'mbbill/undotree'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
