@@ -12,11 +12,11 @@ if exists('$SUDO_USER')         " Don't create root-owned files
     set nobackup
     set nowritebackup
 else
-    let s:backup_dir = expand($VIM_TEMP . '/backup')
-    if exists('*mkdir') && !isdirectory(s:backup_dir)
-        call mkdir(s:backup_dir, 'p')
+    let s:backupdir = expand($VIM_TEMP . '/backup')
+    if exists('*mkdir') && !isdirectory(s:backupdir)
+        call mkdir(s:backupdir, 'p')
     endif
-    set backupdir=$VIM_TEMP/backup
+    let &backupdir = s:backupdir
     set backup                  " Keep backup after closing the file
     set writebackup             " Create backup file after overwriting the file
 endif
@@ -36,11 +36,11 @@ endif
 if exists('$SUDO_USER')         " Don't create root-owned files
     set noswapfile
 else
-    let s:swap_dir = expand($VIM_TEMP . '/swap')
-    if exists('*mkdir') && !isdirectory(s:swap_dir)
-        call mkdir(s:swap_dir, 'p')
+    let s:swapdir = expand($VIM_TEMP . '/swap')
+    if exists('*mkdir') && !isdirectory(s:swapdir)
+        call mkdir(s:swapdir, 'p')
     endif
-    set directory=$VIM_TEMP/swap//
+    let &directory = s:swapdir . '//'
     set swapfile
 endif
 
@@ -54,10 +54,11 @@ if has('viminfo')
     if exists('$SUDO_USER')     " Don't create root-owned files
         set viminfo=
     else
-        set viminfo+=n$VIM_TEMP/viminfo
+        let s:viminfo = expand($VIM_TEMP . '/viminfo')
+        let &viminfo .= ',n' . s:viminfo
 
-        if !empty(glob($VIM_TEMP . '/viminfo'))
-            if !filereadable(expand($VIM_TEMP . '/viminfo'))
+        if !empty(glob(s:viminfo))
+            if !filereadable(s:viminfo)
                 echoerr expand('warning: ' . $VIM_TEMP .
                             \'/viminfo exists but is not readable')
             endif
@@ -70,22 +71,22 @@ if has('persistent_undo')
     if exists('$SUDO_USER')     " Don't create root-owned files
         set noundofile
     else
-        let s:undo_dir = $VIM_TEMP . '/undo'
-        if exists('*mkdir') && !isdirectory(s:undo_dir)
-            call mkdir(s:undo_dir, "p")
+        let s:undodir = expand($VIM_TEMP . '/undo')
+        if exists('*mkdir') && !isdirectory(s:undodir)
+            call mkdir(s:undodir, "p")
         endif
-        set undodir=$VIM_TEMP/undo
+        let &undodir = s:undodir
         set undofile            " Actually use undo files
         set undolevels=100
     endif
 endif
 
 if has('mksession')
-    let s:view_dir = $VIM_TEMP . '/view'
-    if exists('*mkdir') && !isdirectory(s:view_dir)
-        call mkdir(s:view_dir, "p")
+    let s:viewdir = expand($VIM_TEMP . '/view')
+    if exists('*mkdir') && !isdirectory(s:viewdir)
+        call mkdir(s:viewdir, "p")
     endif
-    set viewdir=$VIM_TEMP/view
+    let &viewdir = s:viewdir
     set viewoptions=cursor,folds    " Save/restore just these (with `:{mk,load}view`)
 endif
 
