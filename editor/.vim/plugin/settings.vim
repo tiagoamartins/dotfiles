@@ -26,6 +26,10 @@ if has('wildignore')
     if &backupskip !~ '/tmp/\*'
         set backupskip+=/tmp/*  " Make sure temp files have no backup (security reason)
     endif
+    " MacOS symlinks /var -> /private/var and $TMPDIR is at /var
+    if has('mac') && &backupskip !~ '/private/var/\*'
+        let &backupskip .= ',/private' . expand('$TMPDIR') . '*'
+    endif
     set backupskip+=*/shm/*
 endif
 

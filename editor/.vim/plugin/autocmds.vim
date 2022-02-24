@@ -12,7 +12,7 @@ if has('autocmd')
     augroup swapskip
         autocmd!
         silent! autocmd BufNewFile,BufReadPre
-                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                    \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private$TMPDIR/*
                     \ setlocal noswapfile
     augroup END
 
@@ -21,7 +21,7 @@ if has('autocmd')
         augroup undoskip
             autocmd!
             silent! autocmd BufWritePre
-                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private$TMPDIR/*
                         \ setlocal noundofile
         augroup END
     endif
@@ -31,7 +31,7 @@ if has('autocmd')
         augroup viminfoskip
             autocmd!
             silent! autocmd BufNewFile,BufReadPre
-                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*
+                        \ /tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private$TMPDIR/*
                         \ setlocal viminfo=
         augroup END
     endif
