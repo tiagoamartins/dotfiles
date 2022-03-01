@@ -126,7 +126,6 @@ alias aur-check='aur repo -d aur --list | aur vercmp'
 alias cls='clear'
 alias cp='cp -i'
 alias dcm2nii='dcm2niix -v n -z y -f '"'"'%s_%p'"'"
-alias diff='diff --color=auto'
 alias gst='git status'
 alias j='jobs'
 alias ll='ls -l'
@@ -142,6 +141,7 @@ then
 	alias o='open'
 else
 	alias d='ls -lah --group-directories-first'
+	alias diff='diff --color=auto'
 	alias o='xdg-open'
 fi
 
