@@ -170,7 +170,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 	"$(history | tail -n1 | sed -e '"'"'s/^\s*[0-9]\+\s*//; s/[;&|]\s*alert$//'"'"')"'
 
 # Alias commands in tiago script
-for cmd in `tiago aliases`
+for cmd in `$HOME/.local/bin/tiago aliases`
 do
 	alias $cmd="\"\$HOME\"/.local/bin/tiago $cmd"
 done
