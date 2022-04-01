@@ -4,12 +4,10 @@ if not ok then
 end
 
 local s = luasnip.snippet
-local sn = luasnip.snippet_node
 local t = luasnip.text_node
 local i = luasnip.insert_node
 local d = luasnip.dynamic_node
-local types = require('luasnip.util.types')
-local conds = require('luasnip.extras.expand_conditions')
+local fmt = require('luasnip.extras.fmt').fmt
 
 luasnip.config.set_config({
 	history = true,
@@ -23,14 +21,12 @@ end
 
 luasnip.snippets = {
 	all = {
-		s('#', {
-			t('#!/usr/bin/env '),
+		s('#', fmt('#!/usr/bin/env {}\n{}', {
 			d(1, function (args)
-				return sn(nil, i(1, vim.bo.filetype))
+				return i(1, vim.bo.filetype)
 			end, {}),
-			t({'', ''}),
 			i(0)
-		}, {
+		}), {
 			condition = file_begin,
 			show_condition = file_begin
 		})
