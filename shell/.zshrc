@@ -141,10 +141,15 @@ unset hostcolor dircolor usercolor atcolor hashcolor reset_color
 
 # Options {{{1
 
-setopt rmstarsilent histignoredups
-setopt nonomatch
-setopt completeinword extendedglob
-setopt autocd cdable_vars
+setopt autocd
+setopt cdable_vars
+setopt completeinword
+setopt extendedglob
+setopt histexpiredupsfirst
+setopt histignoredups
+setopt histreduceblanks
+setopt rmstarsilent
+unsetopt nomatch
 
 if [[ $ZSH_VERSION == 3.<->* ]]
 then
@@ -155,8 +160,6 @@ then
 	compctl -k hosts -x 'p[2,-1]' -l '' -- rsh ssh
 	return 0
 fi
-
-setopt histexpiredupsfirst histreduceblanks
 
 fpath=($fpath ~/.zsh/functions ~/.zsh/functions.zwc)
 watch=notme
