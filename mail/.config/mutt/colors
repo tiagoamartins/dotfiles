@@ -83,6 +83,37 @@ color	quoted4			color175	default		# light pink
 
 color	signature		color244	default		# gray
 
+# Patch {{{2
+color	body			brightwhite	default		^[[:space:]].*
+color	body			yellow		default		^(diff).*
+color	body			brightwhite	default		^(\s).*
+
+color	body			cyan		default		^(Acked-by).*
+color	body			cyan		default		^(Reported-by).*
+color	body			cyan		default		^(Reviewed-and-tested-by).*
+color	body			cyan		default		^(Reviewed-by).*
+color	body			cyan		default		^(Signed-off-by).*
+color	body			cyan		default		^(Suggested-by).*
+color	body			cyan		default		^(Tested-by).*
+color	body			brightwhite	default		^(Cc)
+
+color	body			yellow		default		"^diff \-.*"
+color	body			brightcyan	default		"^index [a-f0-9].*"
+color	body			brightblue	default		"^---$"
+color	body			white		default		"^\-\-\- .*"
+color	body			white		default		"^[\+]{3} .*"
+color	body			green		default		"^[\+][^\+]+.*"
+color	body			red		default		"^\-[^\-]+.*"
+color	body			brightblue	default		"^@@ .*"
+
+color	body			green		default		"LGTM"
+color	body			brightmagenta	default		"-- Commit Summary --"
+color	body			brightmagenta	default		"-- File Changes --"
+color	body			brightmagenta	default		"-- Patch Links --"
+color	body			green		default		"^Merged #.*"
+color	body			red		default		"^Closed #.*"
+color	body			brightblue	default		"^Reply to this email.*"
+
 # PGP {{{2
 color	body			color160	default		"(BAD signature)"		# red
 color	body			color37		default		"(Good signature)"		# light green
