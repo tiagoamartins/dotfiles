@@ -95,6 +95,11 @@ if has('nvim')
     Plug 'quangnguyen30192/cmp-nvim-tags'
     Plug 'saadparwaiz1/cmp_luasnip'
 
+    " Debugging
+    Plug 'mfussenegger/nvim-dap'
+    Plug 'rcarriga/nvim-dap-ui'
+    Plug 'theHamsta/nvim-dap-virtual-text'
+
     " Interface
     Plug 'lewis6991/gitsigns.nvim'
     Plug 'nvim-lua/plenary.nvim'

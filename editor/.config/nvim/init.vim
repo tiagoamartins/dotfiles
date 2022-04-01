@@ -27,6 +27,7 @@ if filereadable(glob("~/.vimrc.local"))
 endif
 
 lua require'config/completion'
+lua require'config/debug'
 lua require'config/lsp'
 lua require'config/treesitter'
 lua require'config/interface'
