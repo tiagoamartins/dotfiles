@@ -45,11 +45,6 @@ if exists(':Dispatch')
     nnoremap <f10> :Make<cr>
 endif
 
-" termdebug plugin
-nnoremap <f5> :Continue<cr>
-nnoremap <f6> :Over<cr>
-nnoremap <f7> :Step<cr>
-
 " Normal mode {{{1
 " ----------------
 " Set space to toggle a fold
