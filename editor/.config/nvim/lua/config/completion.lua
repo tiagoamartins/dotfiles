@@ -20,7 +20,7 @@ local config = {
 			}),
 			{'i', 'c'}
 		),
-		['<C-j>'] = cmp.mapping(
+		['<C-,>'] = cmp.mapping(
 			cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Insert,
 				select = true
@@ -77,7 +77,24 @@ if ok then
 				path = '[path]',
 				spell = '[spell]',
 				tags = '[tags]'
-			}
+			},
+			before = function(entry, vim_item)
+				local types = require('cmp.types')
+				local str = require('cmp.utils.str')
+				-- Get the full snippet (and only keep first line)
+				local word = entry:get_insert_text()
+				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+					word = vim.lsp.util.parse_snippet(word)
+				end
+				word = str.oneline(word)
+				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
+						and string.sub(vim_item.abbr, -1, -1) == '~' then
+					word = word .. '~'
+				end
+				vim_item.abbr = word
+
+				return vim_item
+			end,
 		}
 	}
 end
