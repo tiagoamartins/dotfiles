@@ -75,66 +75,6 @@ function root_init()
 	fi
 }
 
-function host_name()
-{
-	if [ -n "$COMPUTERNAME" ]
-	then
-		# Windows
-		echo "$COMPUTERNAME"
-	elif [ -r /proc/sys/kernel/hostname ]
-	then
-		cat /proc/sys/kernel/hostname
-	else
-		hostname | cut -d. -f1
-	fi
-}
-
-function host_normalize()
-{
-	if [ localhost = "$1" -o - = "$1" -o -z "$1" ]
-	then
-		host_name
-	else
-		echo "$1"
-	fi
-}
-
-function host_lookup()
-{
-	awkhost='
-		$1 == "Host" {
-			me = 0;
-			for (i = 2;i <= NF;i++) {
-				gsub(/[][().+^$]/, "\\\\&", $i);
-				gsub(/[?]/, ".", $i);
-				gsub(/[*]/, ".*", $i);
-				if (host ~ "^" $i "$")
-					me = 1;
-			}
-		}
-		me && $1 == "'"$2"'" {
-			printf("%s", $2);
-			for(i = 3;i <= NF;i++)
-				printf(" %s", $i);
-			print("");
-			fail = 0;
-			exit;
-		}
-		BEGIN {
-			fail = 1;
-		}
-		END {
-			exit fail;
-		}
-	'
-	awk "$awkhost" host="`host_normalize "$1"`" "$HOME/.ssh/config"
-}
-
-function host_getfullname()
-{
-	host_lookup "$1" HostName || echo "$1"
-}
-
 function setup_basics()
 {
 	if [ ! -f "$HOME/.hushlogin" ]
@@ -206,24 +146,7 @@ case "$basename" in
 		extract $@;;
 
 	host)
-		[ $# -gt 0 ] || exit 1
-
-		command="$1"
-		shift
-
-		case "$command" in
-			name) # hosts
-				host_getfullname $1 | cut -d. -f1
-				exit 0;;
-
-			list) # nothing
-				awk '$1 == "HostName" { print $2 }' "$HOME/.ssh/config" | cut -d. -f1
-				exit 0;;
-
-			*)
-				echo "`basename "$0"` $1: unknown command." >&2
-				exit 1;;
-		esac;;
+		exec "$HOME/.local/bin/tiago-host" "$@";;
 
 	pacman)
 		case "$1" in
