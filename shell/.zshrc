@@ -167,6 +167,11 @@ PERIOD=3600
 periodic() { rehash }
 
 # }}}1
+# Hosts {{{1
+
+hosts=(`tiago-host list`)
+
+# }}}1
 # Aliases {{{1
 
 alias lsd='ls -d *(-/DN)'
@@ -181,6 +186,16 @@ autoload -Uz zrecompile
 zmodload -i zsh/complist
 
 zstyle :compinstall filename "$HOME/.zshrc"
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' hosts localhost $hosts
+zstyle ':completion:*' users tpope root $USER ${watch/notme/}
+zstyle ':completion:*' verbose true
+zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
+zstyle ':completion:*:*:*:*:corrections' format '%F{yellow}!- %d (errors: %e) -!%f'
+zstyle ':completion:*:messages' format ' %F{purple} -- %d --%f'
+zstyle ':completion:*:warnings' format ' %F{red}-- no matches found --%f'
 
 autoload -Uz compinit
 compinit -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
