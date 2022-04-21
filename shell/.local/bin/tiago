@@ -75,29 +75,6 @@ function root_init()
 	fi
 }
 
-function setup_basics()
-{
-	if [ ! -f "$HOME/.hushlogin" ]
-	then
-		touch "$HOME/.hushlogin"
-		basics=1
-	fi
-	[ -z "$basics" ] || echo "Initializing basic configuration."
-}
-
-function setup_shell()
-{
-	zsh="`grep 'zsh$' /etc/shells 2>/dev/null|head -1`"
-	if [ -x "$zsh" ] && grep "^$LOGNAME:" /etc/passwd >/dev/null
-	then
-		if ! grep "^$LOGNAME:.*zsh" /etc/passwd >/dev/null
-		then
-			echo "Changing login shell."
-			chsh -s "$zsh"
-		fi
-	fi
-}
-
 function extract()
 {
 	local c e i
@@ -164,29 +141,7 @@ case "$basename" in
 		esac;;
 
 	setup)
-		[ $# -gt 0 ] || set -- default
-
-		for arg in "$@"
-		do
-			case "$arg" in
-				default)
-					setup_basics;;
-
-				all)
-					setup_basics
-					setup_shell;;
-
-				basics)
-					setup_basics;;
-
-				shell)
-					setup_shell;;
-
-				*)
-					echo "Unknown setup "$arg". Proceeding with basics only." >&2
-					setup_basics;;
-			esac
-		done;;
+		exec "$HOME/.local/bin/tiago-setup" "$@";;
 
 	tmux)
 		exec "$HOME/.local/bin/tiago-tmux" "$@";;

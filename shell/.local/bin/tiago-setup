@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+if [ "x$1" = "x--quiet" ]
+then
+	quiet=1
+	exec >/dev/null
+	shift
+fi
+
+function basics()
+{
+	if [ ! -f "$HOME/.hushlogin" ]
+	then
+		touch "$HOME/.hushlogin"
+		basics=1
+	fi
+	[ -z "$basics" ] || echo "Initializing basic configuration."
+}
+
+function shell()
+{
+	zsh="`grep 'zsh$' /etc/shells 2>/dev/null|head -1`"
+	if [ -x "$zsh" ] && grep "^$LOGNAME:" /etc/passwd >/dev/null
+	then
+		if ! grep "^$LOGNAME:.*zsh" /etc/passwd >/dev/null
+		then
+			echo "Changing login shell."
+			chsh -s "$zsh"
+		fi
+	fi
+}
+
+[ $# -gt 0 ] || set -- default
+
+for arg in "$@"
+do
+	case "$arg" in
+		default)
+			basics;;
+
+		all)
+			basics
+			shell;;
+
+		basics)
+			basics;;
+
+		shell)
+			shell;;
+
+		*)
+			echo "Unknown setup "$arg". Proceeding with basics only." >&2
+			basics;;
+	esac
+done
