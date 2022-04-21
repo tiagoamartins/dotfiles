@@ -17,7 +17,7 @@ treesitter.setup{
 	},
 	indent = {
 		enable = true,
-		disable = {'python',}
+		disable = {'c', 'python'}
 	},
 	textobjects = {
 		select = {
