@@ -180,40 +180,37 @@ autoload -Uz zrecompile
 
 zmodload -i zsh/complist
 
-# The following lines were added by compinstall
 zstyle :compinstall filename "$HOME/.zshrc"
 
 autoload -Uz compinit
 compinit -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
-# End of lines added by compinstall
 
 compdef _tiago tiago
 
-_tiago() {
+function _tiago()
+{
 	local cmd=$(basename $words[1])
-	if [[ $CURRENT = 2 ]]
+	if [ "$CURRENT" -eq 2 ]
 	then
 		local tmp
 		tmp=($(grep '^	[a-z-]*[|)]' "$HOME/.local/bin/$cmd" 2> /dev/null | sed -e 's/).*//' | tr '|' ' '))
 		_describe -t commands "${words[1]} command" tmp --
 	else
-
 		shift words
 		(( CURRENT-- ))
 		curcontext="${curcontext%:*:*}:$cmd-${words[1]}:"
 
 		local selector=$(egrep "^	([a-z-]*[|])*${words[1]}([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
+		_call_function ret _$selector && return $ret
 
-		if [[ -f "$HOME/.local/bin/$cmd-${words[1]}" ]]
+		if [ -n "$selector" ]
 		then
-			words[1]="$cmd-${words[1]}"
-			_tiago
-		elif (( $+functions[_${selector-$words[1]}] ))
-		then
-			service=${selector-$words[1]}
-			_call_function ret _$service && return $ret
-		else
+			words[1]=$selector
 			_normal
+		elif [ -f "$HOME/.local/bin/$cmd-${words[1]}" ]
+		then
+			words[1]=$cmd-${words[1]}
+			_tiago
 		fi
 	fi
 }
