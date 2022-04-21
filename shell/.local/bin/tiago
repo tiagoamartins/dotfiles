@@ -129,12 +129,6 @@ case "$basename" in
 		case "$1" in
 			-Q*)
 				exec "$basename" "$@";;
-			-[S|R|U]*)
-				root_init
-				as_root "$basename" "$@"
-				ret="$?"
-				[ "$ret" != 0 ] || tiago setup --quiet &
-				exit $ret;;
 			*)
 				root_init
 				as_root exec "$basename" "$@";;
