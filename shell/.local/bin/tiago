@@ -127,7 +127,7 @@ case "$basename" in
 
 	pacman)
 		case "$1" in
-			-Q*)
+			-Q*|-S*[ls]*)
 				exec "$basename" "$@";;
 			*)
 				root_init
