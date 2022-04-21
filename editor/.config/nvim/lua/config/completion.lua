@@ -5,10 +5,21 @@ end
 
 local config = {
 	experimental = {
-		ghost_text = true,
-		native_menu = false
+		ghost_text = true
 	},
 	mapping = {
+		['<C-n>'] = cmp.mapping(
+			cmp.mapping.select_next_item({
+				behavior = cmp.SelectBehavior.Insert
+			}),
+			{'i', 'c'}
+		),
+		['<C-p>'] = cmp.mapping(
+			cmp.mapping.select_prev_item({
+				behavior = cmp.SelectBehavior.Insert
+			}),
+			{'i', 'c'}
+		),
 		['<C-j>'] = cmp.mapping(
 			cmp.mapping.confirm({
 				behavior = cmp.ConfirmBehavior.Insert,
