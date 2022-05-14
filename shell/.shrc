@@ -63,18 +63,6 @@ esac
 
 unset hostname
 
-# Refresh function
-rf() {
-	. "$HOME/.profile" > /dev/null
-	dp=`echo $DISPLAY | sed -e 's/\..*$//'`
-	if [ -r "$HOME/.env.$dp" ]
-	then
-		. "$HOME/.env.$dp"
-	fi
-	unset dp
-	hash -r
-}
-
 function aur-gc()
 {
 	# Remove unused build files in aur-sync cache
