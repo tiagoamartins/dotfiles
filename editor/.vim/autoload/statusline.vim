@@ -169,7 +169,7 @@ function! statusline#GitBranch() abort
         return ''
     endif
 
-    return fugitive#head()
+    return FugitiveHead()
 endfunction
 
 " Find out current buffer's size and output it
