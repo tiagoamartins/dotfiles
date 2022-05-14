@@ -38,4 +38,9 @@ bind index,pager \cN sidebar-next
 bind index,pager \cO sidebar-open
 bind index,pager \cP sidebar-prev
 
+# Security {{{1
+# If 'enter-command' is available from the UI, it is possible to obtain
+# the passwords unencrypted, therefore disable commands from the UI.
+bind generic,alias,attach,browser,editor,index,compose,pager,pgp,postpone ':' noop
+
 # vim: filetype=muttrc
