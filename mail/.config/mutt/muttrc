@@ -95,7 +95,6 @@ set ssl_verify_host = yes
 # }}}1
 
 set crypt_verify_sig
-set pgp_verify_command="gpg --no-verbose --batch --output - --verify %s %f"
 
 source $alias_file
 source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/alternates.local`
@@ -106,6 +105,7 @@ source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/message-hooks`
 source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/bindings`
 source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/macros`
 source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/colors`
+source `echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/crypto`
 
 source "`echo ${XDG_CONFIG_HOME:-$HOME/.config}/mutt/accounts.sh` |"
 
