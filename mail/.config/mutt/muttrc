@@ -63,8 +63,8 @@ set include			# Include message in replies
 set reply_to			# Reply to Reply to: field
 set reverse_name		# Reply as whomever it was to
 set sig_dashes			# Dashes before signature
-set text_flowed			# Add format=flowed to remove hard breaks on quoted text
-set mime_forward		# Forward message as MIME attachments
+unset text_flowed		# Do not use format=flowed to remove hard breaks on quoted text
+unset mime_forward		# Forward message in text instead MIME attachments
 set use_from
 
 # Editor {{{1
