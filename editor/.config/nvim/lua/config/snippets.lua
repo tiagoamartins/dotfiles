@@ -7,6 +7,7 @@ local s = luasnip.snippet
 local t = luasnip.text_node
 local i = luasnip.insert_node
 local d = luasnip.dynamic_node
+local sn = luasnip.snippet_node
 local fmt = require('luasnip.extras.fmt').fmt
 
 luasnip.config.set_config({
@@ -19,19 +20,17 @@ local function file_begin()
 	return row == 1 and col == 1
 end
 
-luasnip.snippets = {
-	all = {
-		s('#', fmt('#!/usr/bin/env {}\n{}', {
-			d(1, function (args)
-				return i(1, vim.bo.filetype)
-			end, {}),
-			i(0)
-		}), {
-			condition = file_begin,
-			show_condition = file_begin
-		})
-	}
-}
+luasnip.add_snippets('all', {
+	s('#', fmt('#!/usr/bin/env {}\n{}', {
+		d(1, function (args)
+			return sn(nil, i(1, vim.bo.filetype))
+		end, {}),
+		i(0)
+	}), {
+		condition = file_begin,
+		show_condition = file_begin
+	})
+})
 
 local function map(...) vim.api.nvim_set_keymap(...) end
 
