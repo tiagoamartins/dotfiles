@@ -29,14 +29,14 @@ local function on_attach(client, bufnr)
 	buf_map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
 	-- set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting then
+	if client.server_capabilities.document_formatting then
 		buf_map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-	elseif client.resolved_capabilities.document_range_formatting then
+	elseif client.server_capabilities.document_range_formatting then
 		buf_map('n', '<leader>f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
 	end
 
 	-- set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if client.server_capabilities.document_highlight then
 		vim.api.nvim_exec([[
 			hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
 			hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
@@ -54,7 +54,7 @@ local ok, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 
 if ok then
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
-	capabilities = cmp_lsp.update_capabilities(capabilities)
+	capabilities = cmp_lsp.default_capabilities(capabilities)
 else
 	local capabilities = {}
 end
