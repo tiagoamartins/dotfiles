@@ -5,7 +5,18 @@ if not ok then
 end
 
 treesitter.setup{
-	ensure_installed = {'bash', 'c', 'cpp', 'comment', 'html', 'json', 'lua', 'python', 'rst', 'vim'},
+	ensure_installed = {
+		'bash',
+		'c',
+		'cpp',
+		'comment',
+		'html',
+		'json',
+		'lua',
+		'python',
+		'rst',
+		'vim'
+	},
 	context_commentstring = {
 		enable = true,
 	},
