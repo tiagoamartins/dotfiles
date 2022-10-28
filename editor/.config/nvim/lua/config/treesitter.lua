@@ -16,6 +16,7 @@ treesitter.setup{
 		'markdown',
 		'python',
 		'rst',
+		'verilog',
 		'vim'
 	},
 	context_commentstring = {
@@ -23,6 +24,7 @@ treesitter.setup{
 	},
 	highlight = {
 		enable = true,
+		disable = {'verilog'}
 	},
 	incremental_selection = {
 		enable = true,
