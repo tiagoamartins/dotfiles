@@ -13,6 +13,7 @@ treesitter.setup{
 		'html',
 		'json',
 		'lua',
+		'markdown',
 		'python',
 		'rst',
 		'vim'
