@@ -73,7 +73,7 @@ _tiago() {
 	then
 		COMPREPLY=($(compgen -W "$(grep '^	[a-z-]*[|)]' "$HOME/.local/bin/$cmd" | sed -e 's/).*//' | tr '|' ' ')" "$cur"))
 	else
-		local selector=$(egrep "^	([a-z-]*[|])*$sub([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
+		local selector=$(grep -E "^	([a-z-]*[|])*$sub([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
 		case "$selector" in
 			hosts|ssh)
 				COMPREPLY=($(compgen -W "localhost $(tiago host list)" "$cur"));;

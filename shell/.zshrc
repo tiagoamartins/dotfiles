@@ -215,7 +215,7 @@ function _tiago()
 		(( CURRENT-- ))
 		curcontext="${curcontext%:*:*}:$cmd-${words[1]}:"
 
-		local selector=$(egrep "^	([a-z-]*[|])*${words[1]}([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
+		local selector=$(grep -E "^	([a-z-]*[|])*${words[1]}([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
 		_call_function ret _$selector && return $ret
 
 		if [ -n "$selector" ]
