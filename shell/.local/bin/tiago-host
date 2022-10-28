@@ -49,7 +49,10 @@ function lookup()
 			exit fail;
 		}
 	'
-	awk "$awkhost" fail=1 host="`normalize "$1"`" "$HOME/.ssh/config"
+	if [ -f "$HOME/.ssh/config" ]
+	then
+		awk "$awkhost" fail=1 host="`normalize "$1"`" "$HOME/.ssh/config"
+	fi
 }
 
 function getfullname()
@@ -69,7 +72,10 @@ case "$command" in
 		exit 0;;
 
 	list) # nothing
-		awk '$1 == "HostName" { print $2 }' "$HOME/.ssh/config" | cut -d. -f1
+		if [ -f "$HOME/.ssh/config" ]
+		then
+			awk '$1 == "HostName" { print $2 }' "$HOME/.ssh/config" | cut -d. -f1
+		fi
 		exit 0;;
 
 	*)
