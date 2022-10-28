@@ -4,12 +4,12 @@
 " Last Change: 2016 Jan 10
 
 " Only do this when not done yet for this buffer
-if exists("b:did_ftplugin")
+if exists("b:vhdl_loaded")
     finish
 endif
 
 " Don't load another plugin for this buffer
-let b:did_ftplugin = 1
+let b:vhdl_loaded = 1
 
 let s:cpo_save = &cpo
 set cpo&vim
