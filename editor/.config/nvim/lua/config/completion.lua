@@ -47,6 +47,7 @@ local config = {
 		{ name = 'luasnip' },
 		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
+		{ name = 'treesitter' },
 		{ name = 'tags' },
 		{ name = 'path' },
 		{ name = 'buffer', keyword_length = 5 }
