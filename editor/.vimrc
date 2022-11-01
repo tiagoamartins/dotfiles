@@ -92,6 +92,7 @@ if has('nvim')
     Plug 'hrsh7th/cmp-nvim-lua'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'jc-doyle/cmp-pandoc-references'
     Plug 'quangnguyen30192/cmp-nvim-tags'
     Plug 'ray-x/cmp-treesitter'
     Plug 'saadparwaiz1/cmp_luasnip'

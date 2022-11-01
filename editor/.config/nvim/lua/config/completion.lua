@@ -45,6 +45,7 @@ local config = {
 	},
 	sources = {
 		{ name = 'luasnip' },
+		{ name = 'pandoc_references' },
 		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
 		{ name = 'treesitter' },
