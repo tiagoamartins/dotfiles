@@ -69,6 +69,7 @@ Plug 'vim-test/vim-test'
 
 " Syntax
 Plug 'ARM9/arm-syntax-vim'
+Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Shirk/vim-gas'
 Plug 'WeiChungWu/vim-SystemVerilog'
 Plug 'jvirtanen/vim-hcl'
