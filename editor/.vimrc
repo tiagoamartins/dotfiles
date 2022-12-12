@@ -71,6 +71,7 @@ Plug 'vim-test/vim-test'
 Plug 'ARM9/arm-syntax-vim'
 Plug 'Shirk/vim-gas'
 Plug 'WeiChungWu/vim-SystemVerilog'
+Plug 'jvirtanen/vim-hcl'
 Plug 'tpope/vim-git'
 Plug 'vim-python/python-syntax'
 
