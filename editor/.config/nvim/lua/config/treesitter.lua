@@ -24,7 +24,8 @@ treesitter.setup{
 	},
 	highlight = {
 		enable = true,
-		disable = {'verilog'}
+		disable = {'verilog'},
+		additional_vim_regex_highlighting = true
 	},
 	incremental_selection = {
 		enable = true,
