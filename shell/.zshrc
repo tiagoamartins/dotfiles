@@ -318,3 +318,5 @@ done
 unset binding
 
 # }}}1
+
+[ ! -r "$HOME/.zshrc.local" ] || . "$HOME/.zshrc.local"

@@ -93,3 +93,5 @@ complete -F _tiago tiago
 
 # Cleanup
 unset hostcolor usercolor dircolor ttyname
+
+[ ! -r "$HOME/.bashrc.local" ] || . "$HOME/.bashrc.local"
