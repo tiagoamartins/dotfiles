@@ -5,9 +5,9 @@
 [pretty]
 	fixes = Fixes: %h (\"%s\")
 [alias]
-	wip = log --graph --oneline --decorate origin/master..HEAD
-	feat = log --graph --oneline --decorate master..HEAD
-	tree = log --graph --oneline --decorate --all
+	wip = tlog origin/HEAD..HEAD
+	tree = tlog --all
+	tlog = log --graph --oneline --decorate
 	st = status
 	ci = commit
 	co = checkout
