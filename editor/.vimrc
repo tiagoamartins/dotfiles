@@ -61,6 +61,7 @@ Plug 'tpope/vim-unimpaired'
 
 " Plugins
 Plug 'aliev/vim-compiler-python'
+Plug 'igemnace/vim-makery'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'

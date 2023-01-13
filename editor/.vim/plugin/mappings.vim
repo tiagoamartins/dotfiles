@@ -39,11 +39,8 @@ vnoremap <buffer> <leader>a: :Tabularize /^[^:]*\zs:<cr>
 " Toggle spelling
 noremap <f4> :set spell!<cr> <bar> :echo "spell check: " . strpart("offon", 3 * &spell, 3)<cr>
 
-" dispatch plugin
-if exists(':Dispatch')
-    nnoremap <f9> :Dispatch<cr>
-    nnoremap <f10> :Make<cr>
-endif
+nnoremap <f9> :Dispatch<cr>
+nnoremap <f10> :Mbuild<cr>
 
 " Normal mode {{{1
 " ----------------
