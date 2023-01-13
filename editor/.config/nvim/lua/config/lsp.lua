@@ -27,6 +27,7 @@ local function on_attach(client, bufnr)
 	buf_map('n', '<leader>gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
 	buf_map('n', '<leader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 	buf_map('n', '<leader>gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+	buf_map('n', '<leader>a', '<cmd>lua vim.lsp.bud.code_action()<CR>', opts)
 
 	-- set some keybinds conditional on server capabilities
 	if client.server_capabilities.document_formatting then
@@ -64,7 +65,9 @@ end
 local servers = {
 	['clangd'] = {},
 	['pylsp'] = {},
-	['svls'] = {},
+	['svls'] = {
+		root_dir = function() return vim.loop.cwd() end
+	},
 }
 
 for lsp, specific in pairs(servers) do
