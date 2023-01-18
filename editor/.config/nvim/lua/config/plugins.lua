@@ -16,8 +16,18 @@ return require('packer').startup(function(use)
 
 	-- lsp
 	use {
-		'neovim/nvim-lspconfig',
-		config = [[require('config.lsp')]]
+		{
+			'neovim/nvim-lspconfig',
+			config = [[require('config.lsp')]]
+		},
+		{
+			'jose-elias-alvarez/null-ls.nvim',
+			config = [[require('config.lint')]],
+			event = 'InsertEnter',
+			opt = true,
+			requires = 'nvim-lua/plenary.nvim',
+			wants = 'LuaSnip'
+		}
 	}
 
 	-- treesitter
