@@ -127,11 +127,11 @@ case "$basename" in
 
 	pacman)
 		case "$1" in
-			-Q*|-S*[ils]*|-V*)
-				exec "$basename" "$@";;
-			*)
+			-S*[yu]*)
 				root_init
 				as_root exec "$basename" "$@";;
+			*)
+				exec "$basename" "$@";;
 		esac;;
 
 	setup)
