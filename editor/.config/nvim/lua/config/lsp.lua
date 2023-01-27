@@ -60,6 +60,22 @@ else
 	local capabilities = {}
 end
 
+local nvim_lsp_util = require'lspconfig/util'
+local nvim_lsp_cfgs = require'lspconfig/configs'
+local root_pattern = nvim_lsp_util.root_pattern('veridian.yml', '.git')
+nvim_lsp_cfgs.veridian = {
+	default_config = {
+		cmd = {'veridian'},
+		filetypes = {'systemverilog', 'verilog'},
+		root_dir = function(fname)
+			local filename = nvim_lsp_util.path.is_absolute(fname) and fname
+					 or nvim_lsp_util.path.join(vim.loop.cwd(), fname)
+			return root_pattern(filename) or nvim_lsp_util.path.dirname(filename)
+		end,
+		settings = {}
+	}
+}
+
 -- use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
 local servers = {
@@ -71,7 +87,8 @@ local servers = {
 	['verible'] = {
 		cmd = {'verible-verilog-ls', '--rules_config_search=true'},
 		root_dir = function() return vim.loop.cwd() end
-	}
+	},
+	['veridian'] = {},
 }
 
 for lsp, cfg in pairs(servers) do
