@@ -70,15 +70,26 @@ local servers = {
 	},
 }
 
-for lsp, specific in pairs(servers) do
-	config = {
-		capabilities = capabilities,
-		on_attach = on_attach,
-	}
+for lsp, cfg in pairs(servers) do
+	local cmd = ''
 
-	for k, v in pairs(specific) do
-		config[k] = v
+	if cfg.cmd then
+		cmd = cfg.cmd[1]
+	else
+		cmd = lsp
 	end
 
-	nvim_lsp[lsp].setup(config)
+
+	if vim.fn.executable(cmd) == 1 then
+		local lsp_cfg = {
+			capabilities = capabilities,
+			on_attach = on_attach,
+		}
+
+		for k, v in pairs(cfg) do
+			lsp_cfg[k] = v
+		end
+
+		nvim_lsp[lsp].setup(lsp_cfg)
+	end
 end
