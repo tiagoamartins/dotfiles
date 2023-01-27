@@ -13,6 +13,7 @@
 	co = checkout
 	cp = cherry-pick
 	br = branch
+	sw = switch
 [push]
 	default = matching
 [init]
