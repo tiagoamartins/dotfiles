@@ -68,6 +68,10 @@ local servers = {
 	['svls'] = {
 		root_dir = function() return vim.loop.cwd() end
 	},
+	['verible'] = {
+		cmd = {'verible-verilog-ls', '--rules_config_search=true'},
+		root_dir = function() return vim.loop.cwd() end
+	}
 }
 
 for lsp, cfg in pairs(servers) do
