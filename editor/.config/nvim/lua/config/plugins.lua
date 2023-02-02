@@ -26,7 +26,7 @@ return require('packer').startup(function(use)
 		config = [[require('config.treesitter')]],
 		requires = {
 			{'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter'},
-			'nvim-treesitter/nvim-treesitter-context',
+			{'nvim-treesitter/nvim-treesitter-context', after = 'nvim-treesitter'},
 			{'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},
 			{'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
 		},
