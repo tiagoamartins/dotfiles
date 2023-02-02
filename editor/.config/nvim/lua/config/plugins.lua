@@ -25,10 +25,10 @@ return require('packer').startup(function(use)
 		'nvim-treesitter/nvim-treesitter',
 		config = [[require('config.treesitter')]],
 		requires = {
-			'JoosepAlviste/nvim-ts-context-commentstring',
+			{'JoosepAlviste/nvim-ts-context-commentstring', after = 'nvim-treesitter'},
 			'nvim-treesitter/nvim-treesitter-context',
-			'nvim-treesitter/nvim-treesitter-refactor',
-			'nvim-treesitter/nvim-treesitter-textobjects'
+			{'nvim-treesitter/nvim-treesitter-refactor', after = 'nvim-treesitter'},
+			{'nvim-treesitter/nvim-treesitter-textobjects', after = 'nvim-treesitter'}
 		},
 		run = function()
 			local ts_update = require('nvim-treesitter.install').update({with_sync = true})
