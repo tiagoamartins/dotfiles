@@ -48,6 +48,7 @@ local config = {
 		{ name = 'pandoc_references' },
 		{ name = 'nvim_lua' },
 		{ name = 'nvim_lsp' },
+		{ name = 'nvim_lsp_signature_help' },
 		{ name = 'treesitter' },
 		{ name = 'tags' },
 		{ name = 'path' },

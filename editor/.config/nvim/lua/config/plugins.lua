@@ -56,6 +56,7 @@ return require('packer').startup(function(use)
 		event = 'InsertEnter',
 		requires = {
 			{'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
+			{'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
 			{'ray-x/cmp-treesitter', after = 'nvim-cmp', requires = 'nvim-treesitter'},
 			{'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp', requires = 'LuaSnip'},
 			{'f3fora/cmp-spell', after = 'nvim-cmp'},
@@ -123,15 +124,9 @@ return require('packer').startup(function(use)
 
 	-- interface
 	use {
-		{
-			'lewis6991/gitsigns.nvim',
-			config = [[require('config.interface')]],
-			requires = 'nvim-lua/plenary.nvim'
-		},
-		{
-			'ray-x/lsp_signature.nvim',
-			config = [[require('config.interface')]]
-		},
+		'lewis6991/gitsigns.nvim',
+		config = [[require('config.interface')]],
+		requires = 'nvim-lua/plenary.nvim'
 	}
 
 
