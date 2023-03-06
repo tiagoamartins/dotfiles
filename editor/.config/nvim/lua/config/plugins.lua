@@ -123,12 +123,12 @@ return require('packer').startup(function(use)
 	use {'tpope/vim-git', ft = {'git', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail'}}
 
 	-- interface
+	use 'nvim-lua/plenary.nvim'
 	use {
 		'lewis6991/gitsigns.nvim',
-		config = [[require('config.interface')]],
-		requires = 'nvim-lua/plenary.nvim'
+		config = function() require('gitsigns').setup() end,
+		requires = 'plenary.nvim'
 	}
-
 
 	-- python
 	use {'Vimjas/vim-python-pep8-indent', ft = {'python'}}
