@@ -130,6 +130,13 @@ return require('packer').startup(function(use)
 		requires = 'plenary.nvim'
 	}
 
+	use {
+		'nvim-telescope/telescope.nvim',
+		config = [[require('config.interface')]],
+		tag = '0.1.x',
+		requires = 'plenary.nvim'
+	}
+
 	-- python
 	use {'Vimjas/vim-python-pep8-indent', ft = {'python'}}
 	use {'aliev/vim-compiler-python', ft = {'python'}}
