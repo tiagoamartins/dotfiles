@@ -27,6 +27,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.pycodestyle,
 		null_ls.builtins.diagnostics.pydocstyle,
 		null_ls.builtins.diagnostics.pylint,
+		null_ls.builtins.diagnostics.verilator,
 		null_ls.builtins.diagnostics.yamllint,
 	},
 })
