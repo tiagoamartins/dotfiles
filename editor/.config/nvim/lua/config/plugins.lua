@@ -21,6 +21,16 @@ return require('packer').startup(function(use)
 			config = [[require('config.lsp')]]
 		},
 		{
+			'adoyle-h/lsp-toggle.nvim',
+			after = 'nvim-lspconfig',
+			config = function()
+				require('lsp-toggle').setup({
+					create_cmds = true,
+					telescope = true,
+				})
+			end
+		},
+		{
 			'jose-elias-alvarez/null-ls.nvim',
 			config = [[require('config.lint')]],
 			event = 'InsertEnter',
