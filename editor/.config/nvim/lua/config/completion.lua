@@ -48,6 +48,7 @@ if ok then
 				luasnip = '[snip]',
 				nvim_lsp = '[lsp]',
 				nvim_lua = '[api]',
+				git = '[git]',
 				path = '[path]',
 				spell = '[spell]',
 				tags = '[tags]'
@@ -71,6 +72,19 @@ if ok then
 			end,
 		}
 	}
+end
+
+local ok, cmpgit = pcall(require, 'cmp_git')
+if ok then
+	cmpgit.setup()
+
+	cmp.setup.filetype('gitcommit', {
+		sources = cmp.config.sources({
+			{ name = 'git' },
+		}, {
+			{ name = 'buffer' },
+		})
+	})
 end
 
 cmp.setup(config)

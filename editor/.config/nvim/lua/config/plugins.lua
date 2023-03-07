@@ -63,6 +63,7 @@ return require('packer').startup(function(use)
 			{'hrsh7th/cmp-path', after = 'nvim-cmp'},
 			{'jc-doyle/cmp-pandoc-references', after = 'nvim-cmp'},
 			{'onsails/lspkind-nvim', before = 'nvim-cmp'},
+			{'petertriho/cmp-git', after = 'nvim-cmp', requires = 'plenary.nvim'},
 			{'quangnguyen30192/cmp-nvim-tags', after = 'nvim-cmp'},
 			{'ray-x/cmp-treesitter', after = 'nvim-cmp', requires = 'nvim-treesitter'},
 			{'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp', requires = 'LuaSnip'},
