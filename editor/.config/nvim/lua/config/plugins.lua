@@ -135,7 +135,10 @@ return require('packer').startup(function(use)
 		'nvim-telescope/telescope.nvim',
 		config = [[require('config.interface')]],
 		tag = '0.1.x',
-		requires = 'plenary.nvim'
+		requires = {
+			{'plenary.nvim', before = 'telescope.nvim'},
+			{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+		}
 	}
 
 	-- python
