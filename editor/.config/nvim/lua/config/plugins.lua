@@ -25,7 +25,7 @@ return require('packer').startup(function(use)
 			config = [[require('config.lint')]],
 			event = 'InsertEnter',
 			opt = true,
-			requires = 'nvim-lua/plenary.nvim',
+			requires = 'plenary.nvim',
 			wants = 'LuaSnip'
 		}
 	}
@@ -55,17 +55,17 @@ return require('packer').startup(function(use)
 		config = [[require('config.completion')]],
 		event = 'InsertEnter',
 		requires = {
-			{'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
-			{'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
-			{'ray-x/cmp-treesitter', after = 'nvim-cmp', requires = 'nvim-treesitter'},
-			{'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp', requires = 'LuaSnip'},
 			{'f3fora/cmp-spell', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-buffer', after = 'nvim-cmp'},
+			{'hrsh7th/cmp-nvim-lsp', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
+			{'hrsh7th/cmp-nvim-lsp-signature-help', after = 'nvim-cmp', requires = 'nvim-lspconfig'},
 			{'hrsh7th/cmp-nvim-lua', after = 'nvim-cmp'},
 			{'hrsh7th/cmp-path', after = 'nvim-cmp'},
 			{'jc-doyle/cmp-pandoc-references', after = 'nvim-cmp'},
 			{'onsails/lspkind-nvim', before = 'nvim-cmp'},
-			{'quangnguyen30192/cmp-nvim-tags', after = 'nvim-cmp'}
+			{'quangnguyen30192/cmp-nvim-tags', after = 'nvim-cmp'},
+			{'ray-x/cmp-treesitter', after = 'nvim-cmp', requires = 'nvim-treesitter'},
+			{'saadparwaiz1/cmp_luasnip', after = 'nvim-cmp', requires = 'LuaSnip'},
 		},
 		want = 'LuaSnip'
 	}
