@@ -14,17 +14,17 @@ local config = {
 		['<C-e>'] = cmp.mapping.abort(),
 		['<CR>'] = cmp.mapping.confirm({select = false}),
 	}),
-	sources = {
-		{ name = 'luasnip' },
-		{ name = 'pandoc_references' },
-		{ name = 'nvim_lua' },
+	sources = cmp.config.sources({
 		{ name = 'nvim_lsp' },
 		{ name = 'nvim_lsp_signature_help' },
+		{ name = 'nvim_lua' },
+		{ name = 'luasnip' },
 		{ name = 'treesitter' },
 		{ name = 'tags' },
 		{ name = 'path' },
-		{ name = 'buffer', keyword_length = 5 }
-	}
+	}, {
+		{ name = 'buffer', keyword_length = 3 }
+	}),
 }
 
 local ok, luasnip = pcall(require, 'luasnip')
@@ -74,3 +74,11 @@ if ok then
 end
 
 cmp.setup(config)
+
+cmp.setup.filetype('markdown', {
+	sources = cmp.config.sources({
+		{ name = 'pandoc_references' },
+	}, {
+		{ name = 'buffer' },
+	})
+})
