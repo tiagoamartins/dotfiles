@@ -138,6 +138,7 @@ return require('packer').startup(function(use)
 		requires = {
 			{'plenary.nvim', before = 'telescope.nvim'},
 			{'nvim-telescope/telescope-fzf-native.nvim', run = 'make'},
+			{'keyvchan/telescope-find-pickers.nvim', module = 'telescope._extensions.find_pickers'},
 		}
 	}
 
