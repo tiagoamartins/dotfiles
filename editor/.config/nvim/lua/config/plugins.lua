@@ -111,7 +111,7 @@ return require('packer').startup(function(use)
 	use 'tpope/vim-abolish'
 	use {
 		'tpope/vim-dispatch',
-		cmd = {'Dispatch', 'Make', 'Focus', 'Start'},
+		cmd = {'Dispatch', 'Make', 'Focus', 'FocusDispatch', 'Start'},
 		opt = true
 	}
 	use 'tpope/vim-fugitive'
