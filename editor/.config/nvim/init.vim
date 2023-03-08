@@ -27,3 +27,4 @@ if filereadable(glob("~/.vimrc.local"))
 endif
 
 lua require'config/plugins'
+lua require'config/mappings'

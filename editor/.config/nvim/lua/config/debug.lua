@@ -178,11 +178,6 @@ local function map(...) vim.api.nvim_set_keymap(...) end
 s_noremap = {noremap = true, silent = true}
 
 -- dap
-map('n', '<f3>', [[<cmd>lua require('dapui').toggle()<cr>]], s_noremap)
-map('n', '<f5>', [[<cmd>lua require('dap').continue()<cr>]], s_noremap)
-map('n', '<f6>', [[<cmd>lua require('dap').step_over()<cr>]], s_noremap)
-map('n', '<f7>', [[<cmd>lua require('dap').step_into()<cr>]], s_noremap)
-map('n', '<f8>', [[<cmd>lua require('dap').step_out()<cr>]], s_noremap)
 map('n', '<leader>ds', [[<cmd>lua require('dap').terminate()<cr>]], s_noremap)
 map('n', '<leader>b', [[<cmd>lua require('dap').toggle_breakpoint()<cr>]], s_noremap)
 map('n', '<leader>B', [[<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>]], s_noremap)
