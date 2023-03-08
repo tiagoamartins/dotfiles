@@ -1,19 +1,8 @@
--- local ok, nvim_lint = pcall(require, 'lint')
 local ok, null_ls = pcall(require, 'null-ls')
 
 if not ok then
 	return
 end
-
--- nvim_lint.linters_by_ft = {
--- 	yaml = {'ansible_lint', 'yamllint'}
--- }
-
--- vim.api.nvim_create_autocmd({"BufWritePost"}, {
--- 	callback = function()
--- 		nvim_lint.try_lint()
--- 	end,
--- })
 
 null_ls.setup({
 	sources = {
@@ -30,4 +19,7 @@ null_ls.setup({
 		null_ls.builtins.diagnostics.verilator,
 		null_ls.builtins.diagnostics.yamllint,
 	},
+	on_attach = function(client, bufnr)
+		vim.api.nvim_buf_set_option(bufnr, 'formatexpr', '')
+	end
 })
