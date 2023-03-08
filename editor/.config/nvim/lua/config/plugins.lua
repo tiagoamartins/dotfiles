@@ -151,6 +151,9 @@ return require('packer').startup(function(use)
 			{'keyvchan/telescope-find-pickers.nvim', module = 'telescope._extensions.find_pickers'},
 			{'benfowler/telescope-luasnip.nvim', module = 'telescope._extensions.luasnip'},
 			{'debugloop/telescope-undo.nvim', module = 'telescope._extensions.undo'},
+			{'nvim-telescope/telescope-dap.nvim', after = {'nvim-dap', 'telescope.nvim'}, config = function()
+				require('telescope').load_extension('dap')
+			end},
 		}
 	}
 
