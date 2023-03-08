@@ -84,11 +84,11 @@ return require('packer').startup(function(use)
 	-- debbuging
 	use {
 		'mfussenegger/nvim-dap',
-		cmd = { 'BreakpointToggle', 'Debug', 'DapREPL' },
 		config = [[require('config.debug')]],
+		module = 'dap',
 		requires = {
-			{'rcarriga/nvim-dap-ui', after = 'nvim-dap', requires = 'nvim-dap'},
-			{'theHamsta/nvim-dap-virtual-text', after = 'nvim-dap', requires = 'nvim-dap'}
+			{'rcarriga/nvim-dap-ui', before = 'nvim-dap', module = 'dapui'},
+			{'theHamsta/nvim-dap-virtual-text', after = 'nvim-dap'}
 		}
 	}
 
