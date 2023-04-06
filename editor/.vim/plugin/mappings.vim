@@ -2,6 +2,8 @@
 " -----------
 " Toggle value (using switch plugin)
 nnoremap <leader>gt :Switch<cr>
+nnoremap <silent> <leader>wm :call window#mark_swap()<CR>
+nnoremap <silent> <leader>wp :call window#do_swap()<CR>
 " Turn off search highlight
 nnoremap <leader><space> :nohlsearch<cr>
 " Remove trailing space
