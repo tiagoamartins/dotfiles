@@ -5,7 +5,9 @@
 [pretty]
 	fixes = Fixes: %h (\"%s\")
 [alias]
-	wip = tlog origin/HEAD..HEAD
+	parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
+	chg = log -n 1 --pretty=format:%H
+	wip = "!git tlog \"$(git parent)\"..HEAD"
 	tree = tlog --all
 	tlog = log --graph --oneline --decorate
 	st = status
