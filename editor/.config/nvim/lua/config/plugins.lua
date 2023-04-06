@@ -129,7 +129,6 @@ return require('packer').startup(function(use)
 	use {'ARM9/arm-syntax-vim', ft = {'arm', 'armv4', 'armv5'}}
 	use {'Glench/Vim-Jinja2-Syntax', ft = {'jinja'}}
 	use {'Shirk/vim-gas', ft = {'gas'}}
-	use {'WeiChungWu/vim-SystemVerilog', ft = {'systemverilog', 'verilog'}}
 	use {'jvirtanen/vim-hcl', ft = {'hcl'}}
 	use {'tpope/vim-git', ft = {'git', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail'}}
 
