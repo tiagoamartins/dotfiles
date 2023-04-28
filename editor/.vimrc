@@ -35,21 +35,6 @@ else
     let $VIM_TEMP = expand($VIM_HOME . '/temp')
 endif
 
-" Color schemes {{{1
-" ------------------
-try
-    let g:hybrid_custom_term_colors = 1
-    set background=dark
-    colorscheme hybrid          " Set color scheme
-
-    if has('termguicolors') && &term !~ ".*rxvt.*"
-        set termguicolors       " Use guifg/guibg instead of ctermfg/ctermbg in terminal
-    endif
-catch
-    colorscheme default
-endtry
-" }}}1
-
 if filereadable(glob($MYVIMRC . ".local"))
     source $MYVIMRC.local
 endif

@@ -26,5 +26,20 @@ if filereadable(glob("~/.vimrc.local"))
     source ~/.vimrc.local
 endif
 
+" Color schemes {{{1
+" ------------------
+try
+    let g:hybrid_custom_term_colors = 1
+    set background=dark
+    colorscheme hybrid          " Set color scheme
+
+    if has('termguicolors') && &term !~ ".*rxvt.*"
+        set termguicolors       " Use guifg/guibg instead of ctermfg/ctermbg in terminal
+    endif
+catch
+    colorscheme default
+endtry
+" }}}1
+
 lua require'config/plugins'
 lua require'config/mappings'
