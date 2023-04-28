@@ -18,13 +18,9 @@ let g:loaded_node_provider = 0
 let g:loaded_perl_provider = 0
 
 " load vim's config
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
 source ~/.vimrc
 
-if filereadable(glob("~/.vimrc.local"))
-    source ~/.vimrc.local
-endif
+lua require('config.lazy')
 
 " Color schemes {{{1
 " ------------------
@@ -40,6 +36,3 @@ catch
     colorscheme default
 endtry
 " }}}1
-
-lua require'config/plugins'
-lua require'config/mappings'
