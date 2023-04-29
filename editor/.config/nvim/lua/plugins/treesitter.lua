@@ -41,7 +41,8 @@ return {
 				'python',
 				'rst',
 				'verilog',
-				'vim'
+				'vim',
+				'vimdoc'
 			},
 			context_commentstring = {
 				enable = true,
