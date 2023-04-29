@@ -14,6 +14,7 @@
   "cmp-treesitter": { "branch": "master", "commit": "389eadd48c27aa6dc0e6b992644704f026802a2e" },
   "cmp_luasnip": { "branch": "master", "commit": "18095520391186d634a0045dacaa346291096566" },
   "gitsigns.nvim": { "branch": "main", "commit": "e5edefd9976039f5352e0c900f35206770b33a2d" },
+  "grammar-guard.nvim": { "branch": "main", "commit": "ea163c4adfd68fdd40e095cdf39cb506bf3ce3b2" },
   "lazy.nvim": { "branch": "main", "commit": "d6a782c7002682f4a01b79fc3918c4584ad6e8fb" },
   "lsp-toggle.nvim": { "branch": "master", "commit": "9ec940613358c674fc383d159d561353e833e9fe" },
   "lspkind-nvim": { "branch": "master", "commit": "c68b3a003483cf382428a43035079f78474cd11e" },
