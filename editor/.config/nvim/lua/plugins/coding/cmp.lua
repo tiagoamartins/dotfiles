@@ -6,7 +6,7 @@ function M.opts()
 	local lspkind = require('lspkind')
 	return {
 		experimental = {
-			ghost_text = true
+			ghost_text = {enabled = true}
 		},
 		mapping = cmp.mapping.preset.insert({
 			['<C-b>'] = cmp.mapping.scroll_docs(-4),
