@@ -2,7 +2,13 @@ return {
 	{
 		'nvim-telescope/telescope.nvim',
 		cmd = 'Telescope',
-		config = function() require('config.interface') end,
+		config = function()
+			tscope = require('telescope')
+			tscope.setup()
+			tscope.load_extension('find_pickers')
+			tscope.load_extension('luasnip')
+			tscope.load_extension('undo')
+		end,
 		version = '0.1.x',
 		keys = {
 			{'<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Find Files'},
