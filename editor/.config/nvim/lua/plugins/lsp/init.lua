@@ -25,6 +25,7 @@ return {
 					root_dir = function(fname)
 						local lsp_util = require('lspconfig.util')
 						local lsp_cfgs = require('lspconfig.configs')
+						local root_pattern = lsp_util.root_pattern('veridian.yml', '.git')
 						local filename = lsp_util.path.is_absolute(fname) and fname
 								 or lsp_util.path.join(vim.loop.cwd(), fname)
 						return root_pattern(filename) or lsp_util.path.dirname(filename)
