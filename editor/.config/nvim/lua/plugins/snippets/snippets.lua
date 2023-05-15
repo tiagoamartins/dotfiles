@@ -45,6 +45,16 @@ function M.add_snippets()
 			t({'', '', '#endif'})
 		})
 	})
+
+	luasnip.add_snippets('verilog', {
+		s('ff', {
+			t('always @('),
+			sn(1, {i(2, 'posedge'), t(' '), i(1, 'clk')}),
+			t({') begin', '\t'}),
+			i(0),
+			t({'', 'end'})
+		})
+	})
 end
 
 return M
