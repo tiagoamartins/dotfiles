@@ -71,7 +71,6 @@ return {
 			return {
 				sources = {
 					nls.builtins.code_actions.gitsigns,
-					nls.builtins.completion.luasnip,
 					nls.builtins.completion.spell,
 					nls.builtins.completion.tags,
 					nls.builtins.diagnostics.ansiblelint,
