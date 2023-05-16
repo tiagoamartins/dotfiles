@@ -3,6 +3,12 @@
 function update_display()
 {
 	local NEW_DISPLAY=$(tmux show-env | sed -n 's/^DISPLAY=//p')
+
+	if [ -n "$NEW_DISPLAY" ]
+	then
+		return 1
+	fi
+
 	tmux list-panes -s -F "#{session_name}:#{window_index}.#{pane_index} #{pane_current_command}" | \
 		while read pane_process
 		do
