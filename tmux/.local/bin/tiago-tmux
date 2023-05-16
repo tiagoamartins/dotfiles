@@ -4,7 +4,7 @@ function update_display()
 {
 	local NEW_DISPLAY=$(tmux show-env | sed -n 's/^DISPLAY=//p')
 
-	if [ -n "$NEW_DISPLAY" ]
+	if [ -z "$NEW_DISPLAY" ]
 	then
 		return 1
 	fi
