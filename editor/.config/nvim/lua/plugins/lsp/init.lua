@@ -70,16 +70,8 @@ return {
 			local nls = require('null-ls')
 			return {
 				sources = {
-					nls.builtins.code_actions.gitsigns,
-					nls.builtins.completion.spell,
-					nls.builtins.completion.tags,
 					nls.builtins.diagnostics.ansiblelint,
-					nls.builtins.diagnostics.buf,
-					nls.builtins.diagnostics.flake8,
-					nls.builtins.diagnostics.pycodestyle,
-					nls.builtins.diagnostics.pydocstyle,
 					nls.builtins.diagnostics.pylint,
-					nls.builtins.diagnostics.verilator,
 					nls.builtins.diagnostics.yamllint,
 				},
 				on_attach = function(client, bufnr)
