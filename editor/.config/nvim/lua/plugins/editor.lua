@@ -12,9 +12,9 @@ return {
 		version = '0.1.x',
 		keys = {
 			{'<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Find Files'},
-			{'<leader>fg', '<cmd>Telescopelive_grep<cr>'},
-			{'<leader>fb', '<cmd>Telescopebuffers<cr>'},
-			{'<leader>fh', '<cmd>Telescopehelp_tags<cr>'},
+			{'<leader>fg', '<cmd>Telescope live_grep<cr>'},
+			{'<leader>fb', '<cmd>Telescope buffers<cr>'},
+			{'<leader>fh', '<cmd>Telescope help_tags<cr>'},
 			{'<leader>fp', '<cmd>Telescope find_pickers<cr>'},
 			{'<leader>fs', '<cmd>Telescope luasnip<cr>'},
 			{'<leader>fu', '<cmd>Telescope undo<cr>'},
