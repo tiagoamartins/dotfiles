@@ -9,7 +9,8 @@ return {
 		'tpope/vim-fugitive',
 		cmd = {
 			'Git', 'Gedit', 'Gtabedit', 'Gread', 'Gsplit', 'Gvsplit', 'Glcd', 'Glgrep',
-			'Gllog', 'GlLog', 'Gdiffsplit', 'Gvdiffsplit', 'Gclog', 'Gcd', 'Gbrowse', 'Gdrop'
+			'Gllog', 'GlLog', 'Gdiffsplit', 'Gvdiffsplit', 'Gclog', 'Gcd', 'Gbrowse', 'Gdrop',
+			'Gwrite'
 		},
 	},
 	'tpope/vim-projectionist',
