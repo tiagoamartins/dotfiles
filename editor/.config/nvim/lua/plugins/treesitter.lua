@@ -6,7 +6,6 @@ return {
 		dependencies = {
 			'JoosepAlviste/nvim-ts-context-commentstring',
 			'nvim-treesitter/nvim-treesitter-context',
-			'nvim-treesitter/nvim-treesitter-refactor',
 			{
 				'nvim-treesitter/nvim-treesitter-textobjects',
 				init = function()
@@ -58,18 +57,6 @@ return {
 			indent = {
 				enable = true,
 				disable = {'c', 'python'}
-			},
-			refactor = {
-				highlight_definitions = { enable = true },
-				navigation = {
-					enable = true,
-					keymaps = {
-						goto_definition_lsp_fallback = "<leader>gd",
-						goto_next_usage = "<leader>]d",
-						goto_previous_usage = "<leader>[d",
-
-					}
-				}
 			},
 			rainbow = {
 				enable = true,
