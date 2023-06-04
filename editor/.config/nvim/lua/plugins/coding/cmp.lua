@@ -9,26 +9,26 @@ function M.opts()
 			ghost_text = {enabled = true}
 		},
 		mapping = cmp.mapping.preset.insert({
-			['<C-b>'] = cmp.mapping.scroll_docs(-4),
+			['<C-d>'] = cmp.mapping.scroll_docs(-4),
 			['<C-f>'] = cmp.mapping.scroll_docs(4),
 			['<C-e>'] = cmp.mapping.abort(),
 			['<Tab>'] = cmp.mapping(function (fallback)
 				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = false})
+					cmp.confirm({behavior = cmp.ConfirmBehavior.Replace, select = true})
 				else
 					fallback()
 				end
 			end, {'i'}),
 			['<C-n>'] = cmp.mapping(function (fallback)
 				if cmp.visible() then
-					cmp.select_next_item({behavior = cmp.SelectBehavior.Select})
+					cmp.select_next_item()
 				else
 					fallback()
 				end
 			end, {'i'}),
 			['<C-p>'] = cmp.mapping(function (fallback)
 				if cmp.visible() then
-					cmp.select_prev_item({behavior = cmp.SelectBehavior.Select})
+					cmp.select_prev_item()
 				else
 					fallback()
 				end
