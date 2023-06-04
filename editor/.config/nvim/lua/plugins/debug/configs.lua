@@ -114,16 +114,14 @@ function M.python()
 			request = 'launch';
 			name = 'Launch file';
 			program = '${file}';
-			console = 'integratedTerminal',
-			pythonPath = get_python_path;
+			pythonPath = require('config.util').get_python_path
 		}, {
 			type = 'python';
 			request = 'launch';
 			name = 'Launch file with arguments';
 			program = '${file}';
 			args = get_arguments,
-			console = 'integratedTerminal',
-			pythonPath = get_python_path;
+			pythonPath = require('config.util').get_python_path
 		}
 	}
 end
