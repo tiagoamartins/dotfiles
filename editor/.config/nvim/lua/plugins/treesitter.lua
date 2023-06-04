@@ -10,11 +10,11 @@ return {
 				'nvim-treesitter/nvim-treesitter-textobjects',
 				init = function()
 					-- PERF: no need to load the plugin, if we only need its queries for mini.ai
-					local plugin = require("lazy.core.config").spec.plugins["nvim-treesitter"]
-					local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+					local plugin = require('lazy.core.config').spec.plugins['nvim-treesitter']
+					local opts = require('lazy.core.plugin').values(plugin, 'opts', false)
 					local enabled = false
 					if opts.textobjects then
-						for _, mod in ipairs({ "move", "select", "swap", "lsp_interop" }) do
+						for _, mod in ipairs({'move', 'select', 'swap', 'lsp_interop'}) do
 							if opts.textobjects[mod] and opts.textobjects[mod].enable then
 								enabled = true
 								break
@@ -22,7 +22,7 @@ return {
 						end
 					end
 					if not enabled then
-						require("lazy.core.loader").disable_rtp_plugin("nvim-treesitter-textobjects")
+						require('lazy.core.loader').disable_rtp_plugin('nvim-treesitter-textobjects')
 					end
 				end
 			},
@@ -48,11 +48,59 @@ return {
 			},
 			highlight = {
 				enable = true,
-				disable = {'verilog'},
-				additional_vim_regex_highlighting = true
+				disable = {'verilog'}
 			},
 			incremental_selection = {
 				enable = true,
+				keymaps = {
+					init_selection = '<C-Space>',
+					node_incremental = '<C-Space>',
+					node_decremental = '<M-Backspace>',
+					scope_incremental = '<C-s>'
+				}
+			},
+			textobjects = {
+				select = {
+					enable = true,
+					lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+					keymaps = {
+						['aa'] = '@parameter.outer',
+						['ia'] = '@parameter.inner',
+						['af'] = '@function.outer',
+						['if'] = '@function.inner',
+						['ac'] = '@class.outer',
+						['ic'] = '@class.inner',
+					},
+				},
+				move = {
+					enable = true,
+					set_jumps = true, -- whether to set jumps in the jumplist
+					goto_next_start = {
+						[']m'] = '@function.outer',
+						[']]'] = '@class.outer',
+					},
+					goto_next_end = {
+						[']M'] = '@function.outer',
+						[']['] = '@class.outer',
+					},
+					goto_previous_start = {
+						['[m'] = '@function.outer',
+						['[['] = '@class.outer',
+					},
+					goto_previous_end = {
+						['[M'] = '@function.outer',
+						['[]'] = '@class.outer',
+					},
+				},
+				swap = {
+					enable = true,
+					swap_next = {
+						['<leader>a'] = '@parameter.inner',
+					},
+					swap_previous = {
+						['<leader>A'] = '@parameter.inner',
+					},
+				},
 			},
 			indent = {
 				enable = true,
