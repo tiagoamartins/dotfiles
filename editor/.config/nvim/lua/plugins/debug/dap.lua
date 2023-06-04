@@ -13,9 +13,6 @@ function M.setup()
 	)
 	vim.cmd([[au FileType dap-repl lua require('dap.ext.autocompl').attach()]])
 
-	dap.adapters = require('plugins.debug.adapters').all()
-	dap.configurations = require('plugins.debug.configs').all()
-
 	local repl = require('dap.repl')
 	repl.commands = vim.tbl_extend('force', repl.commands, {
 		exit = {'exit', '.exit', '.bye'},
