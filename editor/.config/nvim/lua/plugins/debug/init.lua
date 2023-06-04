@@ -4,22 +4,26 @@ return {
 		lazy = true,
 		config = function() require('plugins.debug.dap').setup() end,
 		keys = {
-			{'<leader>ds', [[<cmd>lua require('dap').terminate()<cr>]]},
-			{'<leader>b', [[<cmd>lua require('dap').toggle_breakpoint()<cr>]]},
-			{'<leader>B', [[<cmd>lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>]]},
-			{'<leader>lp', [[<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>]]},
-			{'<leader>dr', [[<cmd>lua require('dap').repl.toggle()<cr>]]},
-			{'<leader>dl', [[<cmd>lua require('dap').run_last()<cr>]]},
-			{'<f5>', [[<cmd>lua require('dap').continue()<cr>]]},
-			{'<f6>', [[<cmd>lua require('dap').step_over()<cr>]]},
-			{'<f7>', [[<cmd>lua require('dap').step_into()<cr>]]},
-			{'<f8>', [[<cmd>lua require('dap').step_out()<cr>]]},
+			{'<leader>td', function() require('dap').terminate() end, desc = '[T]erminate [D]ebugging Session'},
+			{'<leader>b', function() require('dap').toggle_breakpoint() end, desc = 'Add [B]reakpoint'},
+			{'<leader>B', function()
+				require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))
+			end, desc = 'Add conditional [B]reakpoint'},
+			{'<leader>lp', function()
+				require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+			end, desc = 'Add [L]og [P]oint'},
+			{'<leader>rd', function() require('dap').repl.toggle() end, desc = '[R]un [D]ebugging Session'},
+			{'<leader>ld', function() require('dap').run_last() end, desc = 'Run [L]ast [D]ebugging Session'},
+			{'<F5>', function() require('dap').continue() end, desc = 'DAP: Start/continue'},
+			{'<F6>', function() require('dap').step_over() end, desc = 'DAP: Step over'},
+			{'<F7>', function() require('dap').step_into() end, desc = 'DAP: Step into'},
+			{'<F8>', function() require('dap').step_out() end, desc = 'DAP: Step out'},
 		},
 		dependencies = {
 			{
 				'rcarriga/nvim-dap-ui',
 				keys = {
-					{'<f3>', [[<cmd>lua require('dapui').toggle()<cr>]]},
+					{'<f3>', function() require('dapui').toggle() end, desc = 'DAP: Activate UI'},
 				},
 				config = function() require('plugins.debug.dap_ui').setup() end,
 			},
