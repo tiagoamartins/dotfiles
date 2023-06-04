@@ -11,28 +11,24 @@ function M.setup()
 
 	local api = vim.api
 	local keymap_restore = {}
-	dap.listeners.after['event_initialized']['me'] = function()
+	dap.listeners.after.event_initialized['me'] = function()
 		for _, buf in pairs(api.nvim_list_bufs()) do
 			local keymaps = api.nvim_buf_get_keymap(buf, 'n')
 			for _, keymap in pairs(keymaps) do
-				if keymap.lhs == "K" then
+				if keymap.lhs == 'K' and keymap.rhs ~= nil then
 					table.insert(keymap_restore, keymap)
-					api.nvim_buf_del_keymap(buf, 'n', 'K')
+					vim.keymap.del('n', 'K', {buffer = buf})
 				end
 			end
 		end
-		api.nvim_set_keymap('n', 'K', '<cmd>lua require("dapui").eval()<cr>', { silent = true })
+		vim.keymap.set('n', 'K', function() require('dap.ui.widgets').hover() end, {silent = true})
 	end
 
-	dap.listeners.after['event_terminated']['me'] = function()
+	dap.listeners.after.event_terminated['me'] = function()
 		for _, keymap in pairs(keymap_restore) do
-			api.nvim_buf_set_keymap(
-				keymap.buffer,
-				keymap.mode,
-				keymap.lhs,
-				keymap.rhs,
-				{silent = keymap.silent == 1}
-			)
+			vim.keymap.set(keymap.mode, keymap.lhs, keymap.rhs, {
+				buffer = keymap.buffer, silent = (keymap.silent == 1)
+			})
 		end
 		keymap_restore = {}
 	end
