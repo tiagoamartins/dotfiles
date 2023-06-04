@@ -26,6 +26,32 @@ function M.setup()
 			['.restart'] = dap.restart,
 		}
 	})
+
+	vim.api.nvim_create_user_command("RunScriptWithArgs", function(t)
+		-- :help nvim_create_user_command
+		args = vim.split(vim.fn.expand(t.args), '\n')
+		approval = vim.fn.confirm(
+			"Will try to run:\n    " ..
+			vim.bo.filetype .. " " ..
+			vim.fn.expand('%') .. " " ..
+			t.args .. "\n\n" ..
+			"Do you approve? ",
+			"&Yes\n&No", 1
+		)
+		if approval == 1 then
+			dap.run({
+				type = vim.bo.filetype,
+				request = 'launch',
+				name = 'Launch file with custom arguments (adhoc)',
+				program = '${file}',
+				args = args,
+			})
+		end
+		end, {
+			complete = 'file',
+			nargs = '*'
+	})
+	vim.keymap.set('n', '<leader>R', ":RunScriptWithArgs")
 end
 
 return M
