@@ -1,5 +1,14 @@
 return {
 	{
+		'williamboman/mason-lspconfig.nvim',
+		dependencies = {
+			'neovim/nvim-lspconfig'
+		},
+		opts = {
+			ensure_installed = {'clangd', 'pylsp'}
+		}
+	},
+	{
 		'neovim/nvim-lspconfig',
 		event = {'BufReadPre', 'BufNewFile'},
 		dependencies = {
@@ -64,6 +73,18 @@ return {
 	},
 
 	-- formatters
+	{
+		'jay-babu/mason-null-ls.nvim',
+		event = {'BufReadPre', 'BufNewFile'},
+		dependencies = {
+			"williamboman/mason.nvim",
+			'jose-elias-alvarez/null-ls.nvim',
+		},
+		opts = {
+			ensure_installed = {'ansible-lint', 'pylint', 'yamllint'},
+			automatic_installation = false
+		}
+	},
 	{
 		'jose-elias-alvarez/null-ls.nvim',
 		event = {'BufReadPre', 'BufNewFile'},
