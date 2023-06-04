@@ -39,6 +39,7 @@ return {
 			local servers = opts.servers
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+			keymaps.map()
 			capabilities = clsp.default_capabilities(capabilities)
 
 			for server, server_opts in pairs(servers) do
