@@ -5,7 +5,7 @@ nnoremap <leader>gt :Switch<cr>
 nnoremap <silent> <leader>wm :call window#mark_swap()<CR>
 nnoremap <silent> <leader>wp :call window#do_swap()<CR>
 " Turn off search highlight
-nnoremap <leader><leader> :nohlsearch<cr>
+nnoremap <leader><space> :nohlsearch<cr>
 " Remove trailing space
 nnoremap <leader>$ :call cursor#preserve("%s/\\s\\+$//e")<cr>
 " Indent entire file

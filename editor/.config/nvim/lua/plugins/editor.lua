@@ -14,7 +14,7 @@ return {
 		keys = {
 			{'<leader>?', function()
 				require('telescope.builtin').oldfiles() end, desc =  '[?] Find recently opened files' },
-			{'<leader><space>', function() require('telescope.builtin').buffers() end, desc =  '[ ] Find existing buffers'},
+			{'<leader><leader>', function() require('telescope.builtin').buffers() end, desc =  '[ ] Find existing buffers'},
 			{'<leader>/', function()
 				require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
 					winblend = 10,
