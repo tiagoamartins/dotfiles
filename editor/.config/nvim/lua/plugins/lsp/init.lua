@@ -1,13 +1,5 @@
 return {
-	{
-		'williamboman/mason-lspconfig.nvim',
-		dependencies = {
-			'neovim/nvim-lspconfig'
-		},
-		opts = {
-			ensure_installed = {'clangd', 'pylsp'}
-		}
-	},
+	require('plugins.lsp.mason-lspconfig'),
 	require('plugins.lsp.lspconfig'),
 
 	-- formatters
