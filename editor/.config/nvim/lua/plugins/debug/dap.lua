@@ -72,10 +72,6 @@ return {
 	dependencies = {
 		'rcarriga/nvim-dap-ui',
 		'theHamsta/nvim-dap-virtual-text',
-		{
-			'nvim-telescope/telescope-dap.nvim',
-			config = function() require('telescope').load_extension('dap') end,
-			cond = function() return require('config.util').has('nvim-telescope') end
-		},
+		'nvim-telescope/telescope-dap.nvim',
 	}
 }
