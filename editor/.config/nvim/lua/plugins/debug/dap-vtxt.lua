@@ -1,7 +1,6 @@
-local M = {}
-
-function M.opts()
-	return {
+return {
+	'theHamsta/nvim-dap-virtual-text',
+	opts = {
 		enabled = true,
 		enabled_commands = true,
 		highlight_changed_variables = true,
@@ -9,6 +8,4 @@ function M.opts()
 		show_stop_reason = true,
 		commented = false,
 	}
-end
-
-return M
+}
