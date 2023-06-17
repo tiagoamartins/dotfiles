@@ -1,6 +1,4 @@
-local M = {}
-
-function M.setup()
+local function config()
 	local dap_ui = require('dapui')
 	dap_ui.setup()
 
@@ -34,4 +32,10 @@ function M.setup()
 	end
 end
 
-return M
+return {
+	'rcarriga/nvim-dap-ui',
+	keys = {
+		{'<f3>', function() require('dapui').toggle() end, desc = 'DAP: Activate UI'},
+	},
+	config = config
+}

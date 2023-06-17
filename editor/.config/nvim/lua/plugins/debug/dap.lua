@@ -70,13 +70,7 @@ return {
 		{'<F8>', function() require('dap').step_out() end, desc = 'DAP: Step out'},
 	},
 	dependencies = {
-		{
-			'rcarriga/nvim-dap-ui',
-			keys = {
-			{'<f3>', function() require('dapui').toggle() end, desc = 'DAP: Activate UI'},
-			},
-			config = function() require('plugins.debug.dap_ui').setup() end,
-		},
+		'rcarriga/nvim-dap-ui',
 		{
 			'theHamsta/nvim-dap-virtual-text',
 			opts = require('plugins.debug.dap_vtxt').opts
