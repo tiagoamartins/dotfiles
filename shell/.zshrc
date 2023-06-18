@@ -18,7 +18,7 @@ local dircolor="$fg_bold[cyan]"
 local hashcolor="$fg_bold[white]"
 # Use echotc Co?
 case "$TERM" in
-	*-256color)
+	*-256color|*-direct)
 		basecolor=$'\e[1;38;5;244m'
 		branchcolor=$'\e[1;38;5;136m'
 		usercolor=$'\e[1;38;5;33m'
@@ -121,7 +121,7 @@ case $TERM in
 			fi
 		};;
 
-	xterm*|rxvt*|Eterm*|kterm*|putty*|dtterm*|ansi*|cygwin*)
+	xterm*|rxvt*|Eterm*|kterm*|putty*|dtterm*|ansi*|cygwin*|foot*)
 		PROMPT="${PROMPT//01;3/00;9}"
 		precmd () {
 		    _set_title "$@"
