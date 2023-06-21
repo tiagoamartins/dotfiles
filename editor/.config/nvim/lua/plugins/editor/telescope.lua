@@ -39,6 +39,7 @@ return {
 		'keyvchan/telescope-find-pickers.nvim',
 		'debugloop/telescope-undo.nvim',
 		'benfowler/telescope-luasnip.nvim',
+		'nvim-telescope/telescope-dap.nvim',
 		{
 			'adoyle-h/lsp-toggle.nvim',
 			opts = {

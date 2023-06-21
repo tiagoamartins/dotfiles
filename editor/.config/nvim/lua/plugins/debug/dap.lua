@@ -51,7 +51,6 @@ end
 
 return {
 	'mfussenegger/nvim-dap',
-	lazy = true,
 	config = config,
 	keys = {
 		{'<leader>td', function() require('dap').terminate() end, desc = '[T]erminate [D]ebugging Session'},
@@ -70,8 +69,7 @@ return {
 		{'<F8>', function() require('dap').step_out() end, desc = 'DAP: Step out'},
 	},
 	dependencies = {
-		'rcarriga/nvim-dap-ui',
 		'theHamsta/nvim-dap-virtual-text',
-		'nvim-telescope/telescope-dap.nvim',
+		'nvim-telescope/telescope-dap.nvim'
 	}
 }
