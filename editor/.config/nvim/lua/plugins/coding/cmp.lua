@@ -72,7 +72,7 @@ local function opts()
 			end
 		},
 		formatting = {
-			format = lspkind.cmp_format {
+			format = lspkind.cmp_format({
 				mode = 'symbol_text',
 				preset = 'codicons',
 				maxwidth = 50,
@@ -103,7 +103,8 @@ local function opts()
 
 					return vim_item
 				end,
-			}
+			}),
+			fields = {'abbr', 'menu', 'kind'},
 		},
 		filetype = {
 			gitcommit = {
@@ -120,6 +121,10 @@ local function opts()
 					{name = 'buffer'},
 				})
 			}
+		},
+		window = {
+			completion = cmp.config.window.bordered(),
+			documentation = cmp.config.window.bordered(),
 		}
 	}
 end
