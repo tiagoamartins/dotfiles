@@ -1,30 +1,7 @@
-local function bufIsBig(bufnr)
-	local max_filesize = 100 * 1024 -- 100 KB
-	local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(bufnr))
-	if ok and stats and stats.size > max_filesize then
-		return true
-	else
-		return false
-	end
-end
-
 local function opts()
 	local cmp = require('cmp')
 	local luasnip = require('luasnip')
 	local lspkind = require('lspkind')
-
-	vim.api.nvim_create_autocmd('BufReadPre', {
-		callback = function(t)
-			local sources = default_cmp_sources
-			if not bufIsBig(t.buf) then
-				sources[#sources + 1] = {name = 'treesitter', group_index = 2}
-			end
-			cmp.setup.buffer {
-				sources = sources
-			}
-		end
-	})
-
 	return {
 		experimental = {
 			ghost_text = {enabled = true}
