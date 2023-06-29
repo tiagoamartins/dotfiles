@@ -113,6 +113,7 @@ function pacman-last()
 # Aliases
 alias aur-check='aur repo -d aur --list | aur vercmp'
 alias aur-list='comm -12 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
+alias aur-unused='comm -13 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
 alias cls='clear'
 alias cp='cp -i'
 alias dcm2nii='dcm2niix -v n -z y -f '"'"'%s_%p'"'"
