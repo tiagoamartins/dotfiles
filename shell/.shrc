@@ -96,6 +96,20 @@ function aur-remove()
 	done
 }
 
+function pacman-last()
+{
+	local count
+
+	if [ "$#" -eq 0 ]
+	then
+		count=20
+	else
+		count=$1
+	fi
+
+	expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n $count
+}
+
 # Aliases
 alias aur-check='aur repo -d aur --list | aur vercmp'
 alias aur-list='comm -12 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
@@ -106,7 +120,6 @@ alias gst='git status'
 alias j='jobs'
 alias ll='ls -l'
 alias mv='mv -i'
-alias pacman-last='expac --timefmt='"'"'%Y-%m-%d %T'"'"' '"'"'%l\t%n'"'"' | sort | tail -n 20'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
 alias vi=$VISUAL
