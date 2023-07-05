@@ -48,7 +48,6 @@ return {
 			},
 			highlight = {
 				enable = true,
-				disable = {'verilog'}
 			},
 			incremental_selection = {
 				enable = true,
@@ -104,7 +103,6 @@ return {
 			},
 			indent = {
 				enable = true,
-				disable = {'c', 'python'}
 			},
 			rainbow = {
 				enable = true,
