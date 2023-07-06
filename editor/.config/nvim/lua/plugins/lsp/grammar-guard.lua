@@ -6,6 +6,7 @@ return {
 		local nlsp = require('lspconfig')
 		nlsp.grammar_guard.setup(opts)
 	end,
+	ft = {'bib', 'latex', 'markdown', 'rst', 'tex', 'text'},
 	opts = {
 		cmd = {'ltex-ls'},
 		settings = {
