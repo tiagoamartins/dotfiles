@@ -1,6 +1,10 @@
 return {
 	'igemnace/vim-makery',
-	'tpope/vim-abolish',
+	{
+		'tpope/vim-abolish',
+		cmd = {'Abolish', 'Subvert'},
+		keys = {'cr'}
+	},
 	{
 		'tpope/vim-dispatch',
 		cmd = {'Dispatch', 'Make', 'Focus', 'FocusDispatch', 'Start'},
