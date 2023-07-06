@@ -2,10 +2,7 @@ return {
 	'neovim/nvim-lspconfig',
 	event = {'BufReadPre', 'BufNewFile'},
 	dependencies = {
-		{
-			'hrsh7th/cmp-nvim-lsp',
-			cond = function() return require('config.util').has('nvim-cmp') end
-		},
+		'hrsh7th/cmp-nvim-lsp',
 	},
 	opts = {
 		servers = {
