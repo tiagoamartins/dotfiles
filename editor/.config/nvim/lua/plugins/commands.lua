@@ -13,7 +13,14 @@ return {
 	{
 		'tpope/vim-commentary',
 		cmd = {'Commentary'},
-		keys = {'gc'}
+		keys = {
+			'gc',
+			'gcc',
+			'gcu',
+			'gcgc',
+			{'gc', mode = 'v'},
+			{'gc', mode = 'o'},
+		}
 	},
 	{
 		'tpope/vim-dispatch',
