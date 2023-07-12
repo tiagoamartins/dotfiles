@@ -113,13 +113,19 @@ return {
 	dependencies = {
 		'f3fora/cmp-spell',
 		'hrsh7th/cmp-buffer',
-		'hrsh7th/cmp-nvim-lua',
+		{
+			'hrsh7th/cmp-nvim-lua',
+			ft = {'lua'}
+		},
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-nvim-lsp-signature-help',
 		'hrsh7th/cmp-path',
 		'jc-doyle/cmp-pandoc-references',
 		'onsails/lspkind-nvim',
-		'petertriho/cmp-git',
+		{
+			'petertriho/cmp-git',
+			ft = {'git', 'gitcommit', 'gitconfig', 'gitrebase', 'gitsendemail'}
+		},
 		'quangnguyen30192/cmp-nvim-tags',
 		'ray-x/cmp-treesitter',
 		'saadparwaiz1/cmp_luasnip',
