@@ -1,7 +1,15 @@
 return {
 	'williamboman/mason.nvim',
 	build = function() pcall(vim.cmd, 'MasonUpdate') end,
-	lazy = true,
+	cmd = {
+		'Mason',
+		'MasonDebug',
+		'MasonInstall',
+		'MasonLog',
+		'MasonUninstall',
+		'MasonUninstallAll',
+		'MasonUpdate'
+	},
 	opts = {
 		ui = {
 			icons = {

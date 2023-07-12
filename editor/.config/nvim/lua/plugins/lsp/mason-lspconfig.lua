@@ -1,6 +1,6 @@
 return {
 	'williamboman/mason-lspconfig.nvim',
-	lazy = true,
+	cmd = {'LspInstall', 'LspUninstall'},
 	dependencies = {
 		'neovim/nvim-lspconfig',
 		'williamboman/mason.nvim'

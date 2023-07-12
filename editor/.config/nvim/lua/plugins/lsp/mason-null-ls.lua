@@ -1,6 +1,6 @@
 return {
 	'jay-babu/mason-null-ls.nvim',
-	lazy = true,
+	cmd = {'NullLsInstall', 'NullLsUninstall'},
 	dependencies = {
 		"williamboman/mason.nvim",
 		'jose-elias-alvarez/null-ls.nvim',
