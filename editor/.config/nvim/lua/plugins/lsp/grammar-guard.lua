@@ -21,7 +21,7 @@ return {
 				},
 				trace = {server = 'verbose'},
 				dictionary = {},
-			disabledRules = {en = {'EN_QUOTES'}},
+			disabledRules = {en = {'EN_QUOTES', 'WORD_CONTAINS_UNDERSCORE'}},
 				hiddenFalsePositives = {},
 			}
 		}
