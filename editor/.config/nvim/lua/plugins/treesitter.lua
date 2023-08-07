@@ -43,12 +43,8 @@ return {
 				'vim',
 				'vimdoc'
 			},
-			context_commentstring = {
-				enable = true,
-			},
-			highlight = {
-				enable = true,
-			},
+			context_commentstring = {enable = true},
+			highlight = {enable = true},
 			incremental_selection = {
 				enable = true,
 				keymaps = {
@@ -58,6 +54,7 @@ return {
 					scope_incremental = '<C-s>'
 				}
 			},
+			indent = {enable = true},
 			textobjects = {
 				select = {
 					enable = true,
@@ -100,9 +97,6 @@ return {
 						['<leader>A'] = '@parameter.inner',
 					},
 				},
-			},
-			indent = {
-				enable = true,
 			},
 			rainbow = {
 				enable = true,
