@@ -33,29 +33,28 @@ return {
 	config = function(_, opts)
 		local clsp = require('cmp_nvim_lsp')
 		local keymaps = require('plugins.lsp.mappings')
+		local mason_lsp = require('mason-lspconfig')
 		local servers = opts.servers
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 		keymaps.map()
 		capabilities = clsp.default_capabilities(capabilities)
+		mason_lsp.setup({
+			ensure_installed = vim.tbl_keys(servers)
+		})
 
-		for server, server_opts in pairs(servers) do
-			local cmd = ''
-
-			if server_opts.cmd then
-				cmd = server_opts.cmd[1]
-			else
-				cmd = server
+		mason_lsp.setup_handlers({
+			function(server_name)
+				local cmd = ((servers[server_name] or {}).cmd or {})[1] or server_name
+				if vim.fn.executable(cmd) == 1 then
+					require('lspconfig')[server_name].setup({
+						capabilities = capabilities,
+						on_attach = keymaps.on_attach,
+						settings = servers[server_name],
+						filetypes = (servers[server_name] or {}).filetypes
+					})
+				end
 			end
-
-
-			if vim.fn.executable(cmd) == 1 then
-				local s_opts = vim.tbl_deep_extend('force', {
-					capabilities = vim.deepcopy(capabilities),
-					on_attach = keymaps.on_attach
-				}, server_opts or {})
-				require('lspconfig')[server].setup(s_opts)
-			end
-		end
+		})
 	end
 }

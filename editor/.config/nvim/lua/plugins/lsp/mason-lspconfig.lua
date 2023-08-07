@@ -4,8 +4,5 @@ return {
 	dependencies = {
 		'neovim/nvim-lspconfig',
 		'williamboman/mason.nvim'
-	},
-	opts = {
-		ensure_installed = {'clangd', 'pylsp'}
 	}
 }
