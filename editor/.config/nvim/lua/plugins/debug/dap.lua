@@ -1,4 +1,4 @@
-local function config()
+local function config(_, opts)
 	local dap = require('dap')
 
 	dap.defaults.fallback.terminal_win_cmd = [[ belowright new ]]
@@ -47,11 +47,20 @@ local function config()
 			nargs = '*'
 	})
 	vim.keymap.set('n', '<leader>R', ":RunScriptWithArgs")
+
+	local mason_dap = require('mason-nvim-dap')
+	mason_dap.setup({
+		ensure_installed = opts.adapters,
+		handlers = require('plugins.debug.handlers').setup_handlers()
+	})
 end
 
 return {
 	'mfussenegger/nvim-dap',
 	config = config,
+	opts = {
+		adapters = {'cppdbg', 'python'}
+	},
 	keys = {
 		{'<leader>td', function() require('dap').terminate() end, desc = '[T]erminate [D]ebugging Session'},
 		{'<leader>b', function() require('dap').toggle_breakpoint() end, desc = 'Add [B]reakpoint'},
