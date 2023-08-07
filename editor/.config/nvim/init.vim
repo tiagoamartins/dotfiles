@@ -21,16 +21,3 @@ let g:loaded_perl_provider = 0
 source ~/.vimrc
 
 lua require('config.lazy')
-
-" Color schemes {{{1
-" ------------------
-try
-    colorscheme darkplus        " Set color scheme
-
-    if has('termguicolors') && &term !~ ".*rxvt.*"
-        set termguicolors       " Use guifg/guibg instead of ctermfg/ctermbg in terminal
-    endif
-catch
-    colorscheme default
-endtry
-" }}}1
