@@ -13,7 +13,7 @@ return {
 	keys = {
 		{'<leader>?', function()
 			require('telescope.builtin').oldfiles() end, desc =  '[?] Find recently opened files' },
-		{'<leader><leader>', function() require('telescope.builtin').buffers() end, desc =  '[ ] Find existing buffers'},
+		{'<leader><leader>', function() require('telescope.builtin').buffers() end, desc =  '[\\] Find existing buffers'},
 		{'<leader>/', function()
 			require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown({
 				winblend = 10,
@@ -31,10 +31,13 @@ return {
 		{'<leader>su', function() require('telescope').extensions.undo.undo() end, desc = '[S]earch [U]ndo tree'},
 	},
 	dependencies = {
-		'plenary.nvim',
+		'nvim-lua/plenary.nvim',
 		{
 			'nvim-telescope/telescope-fzf-native.nvim',
-			build = 'make'
+			build = 'make',
+			cond = function()
+				return vim.fn.executable 'make' == 1
+			end,
 		},
 		'keyvchan/telescope-find-pickers.nvim',
 		'debugloop/telescope-undo.nvim',
