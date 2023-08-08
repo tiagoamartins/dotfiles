@@ -17,6 +17,7 @@ return {
 				root_dir = function() return vim.loop.cwd() end
 			},
 			veridian = {
+				mason = false,
 				cmd = {'veridian'},
 				filetypes = {'systemverilog', 'verilog'},
 				root_dir = function(fname)
@@ -31,30 +32,43 @@ return {
 		}
 	},
 	config = function(_, opts)
-		local clsp = require('cmp_nvim_lsp')
-		local keymaps = require('plugins.lsp.mappings')
-		local mason_lsp = require('mason-lspconfig')
-		local servers = opts.servers
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		local mason_servers = {}
+		local other_servers = {}
 
-		keymaps.map()
-		capabilities = clsp.default_capabilities(capabilities)
-		mason_lsp.setup({
-			ensure_installed = vim.tbl_keys(servers)
-		})
-
-		mason_lsp.setup_handlers({
-			function(server_name)
-				local cmd = ((servers[server_name] or {}).cmd or {})[1] or server_name
-				if vim.fn.executable(cmd) == 1 then
-					require('lspconfig')[server_name].setup({
-						capabilities = capabilities,
-						on_attach = keymaps.on_attach,
-						settings = servers[server_name],
-						filetypes = (servers[server_name] or {}).filetypes
-					})
-				end
+		for name, server in pairs(opts.servers) do
+			if server.mason == nil or server.mason then
+				table.insert(mason_servers, name)
+			else
+				table.insert(other_servers, name)
 			end
+		end
+
+		local keymaps = require('plugins.lsp.mappings')
+		keymaps.map()
+
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+		function register_lsp(server_name)
+			local cmd = ((opts.servers[server_name] or {}).cmd or {})[1] or server_name
+
+			if vim.fn.executable(cmd) == 1 then
+				require('lspconfig')[server_name].setup({
+					capabilities = capabilities,
+					on_attach = keymaps.on_attach,
+					root_dir = (opts.servers[server_name] or {}).root_dir,
+					filetypes = (opts.servers[server_name] or {}).filetypes
+				})
+			end
+		end
+
+		for _, name in ipairs(other_servers) do
+			register_lsp(name)
+		end
+
+		require('mason-lspconfig').setup({
+			ensure_installed = mason_servers,
+			handlers = {register_lsp}
 		})
 	end
 }
