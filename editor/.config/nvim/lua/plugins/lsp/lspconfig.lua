@@ -50,15 +50,13 @@ return {
 		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 		function register_lsp(server_name)
-			local cmd = ((opts.servers[server_name] or {}).cmd or {})[1] or server_name
+			local server = opts.servers[server_name] or {}
+			local cmd = (server.cmd or {})[1] or server_name
 
 			if vim.fn.executable(cmd) == 1 then
-				require('lspconfig')[server_name].setup({
-					capabilities = capabilities,
-					on_attach = keymaps.on_attach,
-					root_dir = (opts.servers[server_name] or {}).root_dir,
-					filetypes = (opts.servers[server_name] or {}).filetypes
-				})
+				server['capabilities'] = capabilities
+				server['on_attach'] = keymaps.on_attach
+				require('lspconfig')[server_name].setup(server)
 			end
 		end
 
