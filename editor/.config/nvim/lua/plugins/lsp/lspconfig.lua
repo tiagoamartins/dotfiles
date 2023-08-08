@@ -13,6 +13,7 @@ return {
 				root_dir = function() return vim.loop.cwd() end
 			},
 			verible = {
+				mason = vim.loop.os_uname().machine == 'x86_64',
 				cmd = {'verible-verilog-ls', '--rules_config_search=true'},
 				root_dir = function() return vim.loop.cwd() end
 			},
