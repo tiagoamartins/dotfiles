@@ -52,6 +52,9 @@ export LESS LESSOPEN VISUAL EDITOR
 
 export COLORFGBG="15;0"
 
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export MANROFFOPT="-P -c"
+
 # Set word split for Zsh
 [ -z "$ZSH_VERSION" ] || setopt shwordsplit
 
