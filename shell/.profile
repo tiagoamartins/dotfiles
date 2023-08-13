@@ -28,7 +28,7 @@ fi
 # -R   output only color as "raw" commands to the screen
 # -X   avoid clearing the screen after exit
 # -#10 shift 10 columns when using left and right arrows
-LESS="-RFX#10"
+LESS='-RFX#10 --use-color -Dd+r$Du+b$'
 if [ -z "$LESSOPEN" ] && type lesspipe.sh > /dev/null 2>&1
 then
 	LESSOPEN='| lesspipe.sh %s'
