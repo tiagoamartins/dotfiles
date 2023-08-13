@@ -14,6 +14,8 @@ nnoremap <leader>= :call cursor#preserve("normal gg=G")<cr>
 nnoremap <leader>ev :vsp $MYVIMRC<cr>
 " Load vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+" Call fugitive
+nnoremap <leader>git :Git<cr>
 " Change spelling language
 if exists("+spelllang")
     nnoremap <silent> <leader>en :set spelllang=en_us<cr>
