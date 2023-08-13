@@ -133,6 +133,7 @@ else
 	alias d='ls -lah --group-directories-first'
 	alias diff='diff --color=auto'
 	alias o='xdg-open'
+	alias ip='ip -color=auto'
 fi
 
 if [ -x /usr/bin/dircolors -o -x /usr/local/bin/dircolors ]
