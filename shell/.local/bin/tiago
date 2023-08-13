@@ -129,9 +129,9 @@ case "$basename" in
 		case "$1" in
 			-S|-S*[yu]*|-R*)
 				root_init
-				as_root exec "$basename" "$@" "--color=auto";;
+				as_root exec "$basename" "$@";;
 			*)
-				exec "$basename" "$@" "--color=auto";;
+				exec "$basename" "$@";;
 		esac;;
 
 	setup)
