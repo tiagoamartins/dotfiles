@@ -35,7 +35,7 @@ end
 return {
 	'rcarriga/nvim-dap-ui',
 	keys = {
-		{'<f3>', function() require('dapui').toggle() end, desc = 'DAP: Activate UI'},
+		{'<f3>', function() require('dapui').toggle({reset = true}) end, desc = 'DAP: Activate UI'},
 	},
 	config = config
 }
