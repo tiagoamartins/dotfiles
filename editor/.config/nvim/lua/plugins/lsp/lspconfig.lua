@@ -8,6 +8,7 @@ return {
 	opts = {
 		servers = {
 			clangd = {},
+			jsonls = {},
 			pylsp = {},
 			svls = {
 				cmd_match = true,
