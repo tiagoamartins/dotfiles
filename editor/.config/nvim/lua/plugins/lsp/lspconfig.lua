@@ -9,6 +9,7 @@ return {
 		servers = {
 			clangd = {},
 			jsonls = {},
+			ltex = {},
 			pylsp = {},
 			svls = {
 				cmd_match = true,
