@@ -9,7 +9,24 @@ return {
 		servers = {
 			clangd = {},
 			jsonls = {},
-			ltex = {},
+			ltex = {
+				settings = {
+					ltex = {
+						enabled = {'latex', 'tex', 'bib', 'markdown'},
+						language = 'en',
+						diagnosticSeverity = 'information',
+						setenceCacheSize = 2000,
+						additionalRules = {
+							enablePickyRules = true,
+							motherTongue = 'en',
+						},
+						trace = {server = 'verbose'},
+						dictionary = {},
+						disabledRules = {en = {'EN_QUOTES', 'WORD_CONTAINS_UNDERSCORE'}},
+						hiddenFalsePositives = {},
+					}
+				}
+			},
 			pylsp = {},
 			svls = {
 				cmd_match = true,
