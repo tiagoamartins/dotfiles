@@ -48,8 +48,7 @@ return {
 			end
 		end
 
-		local keymaps = require('plugins.lsp.mappings')
-		keymaps.map()
+		require('plugins.lsp.mappings').map()
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
@@ -61,7 +60,6 @@ return {
 
 			if vim.fn.executable(cmd) == 1 or skip_match then
 				server['capabilities'] = capabilities
-				server['on_attach'] = keymaps.on_attach
 				require('lspconfig')[server_name].setup(server)
 			end
 		end

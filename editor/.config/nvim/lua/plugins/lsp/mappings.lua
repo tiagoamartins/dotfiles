@@ -5,15 +5,20 @@ function M.map()
 	vim.keymap.set('n', ']d', vim.diagnostic.goto_next, {desc = 'Go to next diagnostic message'})
 	vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = 'Open floating diagnostic message'})
 	vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, {desc = 'Open diagnostic list'})
+
+	vim.api.nvim_create_autocmd('LspAttach', {
+		group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+		callback = M.on_attach
+	})
 end
 
-function M.on_attach(client, bufnr)
+function M.on_attach(ev)
 	function nmap(keys, func, desc)
 		if (desc) then
 			desc = 'LSP: ' .. desc
 		end
 
-		vim.keymap.set('n', keys, func, {buffer = bufnr, desc = desc})
+		vim.keymap.set('n', keys, func, {buffer = ev.buf, desc = desc})
 	end
 
 	-- mappings
@@ -37,7 +42,7 @@ function M.on_attach(client, bufnr)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, '[W]orkspace [L]ist Folders')
 
-	vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+	vim.api.nvim_buf_create_user_command(ev.buf, 'Format', function(_)
 		vim.lsp.buf.format()
 	end, {desc = 'Format current buffer with LSP'})
 end
