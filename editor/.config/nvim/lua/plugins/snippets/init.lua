@@ -1,4 +1,3 @@
 return {
-	require('plugins.snippets.luasnip'),
-	require('plugins.snippets.friendly-snippets')
+	require('plugins.snippets.luasnip')
 }
