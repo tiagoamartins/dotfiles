@@ -6,7 +6,8 @@ return {
 			local lint = require('lint')
 
 			lint.linters_by_ft = {
-				python = {'pylint'}
+				python = {'pylint'},
+				yaml = {'ansible_lint', 'yamllint'}
 			}
 
 			local pysite = vim.fn.trim(vim.fn.system(
