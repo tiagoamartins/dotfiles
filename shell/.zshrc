@@ -188,7 +188,7 @@ zmodload -i zsh/complist
 zstyle :compinstall filename "$HOME/.zshrc"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' hosts localhost $hosts
-zstyle ':completion:*' users tpope root $USER ${watch/notme/}
+zstyle ':completion:*' users tiago root $USER ${watch/notme/}
 zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
