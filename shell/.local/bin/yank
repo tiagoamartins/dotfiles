@@ -14,71 +14,67 @@
 # allowed length it emits a warning (on stderr) about the number of bytes
 # dropped.
 
-buf=$(cat "$@")
+buffer=$(cat "$@")
 
-# copy to tmux
-if [ -z $TMUX ]
-then
-	tmux set-buffer -- "$buf"
-fi
-
-function is_app_installed()
+function input()
 {
-	command -v "$1" > /dev/null
+	printf %s "$buffer"
 }
 
+function known()
+{
+	command -v "$1" >/dev/null
+}
+
+function maybe()
+{
+	known "$1" && input | "$@"
+}
+
+function alive()
+{
+	known "$1" && "$@" >/dev/null 2>&1
+}
+
+# copy to tmux
+test -n "$TMUX" && maybe tmux load-buffer -
+
 # copy via X11 or pbcopy
-if [[ "$OSTYPE" == "linux-gnu"* ]] && [ ! -z ${DISPLAY+x} ]
+if [[ "$OSTYPE" == "linux-gnu"* ]] && test -n "$DISPLAY"
 then
-	if is_app_installed "wl-copy"
-	then
-		backend="wl-copy -n"
-	elif is_app_installed "xsel"
-	then
-		backend="xsel --input --clipboard"
-	elif is_app_installed "xclip"
-	then
-		backend="xclip -in -selection clipboard"
-	fi
+	maybe wl-copy -n \
+		|| alive xhost && maybe xsel --input --clipboard \
+		|| maybe xclip -in -selection clipboard
 elif [[ "$OSTYPE" == "darwin"* ]]
 then
-	backend="pbcopy"
-fi
-
-if [ ! -z ${backend+x} ]
-then
-	printf %s "$buf" | eval "$backend"
-	exit
-fi
-
-max=74994
-len=$(printf %s "$buf" | wc -c)
-
-if [ $len -gt $max ]
-then
-	echo "$0: input is $((len - max)) bytes too long" >&2
+	maybe pbcopy
 fi
 
 # copy via OSC 52
-esc="\e]52;c;$(printf %s "$buf" | head -c $max | base64 | tr -d '\r\n')\a"
+function printf_escape()
+{
+	esc=$1
 
-if [ -z "${TERM##tmux*}" ]
-then
-	esc="\ePtmux;\e$esc\e\\"
-elif [ -z "${TERM##screen*}" ]
-then
-	esc="\eP\e$esc\e\\"
-fi
-
-if [ -z ${SSH_TTY+x} ]
-then
-	printf "$esc"
-else
-	if [ ! -z ${TMUX+x} ]
+	if test -n "$TMUX"
 	then
-		# refresh SSH_TTY on the attached tmux session
-		eval $(tmux show-environment SSH_TTY)
+		esc="\ePtmux;\e$esc\e\\"
+	elif test -z "${TERM##screen*}"
+	then
+		esc="\eP\e$esc\e\\"
 	fi
 
-	printf "$esc" > "$SSH_TTY"
+	printf "$esc"
+}
+
+max=74994
+len=$(input | wc -c)
+test $len -gt $max && echo "$0: input is $((len - max)) bytes too long" >&2
+
+if test -n "$SSH_TTY"
+then
+	# refresh SSH_TTY on the attached tmux session
+	test -n "$TMUX" && eval $(tmux show-environment SSH_TTY)
+	exec > $SSH_TTY
 fi
+
+printf_escape "\e]52;c;$(input | head -c $max | base64 | tr -d '\r\n')\a"
