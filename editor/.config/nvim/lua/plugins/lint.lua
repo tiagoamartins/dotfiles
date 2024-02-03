@@ -6,8 +6,6 @@ return {
 			local lint = require('lint')
 
 			lint.linters_by_ft = {
-				systemverilog = {'verilator'},
-				verilog = {'verilator'},
 				yaml = {'ansible_lint', 'yamllint'}
 			}
 
