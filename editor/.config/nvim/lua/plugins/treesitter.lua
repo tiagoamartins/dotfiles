@@ -37,6 +37,7 @@ return {
 				'json',
 				'lua',
 				'markdown',
+				'markdown_inline',
 				'python',
 				'rst',
 				'verilog',
