@@ -7,6 +7,8 @@ return {
 	},
 	opts = {
 		servers = {
+			autotools_ls = {},
+			ansiblels = {},
 			bashls = {},
 			clangd = {},
 			jsonls = {},
@@ -28,12 +30,15 @@ return {
 					}
 				}
 			},
+			marksman = {},
 			ruff_lsp = {},
 			svls = {
 				cmd_match = true,
 				root_dir = function() return vim.loop.cwd() end
 			},
 			svlangserver = {},
+			typos_lsp = {},
+			yamlls = {}
 		}
 	},
 	config = function(_, opts)
