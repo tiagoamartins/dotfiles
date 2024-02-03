@@ -33,26 +33,7 @@ return {
 				cmd_match = true,
 				root_dir = function() return vim.loop.cwd() end
 			},
-			verible = {
-				mason = vim.loop.os_uname().machine == 'x86_64',
-				cmd = {'verible-verilog-ls', '--rules_config_search=true'},
-				cmd_match = true,
-				root_dir = function() return vim.loop.cwd() end
-			},
-			veridian = {
-				mason = false,
-				cmd = {'veridian'},
-				cmd_match = true,
-				filetypes = {'systemverilog', 'verilog'},
-				root_dir = function(fname)
-					local lsp_util = require('lspconfig.util')
-					local lsp_cfgs = require('lspconfig.configs')
-					local root_pattern = lsp_util.root_pattern('veridian.yml', '.git')
-					local filename = lsp_util.path.is_absolute(fname) and fname
-					or lsp_util.path.join(vim.loop.cwd(), fname)
-					return root_pattern(filename) or lsp_util.path.dirname(filename)
-				end,
-			}
+			svlangserver = {},
 		}
 	},
 	config = function(_, opts)
