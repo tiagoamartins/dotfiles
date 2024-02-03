@@ -31,6 +31,7 @@ if has('wildignore')
         let &backupskip .= ',/private' . expand('$TMPDIR') . '*'
     endif
     set backupskip+=*/shm/*
+    set backupskip+=*/tmp/*
 endif
 
 if exists('&swapsync')
