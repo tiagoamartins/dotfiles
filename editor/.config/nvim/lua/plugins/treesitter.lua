@@ -54,7 +54,10 @@ return {
 					scope_incremental = '<C-s>'
 				}
 			},
-			indent = {enable = true},
+			indent = {
+				enable = true,
+				disable = {'verilog'}
+			},
 			textobjects = {
 				select = {
 					enable = true,
