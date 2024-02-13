@@ -1,11 +1,31 @@
 return {
 	{
-		'navarasu/onedark.nvim',
+		'HoNamDuong/hybrid.nvim',
+		lazy = false,
 		priority = 1000,
 		config = function(_, opts)
-			require('onedark').setup(opts)
-			vim.cmd.colorscheme 'onedark'
+			require('hybrid').setup(opts)
+			vim.cmd.colorscheme('hybrid')
 		end,
-		opts = {style = 'warmer'}
+		opts = {
+			terminal_colors = true,
+			undercurl = true,
+			underline = true,
+			bold = true,
+			italic = {
+				strings = false,
+				emphasis = true,
+				comments = true,
+				folds = true,
+			},
+			strikethrough = true,
+			inverse = true,
+			transparent = false,
+			overrides = function(highlights, colors)
+				highlights.TelescopeTitle = {
+					bold = true,
+				}
+			end,
+		}
 	}
 }
