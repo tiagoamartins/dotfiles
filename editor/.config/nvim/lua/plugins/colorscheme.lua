@@ -22,6 +22,10 @@ return {
 			inverse = true,
 			transparent = false,
 			overrides = function(highlights, colors)
+				highlights.StatusLineNC = {
+					bg = '#303030',
+					fg = '#6C6C6C'
+				}
 				highlights.TelescopeTitle = {
 					bold = true,
 				}
