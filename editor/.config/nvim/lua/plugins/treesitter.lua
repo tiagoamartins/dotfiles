@@ -31,8 +31,8 @@ return {
 			ensure_installed = {
 				'bash',
 				'c',
-				'cpp',
 				'comment',
+				'cpp',
 				'html',
 				'json',
 				'lua',
@@ -42,7 +42,8 @@ return {
 				'rst',
 				'verilog',
 				'vim',
-				'vimdoc'
+				'vimdoc',
+				'yaml',
 			},
 			highlight = {enable = true},
 			incremental_selection = {
