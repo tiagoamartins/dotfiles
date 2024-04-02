@@ -32,10 +32,6 @@ return {
 			},
 			marksman = {},
 			ruff_lsp = {},
-			svls = {
-				cmd_match = true,
-				root_dir = function() return vim.loop.cwd() end
-			},
 			svlangserver = {},
 			typos_lsp = {},
 			yamlls = {}
