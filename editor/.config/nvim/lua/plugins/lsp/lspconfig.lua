@@ -33,7 +33,6 @@ return {
 			marksman = {},
 			ruff_lsp = {},
 			svlangserver = {},
-			typos_lsp = {},
 			yamlls = {}
 		}
 	},
