@@ -12,25 +12,32 @@ function M.map()
 	})
 end
 
-function M.on_attach(ev)
+function M.on_attach(args)
+	local bufnr = args.buf
+
 	function nmap(keys, func, desc)
 		if (desc) then
 			desc = 'LSP: ' .. desc
 		end
 
-		vim.keymap.set('n', keys, func, {buffer = ev.buf, desc = desc})
+		vim.keymap.set('n', keys, func, {buffer = bufnr, desc = desc})
 	end
+
+	local telescope = require('telescope.builtin')
+
+	vim.opt_local.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
 	-- mappings
 	nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
 	nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
 	nmap('gd', vim.lsp.buf.definition, '[G]o to [D]efinition')
-	nmap('gr', require('telescope.builtin').lsp_references, '[G]o to [R]eferences')
+	nmap('gr', telescope.lsp_references, '[G]o to [R]eferences')
 	nmap('gI', vim.lsp.buf.implementation, '[G]o to [I]mplementation')
+	nmap('gT', vim.lsp.buf.type_definition, '[G]o to [T]ype')
 	nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-	nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
-	nmap('<leader>ws', require('telescope.builtin').lsp_workspace_symbols, '[W]orkspace [S]ymbols')
+	nmap('<leader>ds', telescope.lsp_document_symbols, '[D]ocument [S]ymbols')
+	nmap('<leader>ws', telescope.lsp_workspace_symbols, '[W]orkspace [S]ymbols')
 
 	nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
 	nmap('<leader>k', vim.lsp.buf.signature_help, 'Signature Documentation')
@@ -42,7 +49,7 @@ function M.on_attach(ev)
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, '[W]orkspace [L]ist Folders')
 
-	vim.api.nvim_buf_create_user_command(ev.buf, 'Format', function(_)
+	vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
 		vim.lsp.buf.format()
 	end, {desc = 'Format current buffer with LSP'})
 end
