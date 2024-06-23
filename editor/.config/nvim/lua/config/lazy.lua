@@ -10,9 +10,9 @@ if not vim.loop.fs_stat(lazypath) then
 		'--branch=stable', -- latest stable release
 		lazypath,
 	})
-	print('Done.')
 end
 
+-- add lazy to the `runtimepath`, so it can be used with `require`
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
