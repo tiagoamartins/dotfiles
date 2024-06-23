@@ -3,7 +3,8 @@ return {
 	event = {'BufReadPre', 'BufNewFile'},
 	dependencies = {
 		'hrsh7th/cmp-nvim-lsp',
-		'williamboman/mason-lspconfig.nvim'
+		'williamboman/mason-lspconfig.nvim',
+		'WhoIsSethDaniel/mason-tool-installer.nvim'
 	},
 	opts = {
 		servers = {
@@ -68,8 +69,11 @@ return {
 			register_lsp(name)
 		end
 
+		require('mason-tool-installer').setup({
+			ensure_installed = mason_servers
+		})
+
 		require('mason-lspconfig').setup({
-			ensure_installed = mason_servers,
 			handlers = {register_lsp}
 		})
 	end
