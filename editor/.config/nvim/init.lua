@@ -1,3 +1,9 @@
+-- leader is backslash
+vim.g.mapleader = '\\'
+
+-- setup temporary directory environment variable
+vim.env.VIM_TEMP = vim.env.HOME .. '/.cache/nvim/temp'
+
 -- disable python 2 support
 vim.g.loaded_python_provider = 0
 
@@ -22,6 +28,5 @@ vim.g.loaded_node_provider = 0
 -- disable perl support
 vim.g.loaded_perl_provider = 0
 
-vim.cmd('source ~/.vimrc')
-
+-- load lazy package manager
 require('config.lazy')
