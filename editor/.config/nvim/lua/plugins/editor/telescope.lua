@@ -36,13 +36,16 @@ return {
 			'nvim-telescope/telescope-fzf-native.nvim',
 			build = 'make',
 			cond = function()
-				return vim.fn.executable 'make' == 1
+				return vim.fn.executable('make') == 1
 			end,
 		},
 		'keyvchan/telescope-find-pickers.nvim',
 		'debugloop/telescope-undo.nvim',
 		'benfowler/telescope-luasnip.nvim',
 		'nvim-telescope/telescope-dap.nvim',
+		'nvim-telescope/telescope-smart-history.nvim',
+		'nvim-telescope/telescope-ui-select.nvim',
+		'kkharji/sqlite.lua',
 		{
 			'adoyle-h/lsp-toggle.nvim',
 			opts = {
