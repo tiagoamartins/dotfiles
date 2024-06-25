@@ -1,29 +1,52 @@
 return {
 	'L3MON4D3/LuaSnip',
 	lazy = true,
-	config = function()
-		require('plugins.snippets.snippets').add_snippets()
+	config = function(_, opts)
+		local ls = require('luasnip')
+
+		vim.snippet.expand = ls.lsp_expand
+
+		vim.snippet.active = function(filter)
+			filter = fulter or {}
+			filter.direction = filter.direction or 1
+
+			if filter.direction == 1 then
+				return ls.expand_or_jump()
+			else
+				return ls.jumpable(filter.firection)
+			end
+		end
+
+		vim.snippet.jump = function(direction)
+			if direction == 1 then
+				if ls.expandable() then
+					return ls.expand_or_jump()
+				else
+					return ls.jumpable(1) and ls.jump(1)
+				end
+			else
+				return ls.jumpable(-1) and ls.jump(-1)
+			end
+		end
+
+		vim.snippet.stop = ls.unlink_current
+
+		ls.config.set_config(opts)
+
+		for _, ft_path in ipairs(vim.api.nvim_get_runtime_file('lua/snippets/*.lua', true)) do
+			loadfile(ft_path)()
+		end
+
+		vim.keymap.set({'i', 's'}, '<c-k>', function()
+			return vim.snippet.active({direction = 1}) and vim.snippet.jump(1)
+		end, {silent = true})
+		vim.keymap.set({'i', 's'}, '<c-j>', function()
+			return vim.snippet.active({direction = -1}) and vim.snippet.jump(-1)
+		end, {silent = true})
 	end,
 	opts = {
 		history = true,
-		delete_check_events = 'TextChanged'
-	},
-	keys = {
-		{'<C-l>', function()
-			luasnip = require('luasnip')
-			if luasnip.jumpable() then
-				luasnip.jump(1)
-			else
-				return '<C-l>'
-			end
-			end, expr = true, mode = {'i', 's'}},
-		{'<C-h>', function()
-			luasnip = require('luasnip')
-			if luasnip.jumpable() then
-				luasnip.jump(-1)
-			else
-				return '<C-h>'
-			end
-			end, expr = true, mode = {'i', 's'}}
+		updateevents = 'TextChanged,TextChangedI',
+		override_builtin = true,
 	}
 }
