@@ -9,11 +9,3 @@ setlocal wrap
 if has('spell')
     setlocal spell
 endif
-
-if has('autocmd')
-    augroup mutt_composing
-        autocmd!
-        autocmd BufEnter /tmp/mutt-* call mail#setup_mutt()
-        autocmd BufEnter /tmp/neomutt-* call mail#setup_mutt()
-    augroup END
-endif
