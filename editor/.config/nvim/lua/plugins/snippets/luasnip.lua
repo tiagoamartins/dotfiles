@@ -37,10 +37,10 @@ return {
 			loadfile(ft_path)()
 		end
 
-		vim.keymap.set({'i', 's'}, '<c-k>', function()
+		vim.keymap.set({'i', 's'}, '<leader>f', function()
 			return vim.snippet.active({direction = 1}) and vim.snippet.jump(1)
 		end, {silent = true})
-		vim.keymap.set({'i', 's'}, '<c-j>', function()
+		vim.keymap.set({'i', 's'}, '<leader>b', function()
 			return vim.snippet.active({direction = -1}) and vim.snippet.jump(-1)
 		end, {silent = true})
 	end,
