@@ -5,6 +5,8 @@ return {
 		servers = {
 			autotools_ls = {},
 			ansiblels = {},
+			['ansible-lint'] = {},
+			asm_lsp = {},
 			bashls = {},
 			clangd = {},
 			jsonls = {},
@@ -27,7 +29,7 @@ return {
 				}
 			},
 			marksman = {},
-			ruff_lsp = {},
+			ruff = {},
 			verible = {
 				cmd = {'verible-verilog-ls', '--rules_config_search=true'},
 				cmd_match = true,
@@ -47,7 +49,8 @@ return {
 					return root_pattern(filename) or lsp_util.path.dirname(filename)
 				end,
 			},
-			yamlls = {}
+			yamlls = {},
+			yamllint = {},
 		}
 	},
 	config = function(_, opts)
