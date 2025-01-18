@@ -49,10 +49,7 @@ return {
 		},
 	},
 	'tpope/vim-projectionist',
-	{
-		'tpope/vim-repeat',
-		keys = {'.', 'u', 'U', '<C-R>'}
-	},
+	'tpope/vim-repeat',
 	{
 		'tpope/vim-speeddating',
 		cmd = {'SpeedDatingFormat'},
