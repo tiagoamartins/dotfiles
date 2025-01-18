@@ -5,6 +5,7 @@ return {
 		event = {'BufReadPost', 'BufNewFile'},
 		opts = {
 			ensure_installed = {
+				'asm',
 				'bash',
 				'c',
 				'comment',
@@ -14,6 +15,7 @@ return {
 				'lua',
 				'markdown',
 				'markdown_inline',
+				'objdump',
 				'python',
 				'rst',
 				'verilog',
