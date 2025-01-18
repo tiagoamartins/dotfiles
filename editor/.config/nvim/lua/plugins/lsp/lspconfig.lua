@@ -14,7 +14,7 @@ return {
 				settings = {
 					ltex = {
 						enabled = {'latex', 'tex', 'bib', 'markdown'},
-						language = 'en',
+						language = 'en-US',
 						diagnosticSeverity = 'information',
 						setenceCacheSize = 2000,
 						additionalRules = {
@@ -22,8 +22,37 @@ return {
 							motherTongue = 'en',
 						},
 						trace = {server = 'verbose'},
-						dictionary = {},
-						disabledRules = {en = {'EN_QUOTES', 'WORD_CONTAINS_UNDERSCORE'}},
+						dictionary = (function()
+							local files = {}
+							local path = vim.fn.stdpath('config') .. '/spell'
+							for _, file in ipairs(vim.api.nvim_get_runtime_file(path .. '/*', true)) do
+								local lang = vim.fn.fnamemodify(file, ':t:r')
+								local fullpath = vim.fn.fnamemodify(file, ':p')
+								files[lang] = {':' .. fullpath}
+							end
+
+							if files.default then
+								for lang, _ in pairs(files) do
+									if lang ~= 'default' then
+										vim.list_extend(files[lang], files.default)
+									end
+								end
+								files.default = nil
+							end
+							return files
+						end)(),
+						disabledRules = {
+							['en-US'] = {'EN_QUOTES', 'WORD_CONTAINS_UNDERSCORE'},
+							['pt-BR'] = {
+								'ACTUAL',
+								'ATTEND',
+								'FABRIC',
+								'GRATUITY',
+								'NOTICE',
+								'REALIZE',
+								'TURN'
+							}
+						},
 						hiddenFalsePositives = {},
 					}
 				}
