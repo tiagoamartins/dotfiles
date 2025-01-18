@@ -4,7 +4,10 @@ return {
 		cmd = 'Tabularize',
 		ft = {'systemverilog', 'verilog', 'vhdl'},
 	},
-	'igemnace/vim-makery',
+	{
+		'igemnace/vim-makery',
+		cmd = {'Makery', 'LM', 'M'},
+	},
 	{
 		'tpope/vim-abolish',
 		cmd = {'Abolish', 'S', 'Subvert'},
