@@ -1,5 +1,6 @@
 local function config(_, opts)
 	local dap = require('dap')
+	local handlers = require('plugins.debug.handlers')
 
 	dap.defaults.fallback.terminal_win_cmd = [[ belowright new ]]
 
@@ -48,11 +49,88 @@ local function config(_, opts)
 	})
 	vim.keymap.set('n', '<leader>R', ":RunScriptWithArgs")
 
+	vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+
 	local mason_dap = require('mason-nvim-dap')
 	mason_dap.setup({
 		ensure_installed = opts.adapters,
-		handlers = require('plugins.debug.handlers').setup_handlers()
+		handlers = handlers.setup_handlers()
 	})
+
+	dap.adapters.gdb = {
+		id = 'gdb',
+		type = 'executable',
+		command = 'gdb',
+		args = {'--quiet', '--interpreter=dap', '--eval-command', 'set print pretty on'}
+	}
+
+	dap.adapters.gdbarm = {
+		id = 'gdbarm',
+		type = 'executable',
+		command = 'arm-none-eabi-gdb',
+		args = {'--quiet', '--interpreter=dap', '--eval-command', 'set print pretty on'}
+	}
+
+	dap.adapters.vgdb = {
+		id = 'vgdb',
+		type = 'executable',
+		command = 'vgdb',
+		args = {'--quiet', '--interpreter=dap', '--eval-command', 'set print pretty on'}
+	}
+
+	dap.configurations.c = {
+		{
+			name = 'Launch',
+			type = 'gdb',
+			request = 'launch',
+			program = handlers.get_executable,
+			args = handlers.get_arguments,
+			cwd = "${workspaceFolder}",
+			stopAtBeginningOfMainSubprogram = false,
+		},
+		{
+			name = 'Launch (valgrind)',
+			type = 'gdb',
+			request = 'launch',
+			program = handlers.get_executable,
+			args = handlers.get_arguments,
+			cwd = "${workspaceFolder}",
+			stopAtBeginningOfMainSubprogram = false,
+		},
+		{
+			name = 'Select and attach to process',
+			type = 'gdb',
+			request = 'attach',
+			program = handlers.get_executable,
+			pid = function()
+				local name = vim.fn.input('Executable name (filter): ')
+				return require('dap.utils').pick_process({filter = name})
+			end,
+			cwd = '${workspaceFolder}'
+		},
+		{
+			name = 'Attach to gdbserver :1234',
+			type = 'gdb',
+			request = 'attach',
+			target = 'localhost:1234',
+			cwd = '${workspaceFolder}',
+			program = handlers.get_executable,
+			args = handlers.get_arguments,
+			stopOnEntry = false,
+			runInTerminal = false,
+		},
+		{
+			name = 'Attach to gdbserver (ARM) :1234',
+			type = 'gdbarm',
+			request = 'attach',
+			target = 'localhost:1234',
+			cwd = '${workspaceFolder}',
+			program = handlers.get_executable,
+			args = handlers.get_arguments,
+			stopOnEntry = false,
+			runInTerminal = false,
+		}
+	}
 end
 
 return {

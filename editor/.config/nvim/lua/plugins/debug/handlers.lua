@@ -1,6 +1,6 @@
 local M = {}
 
-function get_executable()
+function M.get_executable()
 	local pickers = require('telescope.pickers')
 	local finders = require('telescope.finders')
 	local conf = require('telescope.config').values
@@ -26,7 +26,7 @@ function get_executable()
 	end)
 end
 
-local function get_arguments()
+function M.get_arguments()
 	local args = vim.fn.input('Arguments: ')
 	local chunks = {}
 	for substring in args:gmatch('%S+') do
@@ -46,22 +46,6 @@ end
 
 local function default_handler(config)
 	inject_exe_args(config)
-	require('mason-nvim-dap').default_setup(config)
-end
-
-local function cppdbg_handler(config)
-	inject_exe_args(config)
-	table.insert(config.configurations, {
-		name = 'Attach to gdbserver (valgrind)',
-		type = 'cppdbg',
-		request = 'launch',
-		MIMode = 'gdb',
-		miDebuggerServerAddress = '| ' .. vim.fn.exepath('vgdb'),
-		miDebuggerPath = vim.fn.exepath('gdb'),
-		cwd = '${workspaceFolder}',
-		program = get_executable,
-		args = get_arguments
-	})
 	require('mason-nvim-dap').default_setup(config)
 end
 
@@ -89,7 +73,6 @@ end
 function M.setup_handlers()
 	return {
 		default_handler,
-		cppdbg = cppdbg_handler,
 		python = python_handler
 	}
 end
