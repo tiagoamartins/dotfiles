@@ -83,6 +83,8 @@ return {
 		}
 	},
 	config = function(_, opts)
+		local lspconfig = require('lspconfig')
+		local cmp = require('blink.cmp')
 		local mason_servers = {}
 		local other_servers = {}
 
@@ -96,17 +98,14 @@ return {
 
 		require('plugins.lsp.mappings').map()
 
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
 		function register_lsp(server_name)
 			local server = opts.servers[server_name] or {}
 			local cmd = (server.cmd or {})[1] or server_name
 			local skip_match = server.cmd_match == nil or not server.cmd_match
 
 			if vim.fn.executable(cmd) == 1 or skip_match then
-				server['capabilities'] = capabilities
-				require('lspconfig')[server_name].setup(server)
+				server.capabilities = cmp.get_lsp_capabilities(server.capabilities)
+				lspconfig[server_name].setup(server)
 			end
 		end
 
