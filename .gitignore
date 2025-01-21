@@ -13,9 +13,6 @@ __pycache__/
 # Ignore old files
 *.bak
 
-# Neovim plugins
-**/.config/nvim/plugin/
-
 # Vim plugins and temporaries
 **/.vim/.netrwhist
 **/.vim/temp/
