@@ -201,8 +201,6 @@ zstyle ':completion:*:*:git:*' script ${XDG_CONFIG_HOME:-$HOME/.config}/zsh/git-
 autoload -Uz compinit
 compinit -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
 
-compdef _tiago tiago
-
 function _tiago()
 {
 	local cmd=$(basename $words[1])
@@ -230,6 +228,8 @@ function _tiago()
 		fi
 	fi
 }
+
+compdef _tiago tiago
 
 # }}}1
 # Keybindings {{{1
