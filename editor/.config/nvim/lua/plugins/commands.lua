@@ -2,7 +2,7 @@ return {
 	{
 		'godlygeek/tabular',
 		cmd = 'Tabularize',
-		ft = {'systemverilog', 'verilog', 'vhdl'},
+		ft = {'verilog', 'vhdl'},
 	},
 	{
 		'igemnace/vim-makery',

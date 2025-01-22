@@ -35,7 +35,6 @@ return {
 			},
 			indent = {
 				enable = true,
-				disable = {'verilog'}
 			},
 			textobjects = {
 				select = {

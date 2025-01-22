@@ -60,6 +60,7 @@ return {
 			marksman = {},
 			ruff = {},
 			verible = {
+				filetypes = {'systemverilog', 'verilog'},
 				cmd = {'verible-verilog-ls', '--rules_config_search=true'},
 				cmd_match = true,
 				root_dir = function() return vim.loop.cwd() end
@@ -73,9 +74,8 @@ return {
 					local lsp_util = require('lspconfig.util')
 					local lsp_cfgs = require('lspconfig.configs')
 					local root_pattern = lsp_util.root_pattern('veridian.yml', '.git')
-					local filename = lsp_util.path.is_absolute(fname) and fname
-							 or lsp_util.path.join(vim.loop.cwd(), fname)
-					return root_pattern(filename) or lsp_util.path.dirname(filename)
+					local filename = fname
+					return root_pattern(filename) or vim.fs.dirname(filename)
 				end,
 			},
 			yamlls = {},
