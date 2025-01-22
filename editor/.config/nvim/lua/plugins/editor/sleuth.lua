@@ -1,3 +1,6 @@
 return {
-	'tpope/vim-sleuth'
+	'tpope/vim-sleuth',
+	init = function()
+		vim.g.sleuth_heuristics = 0
+	end,
 }
