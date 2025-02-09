@@ -6,7 +6,6 @@ return {
 	},
 	{
 		'igemnace/vim-makery',
-		cmd = {'Makery', 'LM', 'M'},
 	},
 	{
 		'tpope/vim-abolish',
