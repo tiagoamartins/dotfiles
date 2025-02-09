@@ -85,7 +85,7 @@ local function config(_, opts)
 			request = 'launch',
 			program = handlers.get_executable,
 			args = handlers.get_arguments,
-			cwd = "${workspaceFolder}",
+			cwd = '${workspaceFolder}',
 			stopAtBeginningOfMainSubprogram = false,
 		},
 		{
@@ -94,7 +94,7 @@ local function config(_, opts)
 			request = 'launch',
 			program = handlers.get_executable,
 			args = handlers.get_arguments,
-			cwd = "${workspaceFolder}",
+			cwd = '${workspaceFolder}',
 			stopAtBeginningOfMainSubprogram = false,
 		},
 		{
