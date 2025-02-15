@@ -192,12 +192,12 @@ function M.whitespace_check()
     return msg
 end
 
-function M.statusline_mode(mode)
+function M.show_mode(mode)
     color, text = unpack(M.mode_list[mode] or {'%1*', 'normal'})
     return M.block(' ' .. text .. ' ', color)
 end
 
-function M.statusline_file()
+function M.show_file()
     local file = ''
 
     if vim.bo.buftype ~= '' then
@@ -209,7 +209,7 @@ function M.statusline_file()
     return M.file_icon() .. file
 end
 
-function M.statusline_flags()
+function M.show_flags()
     local flags = {}
     if vim.bo.modifiable and vim.bo.modified then
         table.insert(flags, '+')
@@ -222,7 +222,7 @@ function M.statusline_flags()
     return table.concat(flags, ' ')
 end
 
-function M.statusline_git_branch()
+function M.show_git()
     if (vim.g.statusline_git and vim.g.statusline_git ~= 0)
        or not vim.g.loaded_fugitive then
         return ''
@@ -232,7 +232,7 @@ function M.statusline_git_branch()
 end
 
 -- find out current buffer's size and output it
-function M.statusline_file_size()
+function M.show_file_size()
     local bytes = vim.fn.getfsize(vim.fn.expand('%:p'))
     local kbytes = 0
     local mbytes = 0
@@ -258,7 +258,7 @@ function M.statusline_file_size()
     end
 end
 
-function M.statusline_plugins()
+function M.show_plugins()
     local status = {}
 
     local whitespace = M.whitespace_check()
@@ -280,46 +280,46 @@ function M.statusline_plugins()
     return table.concat(status, ' | ')
 end
 
-function M.statusline_active_status_line()
-    local statusline = ''
+function M.show_active()
+    local line = ''
 
-    statusline = statusline .. M.statusline_mode(vim.fn.mode())
-    statusline = statusline .. '%<'
-    statusline = statusline .. M.block('f:statusline_file', '', 1)
-    statusline = statusline .. M.block('f:statusline_flags', '%5*', 1)
-    statusline = statusline .. M.block('f:statusline_git_branch', '%6*', '  [', ']')
-    statusline = statusline .. '%='
-    statusline = statusline .. '%{&filetype}' -- filetype
-    statusline = statusline .. " | %{&fenc != '' ? &fenc : &enc}[%{&ff}]" -- encoding & fileformat
-    statusline = statusline .. " | %l:%c | %{v:lua.require'core.statusline'.statusline_file_size()} | %p%%"
+    line = line .. M.show_mode(vim.fn.mode())
+    line = line .. '%<'
+    line = line .. M.block('f:show_file', '', 1)
+    line = line .. M.block('f:show_flags', '%5*', 1)
+    line = line .. M.block('f:show_git', '%6*', '  [', ']')
+    line = line .. '%='
+    line = line .. '%{&filetype}' -- filetype
+    line = line .. " | %{&fenc != '' ? &fenc : &enc}[%{&ff}]" -- encoding & fileformat
+    line = line .. " | %l:%c | %{v:lua.require'core.statusline'.show_file_size()} | %p%%"
 
-    local plugins = M.statusline_plugins()
+    local plugins = M.show_plugins()
     if plugins ~= '' then
-        statusline = statusline .. ' | ' .. plugins
+        line = line .. ' | ' .. plugins
     end
 
-    statusline = statusline .. ' '
+    line = line .. ' '
 
-    return statusline
+    return line
 end
 
-function M.statusline_inactive_status_line()
-    local statusline = ''
+function M.show_inactive()
+    local line = ''
 
-    statusline = statusline .. '%<'
-    statusline = statusline .. M.block('f:statusline_file', '', 1)
-    statusline = statusline .. M.block('f:statusline_flags', '', 1)
-    statusline = statusline .. "%=%l:%c | %{v:lua.require'core.statusline'.statusline_file_size()} | %p%% "
+    line = line .. '%<'
+    line = line .. M.block('f:show_file', '', 1)
+    line = line .. M.block('f:show_flags', '', 1)
+    line = line .. "%=%l:%c | %{v:lua.require'core.statusline'.show_file_size()} | %p%% "
 
-    return statusline
+    return line
 end
 
-function M.statusline_short_current_path()
+function M.show_short_path()
     return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ':~:.'))
 end
 
-function M.statusline_no_file_status_line()
-    return "%{v:lua.require'core.statusline'.statusline_short_current_path()}"
+function M.show_no_file()
+    return "%{v:lua.require'core.statusline'.show_short_path()}"
 end
 
 function M.set_colors(gname, bg, fg)
@@ -334,14 +334,14 @@ end
 function M.draw(active)
     if vim.bo.buftype == 'nofile' or vim.bo.filetype == 'netrw' then
         -- probably a file explorer
-        vim.wo.statusline="%!v:lua.require'core.statusline'.statusline_no_file_status_line()"
+        vim.wo.statusline="%!v:lua.require'core.statusline'.show_no_file()"
     elseif vim.bo.buftype == 'nowrite' then
         -- no custom status line for special windows
         return
     elseif active then
-        vim.wo.statusline="%!v:lua.require'core.statusline'.statusline_active_status_line()"
+        vim.wo.statusline="%!v:lua.require'core.statusline'.show_active()"
     else
-        vim.wo.statusline="%!v:lua.require'core.statusline'.statusline_inactive_status_line()"
+        vim.wo.statusline="%!v:lua.require'core.statusline'.show_inactive()"
     end
 end
 
@@ -357,7 +357,7 @@ function M.update_inactive_windows()
     for winnum=1,vim.fn.winnr('$') do
         if winnum ~= vim.fn.winnr() then
             vim.api.nvim_set_option_value(
-                'statusline', "%!v:lua.require'core.statusline'.statusline_inactive_status_line()", {
+                'statusline', "%!v:lua.require'core.statusline'.show_inactive()", {
                     scope = 'local',
                     win = vim.fn.win_getid(winnum)
                 }
