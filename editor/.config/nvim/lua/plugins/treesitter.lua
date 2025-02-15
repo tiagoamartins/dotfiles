@@ -24,15 +24,6 @@ return {
                 'yaml',
             },
             highlight = {enable = true},
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = '<C-Space>',
-                    node_incremental = '<C-Space>',
-                    node_decremental = '<M-Backspace>',
-                    scope_incremental = '<C-s>'
-                }
-            },
             indent = {
                 enable = true,
             },
@@ -78,11 +69,6 @@ return {
                         ['<leader>A'] = '@parameter.inner',
                     },
                 },
-            },
-            rainbow = {
-                enable = true,
-                extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-                max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
             }
         },
         config = function(_, opts)
