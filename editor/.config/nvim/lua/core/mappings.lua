@@ -22,14 +22,14 @@ end
 
 -- leader {{{1
 -- window swap
-vim.keymap.set('n', '<leader>wm', require('window').mark_swap, {silent = true})
-vim.keymap.set('n', '<leader>wp', require('window').do_swap, {silent = true})
+vim.keymap.set('n', '<leader>wm', require('core.window').mark_swap, {silent = true})
+vim.keymap.set('n', '<leader>wp', require('core.window').do_swap, {silent = true})
 -- turn off search highlight
 vim.keymap.set('n', '<leader><space>', vim.cmd.nohlsearch)
 -- remove trailing space
-vim.keymap.set('n', '<leader>$', function() require('cursor').preserve('%s/\\s\\+$//e') end)
+vim.keymap.set('n', '<leader>$', function() require('core.cursor').preserve('%s/\\s\\+$//e') end)
 -- indent entire file
-vim.keymap.set('n', '<leader>=', function() require('cursor').preserve('normal gg=G') end)
+vim.keymap.set('n', '<leader>=', function() require('core.cursor').preserve('normal gg=G') end)
 -- edit vimrc
 vim.keymap.set('n', '<leader>ev', function() vim.cmd.vsplit(vim.env.MYVIMRC) end)
 -- load vimrc

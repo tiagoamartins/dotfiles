@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
     callback = function ()
         if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
-            require('yank').osc52(vim.v.event.regcontents)
+            require('core.yank').osc52(vim.v.event.regcontents)
         end
     end
 })
