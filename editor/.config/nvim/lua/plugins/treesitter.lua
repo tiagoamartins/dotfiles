@@ -11,6 +11,7 @@ return {
                 'comment',
                 'cpp',
                 'html',
+                'jinja',
                 'json',
                 'lua',
                 'markdown',
