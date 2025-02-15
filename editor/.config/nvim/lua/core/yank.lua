@@ -5,7 +5,7 @@ function M.osc52(text)
     local buffer = vim.fn.system('yank', text)
 
     if vim.v.shell_error == 1 then
-	vim.api.nvim_err_writeln(buffer)
+    vim.api.nvim_err_writeln(buffer)
     end
 end
 
