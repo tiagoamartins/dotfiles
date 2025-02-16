@@ -1,3 +1,4 @@
 return {
-    {'aliev/vim-compiler-python', ft = {'python'}},
+    'aliev/vim-compiler-python',
+    ft = {'python'},
 }

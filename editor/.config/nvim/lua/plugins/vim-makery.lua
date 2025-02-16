@@ -1,0 +1,3 @@
+return {
+    'igemnace/vim-makery',
+}

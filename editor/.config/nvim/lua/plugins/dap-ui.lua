@@ -33,12 +33,9 @@ local function config()
 end
 
 return {
-    {
-        'rcarriga/nvim-dap-ui',
-        keys = {
-            {'<f3>', function() require('dapui').toggle({reset = true}) end, desc = 'DAP: Activate UI'},
-        },
-        config = config
+    'rcarriga/nvim-dap-ui',
+    keys = {
+        {'<f3>', function() require('dapui').toggle({reset = true}) end, desc = 'DAP: Activate UI'},
     },
-    {'nvim-neotest/nvim-nio', lazy = true},
+    config = config
 }
