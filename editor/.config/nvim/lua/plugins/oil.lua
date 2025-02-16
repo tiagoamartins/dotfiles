@@ -1,8 +1,12 @@
 return {
 	'stevearc/oil.nvim',
 	opts = {
-        view_options = {
-            show_hidden = true
+        columns = {
+            {'icon', add_padding = false}
+        },
+        float = {
+            max_width = 0.85,
+            max_height = 0.85,
         },
         keymaps = {
             ['g?'] = 'actions.show_help',
@@ -23,11 +27,14 @@ return {
             ['g\\'] = 'actions.toggle_trash',
         },
         use_default_keymaps = true,
+        view_options = {
+            show_hidden = true
+        },
 	},
 	cmd = {'Oil'},
 	keys = {
 		{'<leader>o', function()
-            require('oil').open(nil)
+            require('oil').open_float(nil)
         end, desc = '[O]pen parent directory' },
 	}
 }
