@@ -28,7 +28,10 @@ config.colors = {
 	},
 }
 
-config.font = wezterm.font({family = 'Terminus', weight = 'Regular'})
+config.font = wezterm.font_with_fallback({
+    {family = 'Terminus', weight = 'Regular'},
+    {family = 'Terminess Nerd Font', weight = 'Medium'}
+})
 config.font_size = 12
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
