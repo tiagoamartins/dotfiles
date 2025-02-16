@@ -124,10 +124,14 @@ function M.file_icon()
         if not require('nvim-web-devicons').has_loaded() then
             return ''
         end
-        return require('nvim-web-devicons').get_icon(
-            vim.fn.expand('%'),
-            vim.fn.expand('%:e')
-        ) .. ' '
+
+        local name = vim.fn.expand('%')
+        local ext = vim.fn.expand('%:e')
+
+        if name == '' or ext == '' then
+            return ''
+        end
+        return require('nvim-web-devicons').get_icon(name, ext) .. ' '
     elseif vim.g.loaded_webdevicons then
         return vim.fn.WebDevIconsGetFileTypeSymbol() .. ' '
     else
