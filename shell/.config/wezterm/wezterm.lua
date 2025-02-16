@@ -1,6 +1,6 @@
 local wezterm = require('wezterm')
-
 local config = wezterm.config_builder()
+local is_linux <const> = wezterm.target_triple:find("linux") ~= nil
 
 config.colors = {
     foreground = '#C5C8C6',
@@ -28,11 +28,15 @@ config.colors = {
     },
 }
 
+local font_size = is_linux and 12 or 14
+local font_primary = is_linux and 'Terminus' or 'Terminus (TTF)'
+local font_fallback = 'Terminess Nerd Font'
+
 config.font = wezterm.font_with_fallback({
-    {family = 'Terminus', weight = 'Regular'},
-    {family = 'Terminess Nerd Font', weight = 'Medium'}
+    {family = font_primary, weight = 'Regular'},
+    {family = font_fallback, weight = 'Medium'}
 })
-config.font_size = 12
+config.font_size = font_size
 config.enable_tab_bar = false
 config.enable_scroll_bar = false
 config.window_padding = {
@@ -42,14 +46,14 @@ config.window_padding = {
     bottom = 0
 }
 config.window_frame = {
-    font = wezterm.font({family = 'Terminus', weight = 'Regular'}),
-    font_size = 12,
+    font = wezterm.font({family = font_primary, weight = 'Regular'}),
+    font_size = font_size,
     inactive_titlebar_bg = '#303030',
     active_titlebar_bg = '#282A2E',
     inactive_titlebar_fg = '#777777',
     active_titlebar_fg = '#C5C8C6'
 }
-config.window_decorations = 'RESIZE'
+config.window_decorations = is_linux and 'RESIZE' or 'TITLE | RESIZE'
 config.disable_default_key_bindings = true
 config.warn_about_missing_glyphs = false
 
