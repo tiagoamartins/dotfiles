@@ -1,6 +1,6 @@
 local function config(_, opts)
     local dap = require('dap')
-    local handlers = require('plugins.debug.handlers')
+    local handlers = require('config.dap-handlers')
 
     dap.defaults.fallback.terminal_win_cmd = [[ belowright new ]]
 

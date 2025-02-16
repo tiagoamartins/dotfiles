@@ -96,7 +96,7 @@ return {
             end
         end
 
-        require('plugins.lsp.mappings').map()
+        require('config.lsp-mappings').map()
 
         function register_lsp(server_name)
             local server = opts.servers[server_name] or {}
