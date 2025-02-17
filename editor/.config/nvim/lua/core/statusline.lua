@@ -120,23 +120,21 @@ function M.file_icon()
         return ''
     end
 
-    if vim.g.nvim_web_devicons then
-        if not require('nvim-web-devicons').has_loaded() then
-            return ''
-        end
+    local icon = nil
 
+    if vim.g.nvim_web_devicons and not require('nvim-web-devicons').has_loaded() then
         local name = vim.fn.expand('%')
         local ext = vim.fn.expand('%:e')
-
-        if name == '' or ext == '' then
-            return ''
-        end
-        return require('nvim-web-devicons').get_icon(name, ext) .. ' '
+        icon = require('nvim-web-devicons').get_icon(name, ext)
     elseif vim.g.loaded_webdevicons then
-        return vim.fn.WebDevIconsGetFileTypeSymbol() .. ' '
-    else
-        return ''
+        icon = vim.fn.WebDevIconsGetFileTypeSymbol()
     end
+
+    if icon ~= nil then
+        return icon .. ' '
+    end
+
+    return ''
 end
 
 function M.short_file_path(path)
