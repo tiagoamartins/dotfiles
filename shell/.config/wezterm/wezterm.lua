@@ -28,7 +28,7 @@ config.colors = {
     },
 }
 
-local font_size = is_linux and 12 or 14
+local font_size = is_linux and 12 or 16
 local font_primary = is_linux and 'Terminus' or 'Terminus (TTF)'
 local font_fallback = 'Terminess Nerd Font'
 
