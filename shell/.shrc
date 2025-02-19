@@ -118,6 +118,7 @@ alias cls='clear'
 alias cp='cp -i'
 alias dcm2nii='dcm2niix -v n -z y -f '"'"'%s_%p'"'"
 alias gst='git status'
+alias gsti='git status --ignored'
 alias j='jobs'
 alias ll='ls -l'
 alias mv='mv -i'
