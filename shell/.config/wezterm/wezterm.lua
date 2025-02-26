@@ -66,4 +66,32 @@ config.visual_bell = {
     fade_out_duration_ms = 50,
 }
 
+config.keys = {
+    {
+        key = 'V',
+        mods = 'CTRL',
+        action = wezterm.action.PasteFrom('PrimarySelection')
+    },
+    {
+        key = 'C',
+        mods = 'CTRL',
+        action = wezterm.action.CopyTo('PrimarySelection')
+    },
+    {
+        key = '-',
+        mods = 'CTRL',
+        action = wezterm.action.DecreaseFontSize
+    },
+    {
+        key = '=',
+        mods = 'CTRL',
+        action = wezterm.action.IncreaseFontSize
+    },
+    {
+        key = '0',
+        mods = 'CTRL',
+        action = wezterm.action.ResetFontSize
+    },
+}
+
 return config
