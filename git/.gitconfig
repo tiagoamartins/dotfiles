@@ -1,24 +1,60 @@
-[core]
-	excludesfile = ~/.cvsignore
-	pager = less -FSRX
-	abbrev = 12
-[pretty]
-	fixes = Fixes: %h (\"%s\")
 [alias]
-	parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
+	br = branch
 	chg = log -n 1 --pretty=format:%H
-	wip = "!git tlog \"$(git parent)\"..HEAD"
-	tree = tlog --all
-	tlog = log --graph --oneline --decorate
-	st = status
 	ci = commit
 	co = checkout
 	cp = cherry-pick
-	br = branch
+	parent = "!git show-branch | grep '*' | grep -v \"$(git rev-parse --abbrev-ref HEAD)\" | head -n1 | sed 's/.*\\[\\(.*\\)\\].*/\\1/' | sed 's/[\\^~].*//' #"
+	st = status
 	sw = switch
-[push]
-	default = matching
+	tlog = log --graph --oneline --decorate
+	tree = tlog --all
+	wip = "!git tlog \"$(git parent)\"..HEAD"
+[branch]
+	sort = -committerdate
+[column]
+	ui = auto
+[commit]
+	verbose = true
+[core]
+	abbrev = 12
+	excludesfile = ~/.cvsignore
+	pager = less -FSRX
+[diff]
+	algorithm = histogram
+	colormoved = plain
+	mnemonicprefix = true
+	renames = true
+[feature]
+	experimental = true
+[fetch]
+	all = true
+	prune = true
+	prunetags = true
+[grep]
+	patterntype = perl
+[help]
+	autocorrect = prompt
 [init]
-	defaultBranch = master
+	defaultbranch = master
+[merge]
+	conflictstyle = zdiff3
+[pretty]
+	fixes = Fixes: %h (\"%s\")
+[pull]
+	rebase = true
+[push]
+	autosetupremote = true
+	default = simple
+	followtags = true
+[rebase]
+	autosquash = true
+	autostash = true
+	updaterefs = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[tag]
+	sort = version:refname
 [include]
 	path = .gitconfig.local
