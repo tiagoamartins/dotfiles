@@ -5,6 +5,7 @@ local is_linux <const> = wezterm.target_triple:find("linux") ~= nil
 config.colors = {
     foreground = '#C5C8C6',
     background = '#1D1F21',
+    visual_bell = '#303030',
 
     ansi = {
         '#282A2E',
@@ -56,5 +57,13 @@ config.window_frame = {
 config.window_decorations = is_linux and 'RESIZE' or 'TITLE | RESIZE'
 config.disable_default_key_bindings = true
 config.warn_about_missing_glyphs = false
+
+config.audible_bell = 'Disabled'
+config.visual_bell = {
+    fade_in_function = 'EaseIn',
+    fade_in_duration_ms = 50,
+    fade_out_function = 'EaseOut',
+    fade_out_duration_ms = 50,
+}
 
 return config
