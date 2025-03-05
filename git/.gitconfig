@@ -1,3 +1,5 @@
+[advice]
+	forcedeletebranch = false
 [alias]
 	br = branch
 	chg = log -n 1 --pretty=format:%H
