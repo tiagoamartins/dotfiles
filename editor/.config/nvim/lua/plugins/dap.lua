@@ -3,6 +3,7 @@ local function config(_, opts)
     local handlers = require('config.dap-handlers')
 
     dap.defaults.fallback.terminal_win_cmd = [[ belowright new ]]
+    dap.defaults.fallback.switchbuf = 'useopen'
 
     vim.cmd (
         [[autocmd TermClose *                     |]]..
@@ -49,7 +50,7 @@ local function config(_, opts)
     })
     vim.keymap.set('n', '<leader>R', ":RunScriptWithArgs")
 
-    vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
+    vim.api.nvim_set_hl(0, "DapStoppedLine", {default = true, link = "Visual"})
 
     local mason_dap = require('mason-nvim-dap')
     mason_dap.setup({
@@ -86,7 +87,7 @@ local function config(_, opts)
             program = handlers.get_executable,
             args = handlers.get_arguments,
             cwd = '${workspaceFolder}',
-            stopAtBeginningOfMainSubprogram = false,
+            stopAtBeginningOfMainSubprogram = true,
         },
         {
             name = 'Launch (valgrind)',
@@ -95,7 +96,7 @@ local function config(_, opts)
             program = handlers.get_executable,
             args = handlers.get_arguments,
             cwd = '${workspaceFolder}',
-            stopAtBeginningOfMainSubprogram = false,
+            stopAtBeginningOfMainSubprogram = true,
         },
         {
             name = 'Select and attach to process',
