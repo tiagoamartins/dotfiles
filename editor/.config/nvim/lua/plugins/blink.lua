@@ -3,6 +3,10 @@ return {
     version = '*',
     build = 'cargo build --release',
     opts = {
+        appearance = {
+            use_nvim_cmp_as_default = true,
+            nerd_font_variant = 'mono',
+        },
         keymap = {preset = 'default'},
         sources = {
             default = function(ctx)
@@ -51,6 +55,7 @@ return {
             -- display a preview of the selected item on the current line
             ghost_text = {enabled = true},
         },
+        signature = {enabled = true},
     },
     opts_extend = {'sources.default'}
 }
