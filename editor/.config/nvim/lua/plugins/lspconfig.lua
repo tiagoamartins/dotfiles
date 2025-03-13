@@ -26,7 +26,6 @@ return {
                 filetypes = {'systemverilog', 'verilog'},
                 root_dir = function(fname)
                     local lsp_util = require('lspconfig.util')
-                    local lsp_cfgs = require('lspconfig.configs')
                     local root_pattern = lsp_util.root_pattern('veridian.yml', '.git')
                     local filename = fname
                     return root_pattern(filename) or vim.fs.dirname(filename)
@@ -52,7 +51,7 @@ return {
 
         require('config.lsp-mappings').map()
 
-        function register_lsp(server_name)
+        local function register_lsp(server_name)
             local server = opts.servers[server_name] or {}
             local cmd = (server.cmd or {})[1] or server_name
             local skip_match = server.cmd_match == nil or not server.cmd_match
@@ -74,5 +73,5 @@ return {
         require('mason-lspconfig').setup({
             handlers = {register_lsp}
         })
-    end
+    end,
 }
