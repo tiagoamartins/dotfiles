@@ -11,6 +11,7 @@ return {
             clangd = {},
             harper_ls = {},
             jsonls = {},
+            lua_ls = {},
             marksman = {},
             ruff = {},
             verible = {
