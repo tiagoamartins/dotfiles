@@ -20,9 +20,12 @@ return {
                 }
             },
             extensions = {
+                fzf = {},
+                luasnip = {},
                 ['ui-select'] = {
                     themes.get_dropdown()
-                }
+                },
+                undo = {},
             }
         })
         tscope.load_extension('fzf')
