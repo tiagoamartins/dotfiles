@@ -25,7 +25,6 @@ return {
                 }
             }
         })
-        tscope.load_extension('find_pickers')
         tscope.load_extension('fzf')
         tscope.load_extension('luasnip')
         tscope.load_extension('ui-select')
