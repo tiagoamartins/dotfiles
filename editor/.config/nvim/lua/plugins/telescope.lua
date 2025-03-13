@@ -37,10 +37,10 @@ return {
     keys = {
         {'<leader>?', function()
             require('telescope.builtin').oldfiles()
-        end, desc =  '[?] Find recently opened files'},
+        end, desc = '[?] Find recently opened files'},
         {'<leader><leader>', function()
             require('telescope.builtin').buffers()
-        end, desc =  '[\\] Find existing buffers'},
+        end, desc = '[\\] Find existing buffers'},
         {'<leader>/', function()
             builtin = require('telescope.builtin')
             themes = require('telescope.themes')
@@ -49,7 +49,7 @@ return {
                 winblend = 10,
                 previewer = false,
             }))
-        end, desc =  '[/] Fuzzily search in current buffer'},
+        end, desc = '[/] Fuzzily search in current buffer'},
         {'<leader>gf', function()
             require('telescope.builtin').git_files()
         end, desc = 'Search [G]it [F]iles'},
