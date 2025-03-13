@@ -20,6 +20,7 @@ return {
                 }
             },
             extensions = {
+                dap = {},
                 fzf = {},
                 luasnip = {},
                 ['ui-select'] = {
@@ -28,6 +29,7 @@ return {
                 undo = {},
             }
         })
+        tscope.load_extension('dap')
         tscope.load_extension('fzf')
         tscope.load_extension('luasnip')
         tscope.load_extension('ui-select')
@@ -92,6 +94,9 @@ return {
         {'<leader>sd', function()
             require('telescope.builtin').diagnostics()
         end, desc = '[S]earch [D]iagnostics'},
+        {'<leader>sv', function()
+            require('telescope').extensions.dap.variables()
+        end, desc = '[S]earch Debug [V]ariables'},
         {'<leader>ss', function()
             require('telescope').extensions.luasnip.luasnip()
         end, desc = '[S]earch [S]nippets'},
