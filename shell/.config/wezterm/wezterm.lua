@@ -94,4 +94,7 @@ config.keys = {
     },
 }
 
+config.initial_cols = is_linux and 290 or 144
+config.initial_rows = is_linux and 87 or 40
+
 return config
