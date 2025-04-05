@@ -18,7 +18,12 @@ return {
                 filetypes = {'systemverilog', 'verilog'},
                 cmd = {'verible-verilog-ls', '--rules_config_search=true'},
                 cmd_match = true,
-                root_dir = function() return vim.loop.cwd() end
+                root_dir = function(fname)
+                    local lsp_util = require('lspconfig.util')
+                    local root_pattern = lsp_util.root_pattern('verible.filelist', '.rules.verible_lint', '.git')
+                    local filename = fname
+                    return root_pattern(filename) or vim.fs.dirname(filename)
+                end,
             },
             veridian = {
                 mason = false,
