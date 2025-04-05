@@ -15,7 +15,7 @@ else
     local backupdir = vim.env.VIM_TEMP .. '/backup'
 
     if vim.fn.isdirectory(backupdir) ~= 1 then
-        vim.uv.fs_mkdir(backupdir)
+        vim.uv.fs_mkdir(backupdir, tonumber('755', 8))
     end
     vim.o.backupdir = backupdir
     set.backup = true       -- keep backup after closing the file
@@ -39,7 +39,7 @@ if vim.env.SUDO_USER ~= nil then
 else
     local swapdir = vim.env.VIM_TEMP .. '/swap'
     if vim.fn.isdirectory(swapdir) ~= 1 then
-        vim.uv.fs_mkdir(swapdir)
+        vim.uv.fs_mkdir(swapdir, tonumber('755', 8))
     end
     vim.o.directory = swapdir .. '//'
     set.swapfile = true
@@ -63,7 +63,7 @@ if vim.env.SUDO_USER ~= nil then
 else
     local undodir = vim.env.VIM_TEMP .. '/undo'
     if vim.fn.isdirectory(undodir) ~= 1 then
-        vim.uv.fs_mkdir(undodir)
+        vim.uv.fs_mkdir(undodir, tonumber('755', 8))
     end
     vim.o.undodir = undodir
     set.undofile = true -- actually use undo files
@@ -72,7 +72,7 @@ end
 
 local viewdir = vim.env.VIM_TEMP .. '/view'
 if vim.fn.isdirectory(viewdir) ~= 1 then
-    vim.uv.fs_mkdir(viewdir)
+    vim.uv.fs_mkdir(viewdir, tonumber('755', 8))
 end
 vim.o.viewdir = viewdir
 set.viewoptions = {'cursor', 'folds'} -- save/restore just these (with `:{mk,load}view`)
