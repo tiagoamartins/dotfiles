@@ -2,14 +2,10 @@ local mappings = {}
 
 -- register an internal keymap that wraps `fn` with vim-repeat
 local make_repeatable_keymap = function(mode, map, fn)
-   vim.validate({
-      mode = {mode, {'string', 'table'}},
-      fn = {
-         fn,
-         {'string', 'function'},
-         map = {name = 'string'}
-      }
-   })
+   vim.validate('mode', mode, {'string', 'table'})
+   vim.validate('fn', fn, 'function')
+   vim.validate('map', map,  'string')
+
    if not vim.startswith(map, '<plug>') then
       error('`map` should start with `<plug>`, given: ' .. map)
    end
