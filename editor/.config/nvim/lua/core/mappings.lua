@@ -181,6 +181,28 @@ mappings.n = {
         keys = 'gV',
         exec = '`[v`]',
     },
+
+    -- diagnostic {{{2
+    diag_prev = {
+        keys = '[d',
+        exec = vim.diagnostic.goto_prev,
+        desc = 'Go to previous diagnostic message',
+    },
+    diag_next = {
+        keys = ']d',
+        exec = vim.diagnostic.goto_next,
+        desc = 'Go to next diagnostic message',
+    },
+    diag_float = {
+        keys = '<leader>e',
+        exec = vim.diagnostic.open_float,
+        desc = 'Open floating diagnostic message',
+    },
+    diag_list = {
+        keys = '<leader>q',
+        exec = vim.diagnostic.setloclist,
+        desc = 'Open diagnostic list',
+    },
 }
 
 -- visual {{{1
