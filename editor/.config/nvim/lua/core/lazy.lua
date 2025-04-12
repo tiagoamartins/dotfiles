@@ -43,16 +43,4 @@ end
 require('lazy').setup({
     spec = specs,
     rocks = {enabled = false},
-    ui = {
-        icons = {
-            ft = "▶ ",
-            import = "◑ ",
-            init = "α ",
-            keys = "★ ",
-            plugin = "⇒ ",
-            require = "◊ ",
-            runtime = "⌐ ",
-            source = "▤ ",
-        }
-    }
 })
