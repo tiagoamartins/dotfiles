@@ -25,10 +25,23 @@ end
 -- add lazy to the `runtimepath`, so it can be used with `require`
 vim.opt.rtp:prepend(lazypath)
 
+-- load plugin information from the `plugins` directory
+local specs = {
+    {import = 'plugins'},
+}
+
+-- load extra plugins base on vim.g.enable_extra_plugins and merge to specs
+local extra_plugins = vim.g.enable_extra_plugins
+if extra_plugins then
+    for _, plugin in ipairs(vim.g.enable_extra_plugins) do
+        table.insert(specs, {
+            import = 'plugins.extra.' .. plugin,
+        })
+    end
+end
+
 require('lazy').setup({
-    spec = {
-        {import = 'plugins'}
-    },
+    spec = specs,
     rocks = {enabled = false},
     ui = {
         icons = {
