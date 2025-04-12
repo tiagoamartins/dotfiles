@@ -1,4 +1,5 @@
 require('core.settings')
+require('core.local')
 require('core.autocmds')
 require('core.lazy')
 require('core.lsp')
