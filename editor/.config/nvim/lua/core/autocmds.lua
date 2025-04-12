@@ -16,6 +16,19 @@ augroups.editing = {
     },
 }
 
+augroups.lsp = {
+    auto_completion = {
+        event = {'LspAttach'},
+        pattern = '*',
+        callback = function(ev)
+            local client = vim.lsp.get_client_by_id(ev.data.client_id)
+            if client:supports_method('textDocument/completion') then
+                vim.lsp.completion.enable(true, client.id, ev.buf, {autotrigger = true})
+            end
+        end,
+    }
+}
+
 augroups.secret = {
     disable_swapfile = {
         event = {'BufNewFile', 'BufReadPre'},
