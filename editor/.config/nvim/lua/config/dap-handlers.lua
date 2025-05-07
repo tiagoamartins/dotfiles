@@ -35,46 +35,4 @@ function M.get_arguments()
     return chunks
 end
 
-local function inject_exe_args(config)
-    for _, cfg in pairs(config.configurations) do
-        if cfg.type == 'cppdbg' and cfg.program ~= nil then
-            cfg.program = get_executable
-            cfg.args = get_arguments
-        end
-    end
-end
-
-local function default_handler(config)
-    inject_exe_args(config)
-    require('mason-nvim-dap').default_setup(config)
-end
-
-local function python_handler(config)
-    local prev_adapter = config.adapters
-    config.adapters =  function(callback, config)
-        if config.request == 'attach' then
-            local port = (config.connect or config).port
-            local host = (config.connect or config).host or '127.0.0.1'
-            callback({
-                type = 'server',
-                port = assert(port, '`connect.port` is required for a python `attach` configuration'),
-                host = host,
-                options = {
-                    source_filetype = 'python'
-                },
-            })
-        else
-            callback(prev_adapter)
-        end
-    end
-    require('mason-nvim-dap').default_setup(config)
-end
-
-function M.setup_handlers()
-    return {
-        default_handler,
-        python = python_handler
-    }
-end
-
 return M

@@ -49,14 +49,32 @@ local function config(_, opts)
             nargs = '*'
     })
     vim.keymap.set('n', '<leader>R', ":RunScriptWithArgs")
-
     vim.api.nvim_set_hl(0, "DapStoppedLine", {default = true, link = "Visual"})
 
-    local mason_dap = require('mason-nvim-dap')
-    mason_dap.setup({
-        ensure_installed = vim.g.adapters_installed or {},
-        handlers = handlers.setup_handlers()
-    })
+    dap.adapters.python = function(cb, config)
+        if config.request == 'attach' then
+            ---@diagnostic disable-next-line: undefined-field
+            local port = (config.connect or config).port
+            ---@diagnostic disable-next-line: undefined-field
+            local host = (config.connect or config).host or '127.0.0.1'
+            cb({
+                type = 'server',
+                port = assert(port, '`connect.port` is required for a python `attach` configuration'),
+                host = host,
+                options = {
+                    source_filetype = 'python',
+                },
+            })
+        else
+            cb({
+                type = 'executable',
+                command = vim.fn.exepath('debugpy-adapter'),
+                options = {
+                    source_filetype = 'python',
+                },
+            })
+        end
+    end
 
     dap.adapters.gdb = {
         id = 'gdb',
@@ -131,6 +149,18 @@ local function config(_, opts)
             stopOnEntry = false,
             runInTerminal = false,
         }
+    }
+
+    local venv_path = os.getenv('VIRTUAL_ENV') or os.getenv('CONDA_PREFIX')
+    dap.configurations.python = {
+        {
+            type = 'python',
+            request = 'launch',
+            name = 'Python: Launch file',
+            program = '${file}',
+            pythonPath = venv_path and (venv_path .. '/bin/python') or nil,
+            console = 'integratedTerminal',
+        },
     }
 end
 
