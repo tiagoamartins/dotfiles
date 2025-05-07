@@ -54,7 +54,7 @@ local function config(_, opts)
 
     local mason_dap = require('mason-nvim-dap')
     mason_dap.setup({
-        ensure_installed = opts.adapters,
+        ensure_installed = vim.g.adapters_installed or {},
         handlers = handlers.setup_handlers()
     })
 
