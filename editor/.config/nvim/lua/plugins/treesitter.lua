@@ -1,32 +1,9 @@
 return {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
     build = ':TSUpdate',
-    event = {'BufReadPost', 'BufNewFile'},
     opts = {
-        ensure_installed = {
-            'asm',
-            'bash',
-            'c',
-            'comment',
-            'cpp',
-            'html',
-            'jinja',
-            'json',
-            'lua',
-            'markdown',
-            'markdown_inline',
-            'objdump',
-            'python',
-            'rst',
-            'verilog',
-            'vim',
-            'vimdoc',
-            'yaml',
-        },
-        highlight = {enable = true},
-        indent = {
-            enable = true,
-        },
         textobjects = {
             select = {
                 enable = true,
@@ -72,7 +49,9 @@ return {
         }
     },
     config = function(_, opts)
+        local parsers = require('config.treesitter').get_default_parsers()
+        require('nvim-treesitter').install(parsers)
         require('treesitter-context').setup({enable = true})
-        require('nvim-treesitter.configs').setup(opts)
+        require('ts_context_commentstring').setup()
     end
 }

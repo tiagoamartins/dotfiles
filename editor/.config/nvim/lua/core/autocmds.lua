@@ -53,6 +53,18 @@ augroups.secret = {
     },
 }
 
+augroups.treesitter = {
+    highlight = {
+        event = {'FileType'},
+        pattern = require('config.treesitter').get_filetypes(),
+        callback = function ()
+            vim.treesitter.start()
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
+    }
+}
+
 augroups.yank = {
     osc52 = {
         event = {'TextYankPost'},

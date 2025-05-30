@@ -1,6 +1,7 @@
 return {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
+    branch = 'master',
     config = function(_, opts)
         tscope = require('telescope')
         actions = require('telescope.actions')
@@ -35,7 +36,6 @@ return {
         tscope.load_extension('ui-select')
         tscope.load_extension('undo')
     end,
-    version = '0.1.x',
     keys = {
         {'<leader>?', function()
             require('telescope.builtin').oldfiles()
