@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export NB_COLOR_THEME="${NB_COLOR_THEME:-ocean}"
+export NB_ENCRYPTION_TOOL="${NB_ENCRYPTION_TOOL:-gpg}"
+export NB_FOOTER="${NB_FOOTER:-0}"
+export NB_LIMIT="${NB_LIMIT:-auto}"
