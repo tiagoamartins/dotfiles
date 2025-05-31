@@ -59,4 +59,4 @@
 [tag]
 	sort = version:refname
 [include]
-	path = .gitconfig.local
+	path = config.local
