@@ -23,11 +23,15 @@ function M.get_default_parsers()
     }
 end
 
+function M.get_parsers()
+    return vim.g.treesitter_parsers or M.get_default_parsers()
+end
+
 function M.get_filetypes()
     local filetypes = {}
     local filetype_set = {}
 
-    for _, parser in ipairs(M.get_default_parsers()) do
+    for _, parser in ipairs(M.get_parsers()) do
         local fts = vim.treesitter.language.get_filetypes(parser)
 
         for _, ft in ipairs(fts) do

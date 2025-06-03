@@ -49,7 +49,7 @@ return {
         }
     },
     config = function(_, opts)
-        local parsers = require('config.treesitter').get_default_parsers()
+        local parsers = require('config.treesitter').get_parsers()
         require('nvim-treesitter').install(parsers)
         require('treesitter-context').setup({enable = true})
         require('ts_context_commentstring').setup()
