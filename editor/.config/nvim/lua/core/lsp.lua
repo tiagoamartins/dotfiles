@@ -1,7 +1,6 @@
-local M = {}
 local cfg = require('config.lsp')
 
-function M.on_attach(client, buffer)
+function on_attach(client, buffer)
     local bopt = vim.bo[buffer]
 
     for _, kmap in ipairs(cfg.get_default_keymaps()) do
@@ -31,21 +30,10 @@ function M.on_attach(client, buffer)
     end
 end
 
-function M.get_servers()
-    local servers = {}
-
-    for _, v in ipairs(vim.api.nvim_get_runtime_file("lsp/*", true)) do
-        local name = vim.fn.fnamemodify(v, ":t:r")
-        table.insert(servers, name)
-    end
-
-    return servers
-end
-
-local servers = M.get_servers()
+local servers = cfg.get_servers()
 
 vim.lsp.config('*', {
-    on_attach = M.on_attach,
+    on_attach = on_attach,
     root_markers = {
         '.git',
     },

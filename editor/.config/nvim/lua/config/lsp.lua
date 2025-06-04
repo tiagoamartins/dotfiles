@@ -122,4 +122,19 @@ function M.get_default_commands()
     }
 end
 
+function M.get_default_servers()
+    local servers = {}
+
+    for _, v in ipairs(vim.api.nvim_get_runtime_file("lsp/*", true)) do
+        local name = vim.fn.fnamemodify(v, ":t:r")
+        table.insert(servers, name)
+    end
+
+    return servers
+end
+
+function M.get_servers()
+    return vim.g.language_servers or M.get_default_servers()
+end
+
 return M
