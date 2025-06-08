@@ -119,7 +119,7 @@ function extract()
 }
 
 case "$basename" in
-	extract)
+	extract) # files
 		extract $@;;
 
 	host)
