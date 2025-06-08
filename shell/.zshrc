@@ -161,7 +161,7 @@ then
 	return 0
 fi
 
-fpath=($fpath ~/.zsh/functions ~/.zsh/functions.zwc)
+fpath=($fpath ~/.config/zsh/functions ~/.config/zsh/functions.zwc)
 watch=(notme)
 PERIOD=3600
 periodic() { rehash }
