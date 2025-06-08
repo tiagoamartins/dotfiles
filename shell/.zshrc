@@ -207,14 +207,14 @@ function _tiago()
 	if [ "$CURRENT" -eq 2 ]
 	then
 		local tmp
-		tmp=($(grep '^	[a-z-]*[|)]' "$HOME/.local/bin/$cmd" 2> /dev/null | sed -e 's/).*//' | tr '|' ' '))
+		tmp=($(grep '^	\+[a-z-]*[|)]' "$HOME/.local/bin/$cmd" 3> /dev/null | sed -e 's/).*//' | tr '|' ' '))
 		_describe -t commands "${words[1]} command" tmp --
 	else
 		shift words
 		(( CURRENT-- ))
 		curcontext="${curcontext%:*:*}:$cmd-${words[1]}:"
 
-		local selector=$(grep -E "^	([a-z-]*[|])*${words[1]}([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
+		local selector=$(grep -E "^	+([a-z-]*[|])*${words[1]}([|][a-z-]*)*[)] *# *[_a-z-]*$" "$HOME/.local/bin/$cmd" | sed -e 's/.*# *//')
 		_call_function ret _$selector && return $ret
 
 		if [ -n "$selector" ]
