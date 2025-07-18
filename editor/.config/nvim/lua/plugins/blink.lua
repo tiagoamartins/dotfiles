@@ -25,6 +25,7 @@ return {
                 end
             end,
         },
+        cmdline = {enabled = false},
         completion = {
             list = {
                 selection = {
@@ -36,8 +37,8 @@ return {
                 auto_brackets = {enabled = false},
             },
             menu = {
-                border = "rounded",
-                winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
+                border = 'rounded',
+                winhighlight = 'Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None',
 
                 draw = {
                     columns = {
@@ -56,6 +57,7 @@ return {
             ghost_text = {enabled = true},
         },
         signature = {enabled = true},
+        snippets = {preset = 'luasnip'},
     },
     opts_extend = {'sources.default'}
 }
