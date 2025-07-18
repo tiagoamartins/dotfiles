@@ -177,7 +177,6 @@ set.foldmethod = 'marker'   -- enable indent folding
 set.foldlevelstart = 99     -- start unfolded
 
 -- windowing {{{1
--- --------------
 set.splitbelow = true       -- new splits appear below for horizontal splits
 set.splitright = true       -- new splits appear at right for vertical splits
 set.bufhidden = 'hide'      -- hide buffer and not unload when not in window (to prevent relogin with FTP edit)
@@ -189,3 +188,8 @@ set.spellsuggest = 'best,10'    -- limit it to just the top 10 items
 set.spellcapcheck = ''          -- don't check for capital letters at start of sentence
 set.complete:append({'kspell'}) -- word completion
 set.spelllang = 'en_us'
+
+-- diagnostics {{{1
+vim.diagnostic.config({
+    virtual_text = true, -- turn on in-line diagnostics
+})
