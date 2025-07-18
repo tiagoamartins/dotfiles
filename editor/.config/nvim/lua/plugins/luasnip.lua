@@ -7,7 +7,7 @@ return {
         vim.snippet.expand = ls.lsp_expand
 
         vim.snippet.active = function(filter)
-            filter = fulter or {}
+            filter = filter or {}
             filter.direction = filter.direction or 1
 
             if filter.direction == 1 then
