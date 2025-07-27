@@ -89,6 +89,18 @@ function M.get_default_keymaps()
             end,
             has = 'workspace',
         },
+        {
+            keys = '<leader>l',
+            desc = 'Toggle in[L]ine virtual text',
+            exec = function()
+                local cfg = vim.diagnostic.config() or {}
+                if cfg.virtual_text then
+                    vim.diagnostic.config({virtual_text = false})
+                else
+                    vim.diagnostic.config({virtual_text = true})
+                end
+            end,
+        },
     }
 end
 
