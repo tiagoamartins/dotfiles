@@ -4,6 +4,7 @@ return {
         'python',
     },
     root_markers = {
+        '.git',
         '.ruff.toml',
         'pyproject.toml',
         'ruff.toml',
