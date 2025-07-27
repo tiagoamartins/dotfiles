@@ -1,7 +1,24 @@
 local cfg = require('config.lsp')
 
-function on_attach(client, buffer)
+local servers = cfg.get_servers()
+
+local function on_attach(client, buffer)
     local bopt = vim.bo[buffer]
+    local settings = servers[client]
+
+    if type(settings) ~= 'table' then
+        settings = {}
+    end
+
+    if settings.server_capabilities then
+        for k, v in pairs(settings.server_capabilities) do
+            if v == vim.NIL then
+                v = nil;
+            end
+
+            client.server_capabilities[k] = v
+        end
+    end
 
     for _, kmap in ipairs(cfg.get_default_keymaps()) do
         if not kmap.has or client.server_capabilities[kmap.has] then
@@ -30,10 +47,14 @@ function on_attach(client, buffer)
     end
 end
 
-local servers = cfg.get_servers()
+local capabilities = nil
+if pcall(require, 'cmp_nvim_lsp') then
+    capabilities = require('cmp_nvim_lsp').default_capabilities()
+end
 
 vim.lsp.config('*', {
     on_attach = on_attach,
+    capabilities = capabilities,
     root_markers = {
         '.git',
     },
