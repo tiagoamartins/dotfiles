@@ -45,7 +45,7 @@ augroups.treesitter = {
         event = {'FileType'},
         pattern = require('config.treesitter').get_filetypes(),
         callback = function ()
-            ok, _ = pcall(vim.treesitter.start)
+            local ok, _ = pcall(vim.treesitter.start)
             if ok then
                 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
                 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
