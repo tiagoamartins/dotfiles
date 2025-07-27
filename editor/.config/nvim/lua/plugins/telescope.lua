@@ -2,10 +2,10 @@ return {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     branch = 'master',
-    config = function(_, opts)
-        tscope = require('telescope')
-        actions = require('telescope.actions')
-        themes = require('telescope.themes')
+    config = function(_, _)
+        local tscope = require('telescope')
+        local actions = require('telescope.actions')
+        local themes = require('telescope.themes')
 
         tscope.setup({
             pickers = {
@@ -44,8 +44,8 @@ return {
             require('telescope.builtin').buffers()
         end, desc = '[\\] Find existing buffers'},
         {'<leader>/', function()
-            builtin = require('telescope.builtin')
-            themes = require('telescope.themes')
+            local builtin = require('telescope.builtin')
+            local themes = require('telescope.themes')
 
             builtin.current_buffer_fuzzy_find(themes.get_dropdown({
                 winblend = 10,
@@ -82,6 +82,9 @@ return {
         {'<leader>sw', function()
             require('telescope.builtin').grep_string()
         end, desc = '[S]earch current [W]ord'},
+        {'<leader>fg', function()
+            require('config.telescope').live_multigrep()
+        end, desc = '[F]ind by Multi-[G]rep'},
         {'<leader>sg', function()
             require('telescope.builtin').live_grep({
                 additional_args = {
