@@ -16,7 +16,7 @@ function M.get_default_parsers()
         'objdump',
         'python',
         'rst',
-        'verilog',
+        'systemverilog',
         'vim',
         'vimdoc',
         'yaml',
