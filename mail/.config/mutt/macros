@@ -7,8 +7,8 @@ macro index a '<limit>all<enter>' "show all messages (undo limit)"
 macro index A '<save-message>><enter>' "archive message"
 macro index C '<copy-message>?<toggle-mailboxes>' "copy a message to a mailbox"
 macro index M '<save-message>?<toggle-mailboxes>' "move a message to a mailbox"
-macro index \eo '<shell-escape>mbsync -q -a<enter>' "sync all mailboxes"
-macro index \en '<collapse-all><tag-pattern>~N | ~O<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter><collapse-all>' "mark all new as read"
+macro index \\o '<shell-escape>mbsync -q -a<enter>' "sync all mailboxes"
+macro index \\n '<collapse-all><tag-pattern>~N | ~O<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter><collapse-all>' "mark all new as read"
 macro index <F5> '<enter-command>$my_index_format_pre"F"$my_index_format_post<enter><redraw-screen>' "refresh index"
 
 # Pager {{{1
