@@ -47,6 +47,7 @@ augroups.treesitter = {
         callback = function ()
             local ok, _ = pcall(vim.treesitter.start)
             if ok then
+                vim.wo.foldmethod = 'expr'
                 vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
                 vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
             end
