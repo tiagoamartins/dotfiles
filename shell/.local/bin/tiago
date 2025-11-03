@@ -120,7 +120,7 @@ function extract()
 
 case "$basename" in
 	extract) # files
-		extract $@;;
+		extract "$@";;
 
 	host)
 		exec "$HOME/.local/bin/tiago-host" "$@";;
