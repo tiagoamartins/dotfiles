@@ -36,9 +36,10 @@ set index_format = "%4C (%-4.4c) %Z %[%b %d] %-20.20F %s"
 set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
 set sleep_time = 0	# Instantaneous mailbox change
 set sort = threads
-set sort_aux = reverse-last-date-received
+set sort_aux = last-date-received
 set sort_re		# Thread based on regex
 set uncollapse_jump	# Jump to next unread message for uncollapsed thread
+set use_threads = reverse
 
 # Pager view {{{1
 set markers			# Show ugly plus signs (with discrete color, it's tolerable)
