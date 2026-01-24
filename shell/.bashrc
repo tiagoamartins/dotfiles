@@ -19,7 +19,7 @@ atcolor='01;37'
 hostcolor='01;33'
 dircolor='01;36'
 case "$TERM" in
-	*-256color)
+	*-256color|*-ghostty)
 		usercolor='1;38;5;33'  # Blue
 		atcolor='1;38;5;136'   # Yellow
 		hostcolor='1;38;5;166' # Orange
