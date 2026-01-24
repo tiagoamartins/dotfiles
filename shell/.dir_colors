@@ -7,7 +7,6 @@
 # slackware version of dircolors) are recognized but ignored.
 
 # Below, there should be one TERM entry for each termtype that is colorizable
-TERM Eterm
 TERM ansi
 TERM color-xterm
 TERM con132x25
@@ -20,9 +19,6 @@ TERM con80x30
 TERM con80x43
 TERM con80x50
 TERM con80x60
-TERM cygwin
-TERM dtterm
-TERM eterm-color
 TERM gnome
 TERM gnome-256color
 TERM jfbterm
@@ -35,8 +31,6 @@ TERM mlterm
 TERM putty
 TERM rxvt
 TERM rxvt-256color
-TERM rxvt-cygwin
-TERM rxvt-cygwin-native
 TERM rxvt-unicode
 TERM rxvt-unicode-256color
 TERM rxvt-unicode256
@@ -56,11 +50,8 @@ TERM xterm-256color
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
-TERM xterm-kitty
 TERM tmux
 TERM tmux-256color
-TERM foot
-TERM foot-direct
 
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
