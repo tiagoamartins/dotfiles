@@ -3,3 +3,12 @@ font-size = 12
 theme = hybrid
 window-height = 75
 window-width = 286
+keybind = clear
+keybind = `+r=reload_config
+keybind = ctrl+equal=increase_font_size:1
+keybind = ctrl++=increase_font_size:1
+keybind = ctrl+-=decrease_font_size:1
+keybind = ctrl+0=reset_font_size
+keybind = ctrl+enter=toggle_fullscreen
+keybind = copy=copy_to_clipboard
+keybind = paste=paste_from_clipboard
