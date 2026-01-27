@@ -47,14 +47,8 @@ local function on_attach(client, buffer)
     end
 end
 
-local capabilities = nil
-if pcall(require, 'cmp_nvim_lsp') then
-    capabilities = require('cmp_nvim_lsp').default_capabilities()
-end
-
 vim.lsp.config('*', {
     on_attach = on_attach,
-    capabilities = capabilities,
     root_markers = {
         '.git',
     },
