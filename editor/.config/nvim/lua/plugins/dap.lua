@@ -166,6 +166,7 @@ end
 
 return {
     'mfussenegger/nvim-dap',
+    cond = require('config.tools').has_debuggers(),
     config = config,
     opts = {
         adapters = {'python'}

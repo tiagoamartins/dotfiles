@@ -1,5 +1,6 @@
 return {
     'theHamsta/nvim-dap-virtual-text',
+    cond = require('config.tools').has_debuggers(),
     lazy = true,
     opts = {
         enabled = true,

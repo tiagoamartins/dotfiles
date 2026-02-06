@@ -30,7 +30,9 @@ return {
                 undo = {},
             }
         })
-        tscope.load_extension('dap')
+        if require('config.tools').has_debuggers() then
+            tscope.load_extension('dap')
+        end
         tscope.load_extension('fzf')
         tscope.load_extension('luasnip')
         tscope.load_extension('ui-select')

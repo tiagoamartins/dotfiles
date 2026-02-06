@@ -1,5 +1,6 @@
 return {
     'igorlfs/nvim-dap-view',
+    cond = require('config.tools').has_debuggers(),
     opts = {},
     keys = {
         {'<f3>', '<cmd>DapViewToggle<cr>', desc = 'DAP: Toggle view'},
