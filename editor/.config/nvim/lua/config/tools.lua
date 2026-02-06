@@ -30,9 +30,17 @@ end
 function M.append_tools(set, tools)
     local custom = M.get_custom_tools()
 
-    for k, v in pairs(tools) do
-        if custom[k] == nil then
-            set[k] = v
+    for _, v in ipairs(tools) do
+        local found = false
+
+        for _, c in ipairs(custom) do
+            if string.match(v, c) then
+                found = true
+            end
+        end
+
+        if not found then
+            table.insert(set, v)
         end
     end
 
