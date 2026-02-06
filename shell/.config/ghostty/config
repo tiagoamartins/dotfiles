@@ -1,14 +1,18 @@
-font-family = Terminess Nerd Font
+font-family = Terminess Nerd Font Mono
 font-size = 12
 theme = hybrid
 window-height = 75
 window-width = 286
+clipboard-read = allow
+clipboard-write = allow
 keybind = clear
-keybind = `+r=reload_config
+keybind = super+r=reload_config
 keybind = ctrl+equal=increase_font_size:1
 keybind = ctrl++=increase_font_size:1
 keybind = ctrl+-=decrease_font_size:1
 keybind = ctrl+0=reset_font_size
 keybind = ctrl+enter=toggle_fullscreen
+keybind = performable:ctrl+shift+c=copy_to_clipboard
+keybind = performable:ctrl+shift+v=paste_from_clipboard
 keybind = copy=copy_to_clipboard
 keybind = paste=paste_from_clipboard
