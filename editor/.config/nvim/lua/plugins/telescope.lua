@@ -78,6 +78,9 @@ return {
         {'<leader>sh', function()
             require('telescope.builtin').help_tags()
         end, desc = '[S]earch [H]elp'},
+        {'<leader>sk', function()
+            require('telescope.builtin').keymaps()
+        end, desc = '[S]earch [K]eymaps'},
         {'<leader>sm', function()
             require('telescope.builtin').man_pages()
         end, desc = '[S]earch [M]anpages'},
