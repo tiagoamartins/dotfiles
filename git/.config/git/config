@@ -40,6 +40,7 @@
 	autocorrect = prompt
 [init]
 	defaultbranch = master
+	defaultrefformat = files # temporary until lazy.nvim supports new git refformat
 [merge]
 	conflictstyle = zdiff3
 [pretty]
