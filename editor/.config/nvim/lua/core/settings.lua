@@ -193,3 +193,5 @@ set.spelllang = 'en_us'
 vim.diagnostic.config({
     virtual_text = true, -- turn on in-line diagnostics
 })
+
+vim.api.nvim_set_hl(0, 'TrailingWhitespace', {bg = 'DarkRed'})
