@@ -96,7 +96,8 @@ set.colorcolumn = '+1'      -- show column line 1 char after 'textwidth'
 set.showcmd = false         -- don't show extra info at end (right) of command line
 
 set.completeopt = {
-    'menu',     -- show menu when completing more than one option
+    'fuzzy',
+    'menuone',  -- show menu when completing more than one option
     'preview',  -- show extra information about the selected completion
     'noinsert', -- do not auto-insert any text
     'noselect'  -- do not auto-select a match in the menu
@@ -105,6 +106,7 @@ set.completeopt = {
 set.wildmenu = true -- visual autocomplete for command menu
 set.wildignore:append({'*.o', '*.rej'}) -- patterns to ignore during file-navigation
 set.wildmode = {'longest:full', 'full'} -- shell-like autocomplete to unambiguous portion
+set.wildoptions = {'fuzzy', 'pum', 'tagfile'}
 
 -- Symbols for visualization of special characters
 set.listchars = {
@@ -146,6 +148,7 @@ set.smartcase = true    -- unless upper case is explicit
 set.matchtime = 2       -- tenths of a second to show the matching pattern
 
 -- formatting {{{1
+set.autoindent = true   -- copy indentation from current line to a new line
 set.smartindent = true  -- turn on smart indent
 set.joinspaces = false  -- don't autoinsert two spaces after '.', '?', '!' for join command
 set.fileformats = {'unix', 'dos', 'mac'}
@@ -192,6 +195,9 @@ set.spelllang = 'en_us'
 -- diagnostics {{{1
 vim.diagnostic.config({
     virtual_text = true, -- turn on in-line diagnostics
+    underline = false,
+    severity_sort = true,
+    float = {source = true},
 })
 
 vim.api.nvim_set_hl(0, 'TrailingWhitespace', {bg = 'DarkRed'})
