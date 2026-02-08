@@ -21,6 +21,15 @@ end
 -- normal {{{1
 mappings.n = {
     -- leader {{{2
+    finder = {
+        keys = '<leader>f',
+        exec = ':find ',
+    },
+    grepper = {
+        keys = '<leader>g',
+        exec = ':grep ',
+    },
+
     -- window swap
     win_swap_mark = {
         keys = '<leader>wm',
