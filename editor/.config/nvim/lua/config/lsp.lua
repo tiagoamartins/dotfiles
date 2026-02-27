@@ -1,8 +1,7 @@
 local M = {}
 
 function M.get_default_keymaps()
-    local telescope = require('telescope.builtin')
-    return {
+    local kmaps = {
         {
             keys = '<leader>ca',
             desc = '[C]ode [A]ction',
@@ -22,12 +21,6 @@ function M.get_default_keymaps()
             has = 'definitionProvider',
         },
         {
-            keys = '<leader>ds',
-            desc = '[D]ocument [S]ymbols',
-            exec = telescope.lsp_document_symbols,
-            has = 'documentSymbolProvider',
-        },
-        {
             keys = 'K',
             desc = 'Hover Documentation',
             exec = vim.lsp.buf.hover,
@@ -38,12 +31,6 @@ function M.get_default_keymaps()
             desc = '[G]o to [I]mplementation',
             exec = vim.lsp.buf.implementation,
             has = 'implementationProvider',
-        },
-        {
-            keys = 'gr',
-            desc = '[G]o to [R]eferences',
-            exec = telescope.lsp_references,
-            has = 'referencesProvider',
         },
         {
             keys = '<leader>rn',
@@ -62,12 +49,6 @@ function M.get_default_keymaps()
             desc = '[G]o to [T]ype',
             exec = vim.lsp.buf.type_definition,
             has = 'typeDefinitionProvider',
-        },
-        {
-            keys = '<leader>ws',
-            desc = '[W]orkspace [S]ymbols',
-            exec = telescope.lsp_workspace_symbols,
-            has = 'workspaceSymbolProvider',
         },
         {
             keys = '<leader>wa',
@@ -102,6 +83,30 @@ function M.get_default_keymaps()
             end,
         },
     }
+
+    local ok, telescope = pcall(require, 'telescope.builtin')
+    if ok then
+        table.insert(kmaps, {
+            keys = '<leader>ds',
+            desc = '[D]ocument [S]ymbols',
+            exec = telescope.lsp_document_symbols,
+            has = 'documentSymbolProvider',
+        })
+        table.insert(kmaps, {
+            keys = 'gr',
+            desc = '[G]o to [R]eferences',
+            exec = telescope.lsp_references,
+            has = 'referencesProvider',
+        })
+        table.insert(kmaps, {
+            keys = '<leader>ws',
+            desc = '[W]orkspace [S]ymbols',
+            exec = telescope.lsp_workspace_symbols,
+            has = 'workspaceSymbolProvider',
+        })
+    end
+
+    return kmaps
 end
 
 function M.get_default_options()
