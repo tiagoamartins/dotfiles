@@ -12,14 +12,14 @@ return {
             provider = {
                 enabled = 'tmux',
                 tmux = {
-                    options = '-h',
+                    options = '-h -p 33',
                 }
             }
         }
     end,
     keys = {
         {'<leader>Oq', function()
-            require('opencode').ask('@buffer: ', {submit = true})
+            require('opencode').ask('@this: ', {submit = true})
         end, desc = '[O]opencode [Q]uery'},
         {'<leader>Or', function()
             require('opencode').select()
