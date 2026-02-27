@@ -131,7 +131,7 @@ augroups.visual = {
                 if vim.w.trailing_ws_match then
                     return
                 end
-                if vim.bo.buftype == '' then
+                if vim.bo.buftype == '' and not vim.bo.filetype:match('^git') then
                     vim.fn.matchadd('TrailingWhitespace', [[\s\+$]], 0)
                     vim.w.trailing_ws_match = true
                 end
