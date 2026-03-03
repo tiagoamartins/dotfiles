@@ -203,14 +203,14 @@ mappings.n = {
         desc = 'Go to next diagnostic message',
     },
     diag_float = {
-        keys = '<leader>e',
+        keys = '<leader>fd',
         exec = vim.diagnostic.open_float,
-        desc = 'Open floating diagnostic message',
+        desc = 'Open [f]loating [d]iagnostic message',
     },
     diag_list = {
-        keys = '<leader>q',
+        keys = '<leader>ld',
         exec = vim.diagnostic.setloclist,
-        desc = 'Open diagnostic list',
+        desc = 'Open a [l]ist of [d]iagnostic elements',
     },
 }
 
