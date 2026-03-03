@@ -8,14 +8,6 @@ return {
     end,
     config = function()
         vim.o.autoread = true
-        vim.g.opencode_opts = {
-            provider = {
-                enabled = 'tmux',
-                tmux = {
-                    options = '-h -p 33',
-                }
-            }
-        }
     end,
     keys = {
         {'<leader>Oq', function()
