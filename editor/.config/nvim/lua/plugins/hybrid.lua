@@ -2,10 +2,6 @@ return {
     'HoNamDuong/hybrid.nvim',
     lazy = false,
     priority = 1000,
-    config = function(_, opts)
-        require('hybrid').setup(opts)
-        vim.cmd.colorscheme('hybrid')
-    end,
     opts = {
         terminal_colors = true,
         undercurl = true,
