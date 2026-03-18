@@ -6,7 +6,7 @@ require('core.lsp')
 require('core.mappings')
 require('core.commands')
 
-vim.cmd.colorscheme('hybrid')
+vim.cmd.colorscheme('moonfly')
 
 statusline = require('core.statusline')
 statusline.setup()

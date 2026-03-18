@@ -10,19 +10,19 @@ M.pallete = {
         cterm = 234
     },
     green = {
-        gui = '#b5bd68',
+        gui = '#8cc85f',
         cterm = 10
     },
     blue = {
-        gui = '#81a2be',
+        gui = '#80a0ff',
         cterm = 12
     },
     purple = {
-        gui = '#b294bb',
+        gui = '#ae81ff',
         cterm = 13
     },
     red = {
-        gui = '#cc6666',
+        gui = '#ff5d5d',
         cterm = 9
     },
     orange = {
