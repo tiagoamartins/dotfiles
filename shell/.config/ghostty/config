@@ -1,7 +1,7 @@
 font-family = Terminess Nerd Font Mono
 font-size = 12
 theme = hybrid
-window-height = 75
+window-height = 79
 window-width = 286
 clipboard-read = allow
 clipboard-write = allow
