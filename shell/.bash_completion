@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+if [ -f /usr/share/bash-completion/completions/pass ]
+then
+	. /usr/share/bash-completion/completions/pass
+fi
