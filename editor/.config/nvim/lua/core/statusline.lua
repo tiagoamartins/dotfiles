@@ -334,7 +334,12 @@ function M.set_colors(gname, bg, fg)
 end
 
 function M.draw(active)
-    if vim.bo.buftype == 'nofile' or vim.bo.filetype == 'netrw' then
+    local winid = vim.api.nvim_get_current_win()
+
+    if vim.api.nvim_win_get_config(winid).relative ~= '' then
+        -- no custom status line for floating windows
+        return
+    elseif vim.bo.buftype == 'nofile' or vim.bo.filetype == 'netrw' then
         -- probably a file explorer
         vim.wo.statusline="%!v:lua.require'core.statusline'.show_no_file()"
     elseif vim.bo.buftype == 'nowrite' then
