@@ -10,11 +10,11 @@
       "src": "https://github.com/sindrets/diffview.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "6d808f99bd63303646794406e270bd553ad7792e",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "hybrid.nvim": {
-      "rev": "bd52073c4b2e357be0c5ad0d3bd0d07ca48773f7",
+      "rev": "0eafd5f0e1223073bdc7c02aedfd85bff029aa5c",
       "src": "https://github.com/honamduong/hybrid.nvim"
     },
     "luasnip": {
@@ -26,7 +26,7 @@
       "src": "https://github.com/mfussenegger/nvim-dap"
     },
     "nvim-dap-view": {
-      "rev": "516c1187cbae16bc08593bbcb0c9b03d53048fdc",
+      "rev": "b5cc6e1c4cd188478fdad2e0b58dbca08fd6d363",
       "src": "https://github.com/igorlfs/nvim-dap-view"
     },
     "nvim-dap-virtual-text": {
@@ -43,7 +43,7 @@
       "version": "'main'"
     },
     "nvim-treesitter-context": {
-      "rev": "b0c45cefe2c8f7b55fc46f34e563bc428ef99636",
+      "rev": "b311b30818951d01f7b4bf650521b868b3fece16",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-context"
     },
     "nvim-treesitter-textobjects": {
@@ -55,7 +55,7 @@
       "src": "https://github.com/joosepalviste/nvim-ts-context-commentstring"
     },
     "nvim-web-devicons": {
-      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
+      "rev": "7d8dad2c837fcdf2e65997e68657c1a21c568074",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "oil.nvim": {
@@ -63,7 +63,7 @@
       "src": "https://github.com/stevearc/oil.nvim"
     },
     "opencode.nvim": {
-      "rev": "2d68c841f35de762c712b817cd35fbbf3082dc3f",
+      "rev": "05547308bb931dc5da80a81d282f18e581788752",
       "src": "https://github.com/nickjvandyke/opencode.nvim"
     },
     "plenary.nvim": {
@@ -79,7 +79,7 @@
       "src": "https://github.com/nvim-telescope/telescope-dap.nvim"
     },
     "telescope-fzf-native.nvim": {
-      "rev": "6fea601bd2b694c6f2ae08a6c6fab14930c60e2c",
+      "rev": "b25b749b9db64d375d782094e2b9dce53ad53a40",
       "src": "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
     },
     "telescope-luasnip.nvim": {
@@ -95,7 +95,7 @@
       "src": "https://github.com/debugloop/telescope-undo.nvim"
     },
     "telescope.nvim": {
-      "rev": "506338434fec5ad19cb1f8d45bf92d66c4917393",
+      "rev": "7d324792b7943e4aa16ad007212e6acc6f9fe335",
       "src": "https://github.com/nvim-telescope/telescope.nvim",
       "version": "'master'"
     },
