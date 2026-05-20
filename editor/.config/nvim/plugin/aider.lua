@@ -3,7 +3,7 @@ if vim.fn.executable('aider') == 1 then
 
     require('aider').setup({
         auto_manage_context = true,
-        default_bindings = true,
+        default_bindings = false,
         debug = false,
     })
 end
