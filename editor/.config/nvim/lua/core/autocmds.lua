@@ -131,7 +131,22 @@ augroups.treesitter = {
                 end
             end
         end,
-    }
+    },
+    systemrdl = {
+        event = {'User'},
+        pattern = 'TSUpdate',
+        callback = function(_)
+            require('nvim-treesitter.parsers').systemrdl = {
+                install_info = {
+                    url = 'https://github.com/systemrdl/tree-sitter-systemrdl',
+                    branch = 'master',
+                    generate = true,
+                    generate_from_json = false,
+                    queries = 'queries/systemrdl',
+                },
+            }
+        end,
+    },
 }
 
 augroups.visual = {
