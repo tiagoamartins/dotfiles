@@ -1,17 +1,29 @@
-(boolean_literal) @constant.builtin
+(boolean_literal) @boolean
 (string_literal) @string
 (number) @number
 
 (comment) @comment
 
+(unary_operator) @operator
+(binary_operator) @operator
+
 [
-  (unary_operator)
-  (binary_operator)
+  "="
+  "->"
 ] @operator
 
 [
-  (data_type)
-] @type
+  (integer_atom_type)
+  (integer_vector_type)
+  "string"
+  "boolean"
+  "accesstype"
+  "addressingtype"
+  "onreadtype"
+  "onwritetype"
+] @type.builtin
+
+(data_type) @type
 
 (prop_keyword) @property
 (prop_ref
@@ -27,7 +39,7 @@
   LHS: (prop_assignment_lhs
     (prop_keyword) @property))
 (property_definition
-  (id) @property.definition)
+  (id) @property)
 
 (enumerator_literal
   (id) @type
@@ -40,28 +52,34 @@
 (component_inst
   id: (id) @variable)
 
-(template) @embedded
+"this" @variable.builtin
 
 [
   "abstract"
-  "addrmap"
-  "alias"
-  "component"
-  "constraint"
-  "default"
-  "enum"
   "external"
-  "field"
-  "inside"
   "internal"
+] @keyword.modifier
+
+[
+  "addrmap"
+  "constraint"
+  "enum"
+  "field"
   "mem"
   "property"
-  "ref"
   "reg"
   "regfile"
   "signal"
   "struct"
-  "this"
+] @keyword.type
+
+"inside" @keyword.operator
+
+[
+  "alias"
+  "component"
+  "default"
+  "ref"
   "type"
 ] @keyword
 
@@ -70,14 +88,19 @@
   "}"
   "["
   "]"
+  "("
+  ")"
 ] @punctuation.bracket
 
 [
   ";"
   ":"
+  ","
+  "."
 ] @punctuation.delimiter
 
-[
-  "="
-  "->"
-] @operator
+(accesstype_literal) @constant.builtin
+(onreadtype_literal) @constant.builtin
+(onwritetype_literal) @constant.builtin
+(addressingtype_literal) @constant.builtin
+(precedencetype_literal) @constant.builtin
