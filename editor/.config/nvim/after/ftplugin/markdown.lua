@@ -6,3 +6,4 @@ set.shiftwidth = 4
 set.textwidth = 80
 set.wrap = true
 set.spell = true
+set.smartindent = false
