@@ -126,7 +126,7 @@ augroups.treesitter = {
                     vim.wo[0][0].foldmethod = 'expr'
                     vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
                 end
-                if vim.treesitter.query.get(ev.match, 'indent') then
+                if vim.treesitter.query.get(ev.match, 'indents') then
                     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
                 end
             end
