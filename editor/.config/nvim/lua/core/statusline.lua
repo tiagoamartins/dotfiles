@@ -1,143 +1,38 @@
-local M = {}
-
-M.pallete = {
-    white = {
-        gui = '#c6c6c6',
-        cterm = 251
-    },
-    grey234 = {
-        gui = '#1c1c1c',
-        cterm = 234
-    },
-    green = {
-        gui = '#8cc85f',
-        cterm = 10
-    },
-    blue = {
-        gui = '#80a0ff',
-        cterm = 12
-    },
-    purple = {
-        gui = '#ae81ff',
-        cterm = 13
-    },
-    red = {
-        gui = '#ff5d5d',
-        cterm = 9
-    },
-    orange = {
-        gui = '#de935f',
-        cterm = 3
-    },
-    fallback_bg = {
-        gui = '#303030',
-        cterm = 236
-    }
-}
-
-M.mode_list = {
-    ['n']       = {'%1*', 'normal'},
-    ['no']      = {'%1*', 'normal·operator pending'},
-    ['v']       = {'%3*', 'visual'},
-    ['V']       = {'%3*', 'v·line'},
-    ['<C-V>']   = {'%3*', 'v·block'},
-    ['s']       = {'%3*', 'select'},
-    ['S']       = {'%3*', 's·line'},
-    ['<C-S>']   = {'%3*', 's·block'},
-    ['i']       = {'%2*', 'insert'},
-    ['R']       = {'%4*', 'replace'},
-    ['Rv']      = {'%4*', 'v·replace'},
-    ['c']       = {'%2*', 'command'},
-    ['cv']      = {'%2*', 'vim ex'},
-    ['ce']      = {'%2*', 'ex'},
-    ['r']       = {'%2*', 'prompt'},
-    ['rm']      = {'%2*', 'more'},
-    ['r?']      = {'%2*', 'confirm'},
-    ['!']       = {'%2*', 'shell'},
-    ['t']       = {'%2*', 'terminal'}
-}
-
-function M.block_append(fn_name, text)
-    if not text or text == '' then
-        return ''
-    end
-
-    local func = M[fn_name]
-
-    if func() == '' then
-        return ''
-    end
-
-    return text
+local hl = function(group)
+    return vim.api.nvim_get_hl(0, {
+        name = group,
+        link = false,
+        create = false,
+    })
 end
 
-function M.block(text, modifier, lpad, rpad)
-    lpad = lpad or ''
-    rpad = rpad or ''
+local set_hl_groups = function()
+    local base = hl('StatusLine')
 
-    if type(lpad) == 'number' then
-        lpad = string.rep(' ', lpad)
+    for group, opts in pairs({
+        ModeNormal = {fg = base.bg, bg = base.fg},
+        ModePending = {fg = base.bg, bg = hl('Comment').fg},
+        ModeVisual = {fg = base.bg, bg = hl('SpecialKey').fg},
+        ModeInsert = {fg = base.bg, bg = hl('DiffAdded').fg},
+        ModeCommand = {fg = base.bg, bg = hl('Number').fg},
+        ModeReplace = {fg = base.bg, bg = hl('Constant').fg},
+        Other = {link = 'StatusLine'},
+        Bold = {bold = true},
+        Dim = {fg = hl('LineNr').fg, bg = base.bg},
+        Info = {fg = base.bg, bg = hl('DiagnosticInfo').fg},
+        Warn = {fg = hl('DiagnosticWarn').fg, bg = hl('VertSplit').bg},
+        Err = {fg = base.bg, bg = hl('DiagnosticError').fg},
+        Flags = {fg = hl('Title').fg, bg = hl('VertSplit').bg},
+        Vcs = {fg = hl('OkMsg').fg, bg = hl('FloatTitle').bg},
+    }) do
+        group = 'StatusLine' .. group
+        vim.api.nvim_set_hl(0, group, opts)
+        opts.fg, opts.bg = opts.bg, opts.fg
+        vim.api.nvim_set_hl(0, group .. 'Inverted', opts)
     end
-
-    if type(rpad) == 'number' then
-        rpad = string.rep(' ', rpad)
-    end
-
-    if type(text) ~= 'string' then
-        vim.fn.throw('statusline: wrong argument type for "text"')
-        return
-    end
-
-    if text:sub(1, 2) == 'f:' then
-        local fn_name = text:sub(3, #text)
-
-        raw = "%{v:lua.require'core.statusline'." .. fn_name .. '()}'
-        lpad = "%{v:lua.require'core.statusline'.block_append('" .. fn_name .. "', '" .. lpad .. "')}"
-        rpad = "%{v:lua.require'core.statusline'.block_append('" .. fn_name .. "', '" .. rpad .. "')}"
-    else
-        raw = text
-    end
-
-    if not raw or raw == '' then
-        return ''
-    end
-
-    if modifier or modifier ~= '' then
-        text = modifier .. raw
-
-        if modifier:find('%%%d%*') then
-            text = text .. '%*'
-        end
-    else
-        text = raw
-    end
-
-    return lpad .. text .. rpad
 end
 
-function M.file_icon()
-    if (vim.g.statusline_nerd_icon and vim.g.statusline_nerd_icon ~= 0) or vim.api.nvim_buf_get_name(0) == '' then
-        return ''
-    end
-
-    local icon = nil
-
-    if vim.g.nvim_web_devicons and not require('nvim-web-devicons').has_loaded() then
-        local name = vim.fn.expand('%')
-        local ext = vim.fn.expand('%:e')
-        icon = require('nvim-web-devicons').get_icon(name, ext)
-    elseif vim.g.loaded_webdevicons then
-        icon = vim.fn.WebDevIconsGetFileTypeSymbol()
-    end
-
-    if icon ~= nil then
-        return icon .. ' '
-    end
-
-    return ''
-end
-
-function M.short_file_path(path)
+local shortpath = function(path)
     if not path or path == '' then
         return ''
     end
@@ -165,7 +60,137 @@ function M.short_file_path(path)
     end
 end
 
-function M.whitespace_check()
+local mode = function()
+    local mode_list = {
+        ['n']     = {name = 'normal',     hl = 'Normal'},
+        ['no']    = {name = 'op·pending', hl = 'Pending'},
+        ['nov']   = {name = 'op·pending', hl = 'Pending'},
+        ['noV']   = {name = 'op·pending', hl = 'Pending'},
+        ['no\22'] = {name = 'op·pending', hl = 'Pending'},
+        ['niI']   = {name = 'normal',     hl = 'Normal'},
+        ['niR']   = {name = 'normal',     hl = 'Normal'},
+        ['niV']   = {name = 'normal',     hl = 'Normal'},
+        ['nt']    = {name = 'normal',     hl = 'Normal'},
+        ['ntT']   = {name = 'normal',     hl = 'Normal'},
+        ['v']     = {name = 'visual',     hl = 'Visual'},
+        ['vs']    = {name = 'visual',     hl = 'Visual'},
+        ['V']     = {name = 'v·line',     hl = 'Visual'},
+        ['Vs']    = {name = 'v·line',     hl = 'Visual'},
+        ['\22']   = {name = 'v·block',    hl = 'Visual'},
+        ['\22s']  = {name = 'v·block',    hl = 'Visual'},
+        ['s']     = {name = 'select',     hl = 'Insert'},
+        ['S']     = {name = 's·line',     hl = 'Normal'},
+        ['\19']   = {name = 's·block',    hl = 'Normal'},
+        ['i']     = {name = 'insert',     hl = 'Insert'},
+        ['ic']    = {name = 'insert',     hl = 'Insert'},
+        ['ix']    = {name = 'insert',     hl = 'Insert'},
+        ['R']     = {name = 'replace',    hl = 'Replace'},
+        ['Rc']    = {name = 'replace',    hl = 'Replace'},
+        ['Rx']    = {name = 'replace',    hl = 'Replace'},
+        ['Rv']    = {name = 'v·replace',  hl = 'Replace'},
+        ['Rvc']   = {name = 'v·replace',  hl = 'Replace'},
+        ['Rvx']   = {name = 'v·replace',  hl = 'Replace'},
+        ['c']     = {name = 'command',    hl = 'Command'},
+        ['cr']    = {name = 'command',    hl = 'Command'},
+        ['cv']    = {name = 'vim ex',     hl = 'Command'},
+        ['cvr']   = {name = 'vim ex',     hl = 'Command'},
+        ['r']     = {name = 'prompt',     hl = 'Normal'},
+        ['rm']    = {name = 'more',       hl = 'Normal'},
+        ['r?']    = {name = 'confirm',    hl = 'Normal'},
+        ['!']     = {name = 'shell',      hl = 'Normal'},
+        ['t']     = {name = 'terminal',   hl = 'Command'},
+    }
+
+    local mode = mode_list[vim.fn.mode()] or {name = 'UNKNOWN', hl = 'Other'}
+
+    return table.concat({
+        '%#StatusLineMode' .. mode.hl .. '#',
+        ' ',
+        mode.name,
+        ' ',
+        '%*'
+    })
+end
+
+local icon = function()
+    if vim.g.nvim_web_devicons == nil or vim.api.nvim_buf_get_name(0) == '' then
+        return ''
+    end
+
+    local devicons = require('nvim-web-devicons')
+    local name = vim.fn.expand('%')
+    local ext = vim.fn.expand('%:e')
+    local icon = devicons.get_icon(name, ext)
+    return icon and ' ' .. icon or ''
+end
+
+local filepath = function()
+    local file = vim.fn.expand('%:t')
+    local path = vim.fn.expand('%')
+
+    if path:sub(1, 11) == 'fugitive://' then
+        local dir = vim.fn.fnamemodify(path:sub(12, #path - 1), ':~:h:h:.')
+        return (' ' .. dir) or ''
+    elseif path:sub(1, 6) == 'oil://' then
+        local dir = vim.fn.fnamemodify(path:sub(7, #path - 1), ':~:.')
+        return (' ' .. dir) or ''
+    end
+
+    return ' ' .. (vim.bo.buftype ~= '' and file or shortpath(path))
+end
+
+local filetype = function()
+    return vim.bo.filetype ~= '' and '%{&filetype} | ' or ''
+end
+
+local flags = function()
+    local symbols = table.concat({
+        vim.bo.readonly and 'RO' or '',
+        vim.bo.modifiable and vim.bo.modified and '+' or '',
+        not vim.bo.modifiable and '-' or '',
+    })
+
+    return symbols ~= '' and ' %#StatusLineFlags#' .. symbols .. '%*' or ''
+end
+
+local vcs = function()
+    if (vim.g.statusline_git and vim.g.statusline_git ~= 0)
+       or not vim.g.loaded_fugitive or vim.bo.filetype == 'oil' then
+        return ''
+    end
+
+    local head = vim.fn.FugitiveHead()
+    return head ~= '' and ' [%#StatusLineVcs#' .. head .. '%*]' or ''
+end
+
+-- find out current buffer's size and output it
+local filesize = function()
+    local bytes = vim.fn.getfsize(vim.fn.expand('%:p'))
+    local kbytes = 0
+    local mbytes = 0
+
+    if bytes >= 1024 then
+        kbytes = bytes / 1024
+    end
+
+    if kbytes >= 1024 then
+        mbytes = kbytes / 1024
+    end
+
+    if bytes <= 0 then
+        return ''
+    end
+
+    if mbytes > 0 then
+        return math.floor(mbytes + 0.5) .. 'MB | '
+    elseif kbytes > 0 then
+        return math.floor(kbytes + 0.5) .. 'KB | '
+    else
+        return math.floor(bytes + 0.5) .. 'B | '
+    end
+end
+
+local whitespace = function()
     -- mixed indent, bad expandtab or trailing spaces warning,
     -- see <https://github.com/millermedeiros/vim-statline>.
     if vim.b.statusline_whitespace_warning then
@@ -194,268 +219,77 @@ function M.whitespace_check()
     return msg
 end
 
-function M.show_mode(mode)
-    color, text = unpack(M.mode_list[mode] or {'%1*', 'normal'})
-    return M.block(' ' .. text .. ' ', color)
-end
-
-function M.show_file()
-    local file = ''
-
-    if vim.bo.buftype ~= '' then
-        file = vim.fn.expand('%:t')
-    else
-        file = M.short_file_path(vim.fn.expand('%'))
-    end
-
-    return M.file_icon() .. file
-end
-
-function M.show_flags()
-    local flags = {}
-    if vim.bo.modifiable and vim.bo.modified then
-        table.insert(flags, '+')
-    end
-
-    if vim.bo.readonly then
-        table.insert(flags, 'RO')
-    end
-
-    return table.concat(flags, ' ')
-end
-
-function M.show_git()
-    if (vim.g.statusline_git and vim.g.statusline_git ~= 0)
-       or not vim.g.loaded_fugitive then
+local encoding = function()
+    if vim.bo.filetype == 'oil' then
         return ''
     end
 
-    return vim.fn.FugitiveHead()
+    return "%{&fenc != '' ? &fenc : &enc}[%{&ff}] | "
 end
 
--- find out current buffer's size and output it
-function M.show_file_size()
-    local bytes = vim.fn.getfsize(vim.fn.expand('%:p'))
-    local kbytes = 0
-    local mbytes = 0
-
-    if bytes >= 1024 then
-        kbytes = bytes / 1024
-    end
-
-    if kbytes >= 1024 then
-        mbytes = kbytes / 1024
-    end
-
-    if bytes <= 0 then
-        return '0'
-    end
-
-    if mbytes > 0 then
-        return math.floor(mbytes + 0.5) .. 'MB'
-    elseif kbytes > 0 then
-        return math.floor(kbytes + 0.5) .. 'KB'
-    else
-        return math.floor(bytes + 0.5) .. 'B'
-    end
-end
-
-function M.show_plugins()
-    local status = {}
-
-    local whitespace = M.whitespace_check()
-    if whitespace ~= '' then
-        table.insert(status, M.block(' ' .. whitespace .. ' ', '%7*'))
-    end
-
-    -- neovim LSP diagnostics indicator
-    local warnings = #vim.diagnostic.get(0, {severity = vim.diagnostic.severity.WARN})
-    if warnings > 0 then
-        table.insert(status, M.block('warning [' .. warnings .. ']', '%8*'))
-    end
-
+local plugins = function()
+    local spaces = whitespace()
+    local warns = #vim.diagnostic.get(0, {severity = vim.diagnostic.severity.WARN})
     local errors = #vim.diagnostic.get(0, {severity = vim.diagnostic.severity.ERROR})
-    if errors > 0 then
-        table.insert(status, M.block(' error [' .. errors .. '] ', '%9*'))
-    end
 
-    return table.concat(status, ' | ')
-end
-
-function M.show_active()
-    local line = ''
-
-    line = line .. M.show_mode(vim.fn.mode())
-    line = line .. '%<'
-    line = line .. M.block('f:show_file', '', 1)
-    line = line .. M.block('f:show_flags', '%5*', 1)
-    line = line .. M.block('f:show_git', '%6*', '  [', ']')
-    line = line .. '%='
-    line = line .. '%{&filetype}' -- filetype
-    line = line .. " | %{&fenc != '' ? &fenc : &enc}[%{&ff}]" -- encoding & fileformat
-    line = line .. " | %l:%c | %{v:lua.require'core.statusline'.show_file_size()} | %p%%"
-
-    local plugins = M.show_plugins()
-    if plugins ~= '' then
-        line = line .. ' | ' .. plugins
-    end
-
-    line = line .. ' '
-
-    return line
-end
-
-function M.show_inactive()
-    local line = ''
-
-    line = line .. '%<'
-    line = line .. M.block('f:show_file', '', 1)
-    line = line .. M.block('f:show_flags', '', 1)
-    line = line .. "%=%l:%c | %{v:lua.require'core.statusline'.show_file_size()} | %p%% "
-
-    return line
-end
-
-function M.show_short_path()
-    return vim.fn.pathshorten(vim.fn.fnamemodify(vim.fn.getcwd(), ':~:.'))
-end
-
-function M.show_no_file()
-    return "%{v:lua.require'core.statusline'.show_short_path()}"
-end
-
-function M.set_colors(gname, bg, fg)
-    vim.api.nvim_set_hl(0, gname, {
-        fg = fg.gui,
-        bg = bg.gui,
-        ctermfg = fg.cterm,
-        ctermbg = bg.cterm
+    return table.concat({
+        spaces ~= '' and ' | %#StatusLineInfo# ' .. spaces .. ' %*' or '',
+        warns > 0 and ' | %#StatusLineWarn#warning [' .. warns .. ']%*' or '',
+        errors > 0 and ' | %#StatusLineErr# error [' .. errors .. '] %*' or '',
     })
 end
 
-function M.draw(active)
-    local winid = vim.api.nvim_get_current_win()
+vim.opt.statusline = "%{%v:lua.require'core.statusline'.render()%}"
 
-    if vim.api.nvim_win_get_config(winid).relative ~= '' then
-        -- no custom status line for floating windows
-        return
-    elseif vim.bo.buftype == 'nofile' or vim.bo.filetype == 'netrw' then
-        -- probably a file explorer
-        vim.wo.statusline="%!v:lua.require'core.statusline'.show_no_file()"
-    elseif vim.bo.buftype == 'nowrite' then
-        -- no custom status line for special windows
-        return
-    elseif active then
-        vim.wo.statusline="%!v:lua.require'core.statusline'.show_active()"
-    else
-        vim.wo.statusline="%!v:lua.require'core.statusline'.show_inactive()"
-    end
-end
+return {
+    set_hl_groups = set_hl_groups,
+    render = function()
+        local active = vim.api.nvim_get_current_win()
+        local status = tonumber(vim.g.actual_curwin or -1)
 
--- update the status line for all inactive windows
---
--- this is needed when starting Vim with multiple splits, for example 'vim -O
--- file1 file2', otherwise all 'status lines will be rendered as if they are
--- active. Inactive statuslines are usually rendered via the WinLeave and
--- BufLeave events, but those events are not triggered when starting Vim.
---
--- note - https://jip.dev/posts/a-simpler-vim-statusline/#inactive-statuslines
-function M.update_inactive_windows()
-    for winnum=1,vim.fn.winnr('$') do
-        if winnum ~= vim.fn.winnr() then
-            vim.api.nvim_set_option_value(
-                'statusline', "%!v:lua.require'core.statusline'.show_inactive()", {
-                    scope = 'local',
-                    win = vim.fn.win_getid(winnum)
-                }
-            )
+        if vim.api.nvim_win_get_config(active).relative ~= '' then
+            -- no custom status line for floating windows
+            return ''
+        elseif vim.bo.buftype == 'nofile' or vim.bo.filetype == 'netrw' then
+            -- probably a file explorer
+            return shortpath(vim.fn.getcwd())
+        elseif vim.bo.buftype == 'nowrite' then
+            -- no custom status line for special windows
+            return table.concat({
+                '%<',
+                filepath(),
+                flags(),
+            })
+        elseif vim.bo.buftype == 'quickfix' then
+            return 'quickfix'
+        elseif status ~= active then
+            return table.concat({
+                '%<',
+                filepath(),
+                flags(),
+                '%=',
+                '%l:%c | ',
+                filesize(),
+                '%p%%',
+                ' ',
+            })
         end
+
+        return table.concat({
+            mode(),
+            '%<',
+            icon(),
+            filepath(),
+            flags(),
+            vcs(),
+            '%=',
+            filetype(),
+            encoding(),
+            '%l:%c | ',
+            filesize(),
+            '%p%%',
+            plugins(),
+            ' ',
+        })
     end
-end
-
-function M.user_colors()
-    local bg = {
-        gui = '',
-        cterm = ''
-    }
-
-    -- leverage existing 'colorscheme' StatusLine colors taking into account
-    -- the 'reverse' option.
-    if vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'reverse', 'cterm') == 1 then
-        bg.cterm = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'fg', 'cterm')
-    else
-        bg.cterm = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'bg', 'cterm')
-    end
-
-    if vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'reverse', 'gui') == 1 then
-        bg.gui = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'fg', 'gui')
-    else
-        bg.gui = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID('StatusLine')), 'bg', 'gui')
-    end
-
-    -- fallback to statusline colors when the current color scheme does not
-    -- define StatusLine colors.
-    if bg.cterm ~= '' then
-        bg.cterm = M.pallete.fallback_bg.cterm
-    end
-    if bg.gui ~= '' then
-        bg.gui = M.pallete.fallback_bg.gui
-    end
-
-    -- set user colors that will be used to color certain sections of the
-    -- status line.
-    M.set_colors('User1', M.pallete.blue, M.pallete.grey234)
-    M.set_colors('User2', M.pallete.green, M.pallete.grey234)
-    M.set_colors('User3', M.pallete.purple, M.pallete.grey234)
-    M.set_colors('User4', M.pallete.red, M.pallete.grey234)
-    M.set_colors('User5', bg, M.pallete.blue)
-    M.set_colors('User6', bg, M.pallete.green)
-    M.set_colors('User7', M.pallete.purple, M.pallete.grey234)
-    M.set_colors('User8', bg, M.pallete.orange)
-    M.set_colors('User9', M.pallete.red, M.pallete.grey234)
-end
-
-function M.setup()
-    vim.api.nvim_create_augroup('my_status_line_events', {clear = true})
-    vim.api.nvim_create_autocmd({'CursorHold', 'BufWritePost'}, {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = function ()
-            vim.b.statusline_whitespace_warning = nil
-        end
-    })
-    vim.api.nvim_create_autocmd('VimEnter', {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = M.update_inactive_windows
-    })
-    vim.api.nvim_create_autocmd({'ColorScheme', 'SourcePre'}, {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = M.user_colors
-    })
-    vim.api.nvim_create_autocmd({'WinEnter', 'BufWinEnter'}, {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = function ()
-            M.draw(true)
-        end
-    })
-    vim.api.nvim_create_autocmd('WinLeave', {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = function ()
-            M.draw(false)
-        end
-    })
-    vim.api.nvim_create_autocmd('CmdlineEnter', {
-        group = 'my_status_line_events',
-        pattern = '*',
-        callback = function ()
-            M.draw(true)
-            vim.cmd.redraw()
-        end
-    })
-end
-
-return M
+}

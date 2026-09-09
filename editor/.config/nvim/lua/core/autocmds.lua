@@ -115,6 +115,14 @@ augroups.secret = {
     },
 }
 
+augroups.statusline = {
+    setup_highlight = {
+        event = 'ColorScheme',
+        desc = 'Re-apply statusline highlights on colorscheme change',
+        callback = require('core.statusline').set_hl_groups,
+    }
+}
+
 augroups.treesitter = {
     highlight = {
         event = {'FileType'},
