@@ -8,10 +8,11 @@ ENV=$HOME/.shrc
 [ -n "$RSYNC_RSH" ] || RSYNC_RSH='ssh -ax'
 export PATH ENV RSYNC_RSH
 
-# Export all variables defined locally
 if [ -r "$HOME/.env.local" ]
 then
-	eval "`command grep '^[A-Z].*=' "$HOME/.env.local" | sed -e 's/^/export /'`"
+	set -a
+	. "$HOME/.env.local"
+	set +a
 fi
 
 LSCOLORS=ExGxFxdxCxfxDxabadacad
