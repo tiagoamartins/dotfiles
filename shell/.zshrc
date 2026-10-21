@@ -151,15 +151,7 @@ setopt histreduceblanks
 setopt rmstarsilent
 unsetopt nomatch
 
-if [[ $ZSH_VERSION == 3.<->* ]]
-then
-	which zmodload >& /dev/null && zmodload zsh/compctl
-	compctl -c sudo
-	compctl -c which
-	compctl -g '*(-/)' + -g '.*(-/)' -v cd pushd rmdir
-	compctl -k hosts -x 'p[2,-1]' -l '' -- rsh ssh
-	return 0
-fi
+unset HISTFILE
 
 fpath=($fpath ~/.config/zsh/functions ~/.config/zsh/functions.zwc)
 [[ ! -d /opt/homebrew/share/zsh/site-functions ]] || fpath+=(/opt/homebrew/share/zsh/site-functions)
