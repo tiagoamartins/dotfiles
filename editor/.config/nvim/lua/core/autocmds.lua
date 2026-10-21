@@ -16,12 +16,6 @@ augroups.config = {
             end
         end,
     },
-    relative_paths = {
-        event = {'BufReadPost'},
-        callback = function ()
-            vim.cmd.lcd('.')
-        end,
-    },
     resize_splits = {
         event = {'VimResized'},
         callback = function ()
@@ -192,18 +186,6 @@ augroups.visual = {
                 end
             end)
         end,
-    },
-}
-
-augroups.yank = {
-    osc52 = {
-        event = {'TextYankPost'},
-        pattern = '*',
-        callback = function ()
-            if vim.v.event.operator == 'y' and vim.v.event.regname == '+' then
-                require('core.yank').osc52(vim.v.event.regcontents)
-            end
-        end
     },
 }
 
