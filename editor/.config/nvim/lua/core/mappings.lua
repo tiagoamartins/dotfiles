@@ -22,11 +22,11 @@ end
 mappings.n = {
     -- leader {{{2
     finder = {
-        keys = '<leader>f',
+        keys = '<leader>F',
         exec = ':find ',
     },
     grepper = {
-        keys = '<leader>g',
+        keys = '<leader>G',
         exec = ':grep ',
     },
 
@@ -89,14 +89,14 @@ mappings.n = {
     spell_en = {
         keys = '<leader>en',
         exec = function()
-            vim.opt.spelllang=en_us
+            vim.opt.spelllang = 'en_us'
         end,
         silent = true,
     },
     spell_pt = {
         keys = '<leader>pt',
         exec = function()
-            vim.opt.spelllang=pt_br
+            vim.opt.spelllang = 'pt_br'
         end,
         silent = true,
     },
@@ -139,14 +139,12 @@ mappings.n = {
         exec = function()
             vim.cmd.Tabularize('/^[^<=]*\\zs<=')
         end,
-        buffer = true,
     },
     table_range = {
         keys = '<leader>a:',
         exec = function()
             vim.cmd.Tabularize('/^[^:]*\\zs:')
         end,
-        buffer = true,
     },
 
     -- function keys {{{2
@@ -192,16 +190,6 @@ mappings.n = {
     },
 
     -- diagnostic {{{2
-    diag_prev = {
-        keys = '[d',
-        exec = vim.diagnostic.goto_prev,
-        desc = 'Go to previous diagnostic message',
-    },
-    diag_next = {
-        keys = ']d',
-        exec = vim.diagnostic.goto_next,
-        desc = 'Go to next diagnostic message',
-    },
     diag_float = {
         keys = '<leader>fd',
         exec = vim.diagnostic.open_float,
@@ -228,17 +216,13 @@ mappings.v = {
 
     table_assign = {
         keys = '<leader>a=',
-        exec = function()
-            vim.cmd.Tabularize('/^[^<=]*\\zs<=')
-        end,
-        buffer = true,
+        exec = [[:Tabularize /^[^<=]*\zs<=<cr>]],
+        silent = true,
     },
     table_range = {
         keys = '<leader>a:',
-        exec = function()
-            vim.cmd.Tabularize('/^[^:]*\\zs:')
-        end,
-        buffer = true,
+        exec = [[:Tabularize /^[^:]*\zs:<cr>]],
+        silent = true,
     },
 }
 
