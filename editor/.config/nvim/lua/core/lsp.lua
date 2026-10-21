@@ -3,25 +3,24 @@ local cfg = require('config.lsp')
 local servers = cfg.get_servers()
 
 local function on_attach(client, buffer)
-    local bopt = vim.bo[buffer]
-    local settings = servers[client]
+    local settings = client.config or {}
 
-    if type(settings) ~= 'table' then
-        settings = {}
-    end
-
-    if settings.server_capabilities then
+    if type(settings.server_capabilities) == 'table' then
         for k, v in pairs(settings.server_capabilities) do
             if v == vim.NIL then
-                v = nil;
+                v = nil
             end
 
             client.server_capabilities[k] = v
         end
     end
 
+    local function supported(item)
+        return not item.has or client:supports_method(item.has, buffer)
+    end
+
     for _, kmap in ipairs(cfg.get_default_keymaps()) do
-        if not kmap.has or client.server_capabilities[kmap.has] then
+        if supported(kmap) then
             vim.keymap.set(kmap.mode or 'n', kmap.keys, kmap.exec, {
                 buffer = buffer,
                 desc = 'LSP: ' .. kmap.desc,
@@ -29,15 +28,8 @@ local function on_attach(client, buffer)
         end
     end
 
-
-    for _, opt in ipairs(cfg.get_default_options()) do
-        if not opt.has or client.server_capabilities[opt.has] then
-            bopt[opt.name] = opt.value
-        end
-    end
-
     for _, cmd in ipairs(cfg.get_default_commands()) do
-        if not cmd.has or client.server_capabilities[cmd.has] then
+        if supported(cmd) then
             vim.api.nvim_buf_create_user_command(
                 buffer, cmd.name, cmd.exec(client, buffer), {
                     desc = 'LSP: ' .. cmd.desc
