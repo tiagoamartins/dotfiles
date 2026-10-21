@@ -4,11 +4,9 @@
 PATH=$HOME/.local/bin:/usr/local/bin:${PATH:-/usr/bin:/bin}:/usr/sbin:/sbin
 # Set shell startup file when in POSIX mode
 ENV=$HOME/.shrc
-# Set bash scripts startup file
-BASH_ENV=$HOME/.zshenv
 # Set SSH as rsync shell transporter without agent (-a) nor X11 (-x) forwarding
 [ -n "$RSYNC_RSH" ] || RSYNC_RSH='ssh -ax'
-export PATH ENV BASH_ENV RSYNC_RSH
+export PATH ENV RSYNC_RSH
 
 # Export all variables defined locally
 if [ -r "$HOME/.env.local" ]
