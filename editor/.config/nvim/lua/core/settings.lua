@@ -1,9 +1,15 @@
 local set = vim.opt
 
+local function statedir(name)
+    local dir = vim.env.VIM_TEMP .. '/' .. name
+    if vim.fn.isdirectory(dir) ~= 1 then
+        vim.fn.mkdir(dir, 'p', tonumber('700', 8))
+    end
+    return dir
+end
+
 -- general {{{1
 set.mouse = 'a'     -- allow mouse use for all modes
-set.hidden = true   -- allow you to hide buffers with unsaved changes without being prompted
-set.encoding = 'utf-8'
 set.fileencodings = 'utf-8'
 
 -- backup & swap {{{1
@@ -12,12 +18,7 @@ if vim.env.SUDO_USER ~= nil then
     set.backup = false
     set.writebackup = false
 else
-    local backupdir = vim.env.VIM_TEMP .. '/backup'
-
-    if vim.fn.isdirectory(backupdir) ~= 1 then
-        vim.uv.fs_mkdir(backupdir, tonumber('755', 8))
-    end
-    vim.o.backupdir = backupdir
+    vim.o.backupdir = statedir('backup')
     set.backup = true       -- keep backup after closing the file
     set.writebackup = true  -- create backup file after overwriting the file
 end
@@ -28,7 +29,7 @@ if not vim.o.backupskip:lower():find('/tmp/*') then
     vim.opt.backupskip:append({'/tmp/*'})
 end
 -- macOS symlinks /var -> /private/var and $TMPDIR is at /var
-if vim.loop.os_uname().sysname == 'Darwin' and not vim.o.backupskip:lower():find('/private/var/*') then
+if vim.uv.os_uname().sysname == 'Darwin' and not vim.o.backupskip:lower():find('/private/var/*') then
     vim.opt.backupskip:append({'/private' .. vim.env.TMPDIR  .. '*'})
 end
 vim.opt.backupskip:append({'*/shm/*', '*/tmp/*'})
@@ -37,16 +38,12 @@ if vim.env.SUDO_USER ~= nil then
     -- don't create root-owned files
     set.swapfile = false
 else
-    local swapdir = vim.env.VIM_TEMP .. '/swap'
-    if vim.fn.isdirectory(swapdir) ~= 1 then
-        vim.uv.fs_mkdir(swapdir, tonumber('755', 8))
-    end
-    vim.o.directory = swapdir .. '//'
+    vim.o.directory = statedir('swap') .. '//'
     set.swapfile = true
 end
 
 -- history {{{1
-set.history = 100
+-- 'history' left at its default (10000)
 
 if vim.env.SUDO_USER ~= nil then
     -- don't create root-owned files
@@ -61,20 +58,11 @@ if vim.env.SUDO_USER ~= nil then
     -- don't create root-owned files
     set.undofile = false
 else
-    local undodir = vim.env.VIM_TEMP .. '/undo'
-    if vim.fn.isdirectory(undodir) ~= 1 then
-        vim.uv.fs_mkdir(undodir, tonumber('755', 8))
-    end
-    vim.o.undodir = undodir
-    set.undofile = true -- actually use undo files
-    set.undolevels = 100
+    vim.o.undodir = statedir('undo')
+    set.undofile = true -- actually use undo files ('undolevels' default 1000)
 end
 
-local viewdir = vim.env.VIM_TEMP .. '/view'
-if vim.fn.isdirectory(viewdir) ~= 1 then
-    vim.uv.fs_mkdir(viewdir, tonumber('755', 8))
-end
-vim.o.viewdir = viewdir
+vim.o.viewdir = statedir('view')
 set.viewoptions = {'cursor', 'folds'} -- save/restore just these (with `:{mk,load}view`)
 
 -- UI configuration {{{2
@@ -85,7 +73,6 @@ set.lazyredraw = true       -- redraw only when it needs to
 set.showmatch = true        -- highlight matching {[()]}
 set.wrap = false            -- turn off line wrapping
 set.showmode = false        -- remove mode change message
-set.laststatus = 2          -- always show status line
 set.scrolloff = 3           -- have a number of offset lines (or buffer) when scrolling
 set.sidescrolloff = 3       -- same as 'scrolloff', but for columns
 set.linebreak = true        -- wrap long lines at characters in 'breakat'
@@ -103,7 +90,6 @@ set.completeopt = {
     'noselect'  -- do not auto-select a match in the menu
 }
 
-set.wildmenu = true -- visual autocomplete for command menu
 set.wildignore:append({'*.o', '*.rej'}) -- patterns to ignore during file-navigation
 set.wildmode = {'longest:full', 'full'} -- shell-like autocomplete to unambiguous portion
 set.wildoptions = {'fuzzy', 'pum', 'tagfile'}
@@ -136,19 +122,14 @@ set.softtabstop = 0                         -- number of spaces in tab when edit
 set.shiftwidth = 8                          -- indent width for autoindent
 set.expandtab = false                       -- don't turn tabs into whitespace
 set.shiftround = true                       -- always indent by multiple of shiftwidth
-set.smarttab = true                         -- <Tab>/<BS> indent/dedent in leading whitespace
-set.backspace = {'indent', 'eol', 'start'}  -- set backspace to be able to delete previous characters
 set.textwidth = 0                           -- width necessary to auto split lines
 
 -- searching {{{1
-set.incsearch = true    -- search as characters are entered
-set.hlsearch = true     -- highlight matches
 set.ignorecase = true   -- by default ignore case
 set.smartcase = true    -- unless upper case is explicit
 set.matchtime = 2       -- tenths of a second to show the matching pattern
 
 -- formatting {{{1
-set.autoindent = true   -- copy indentation from current line to a new line
 set.smartindent = true  -- turn on smart indent
 set.joinspaces = false  -- don't autoinsert two spaces after '.', '?', '!' for join command
 set.fileformats = {'unix', 'dos', 'mac'}
