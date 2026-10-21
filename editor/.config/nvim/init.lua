@@ -1,3 +1,6 @@
+-- cache compiled Lua modules (faster startup)
+vim.loader.enable()
+
 -- leader is backslash
 vim.g.mapleader = '\\'
 
@@ -16,5 +19,5 @@ vim.g.loaded_node_provider = 0
 -- disable perl support
 vim.g.loaded_perl_provider = 0
 
--- load lazy package manager
+-- core settings, autocmds, LSP, mappings; plugins are added with vim.pack
 require('core')
