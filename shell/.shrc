@@ -148,7 +148,7 @@ then
 	alias ls='ls -hF --color=auto'
 else
 	# BSD coloring
-	alias ls='CLICOLOR=1 LSCOLORS=ExGxFxdxCxfxDxabadacad ls -hF'
+	alias ls='CLICOLOR=1 ls -hF'
 fi
 
 if ! grep --color 2>&1 | grep un > /dev/null

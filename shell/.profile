@@ -14,6 +14,9 @@ then
 	eval "`command grep '^[A-Z].*=' "$HOME/.env.local" | sed -e 's/^/export /'`"
 fi
 
+LSCOLORS=ExGxFxdxCxfxDxabadacad
+export LSCOLORS
+
 # Less as default pager
 if [ -z "$PAGER" ] && type less > /dev/null 2>&1
 then

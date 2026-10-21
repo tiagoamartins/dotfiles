@@ -137,7 +137,7 @@ case $TERM in
 		RPS1="%(?..(%?%)%<<)";;
 esac
 
-unset hostcolor dircolor usercolor atcolor hashcolor reset_color
+unset basecolor branchcolor hostcolor dircolor usercolor atcolor hashcolor reset_color
 
 # Options {{{1
 
