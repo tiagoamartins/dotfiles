@@ -12,7 +12,7 @@ then
 else
 	case $1 in
 		*.json)
-			if [ -x `which jq 2> /dev/null` ]
+			if command -v jq > /dev/null 2>&1
 			then
 				exec jq -C . "$1"
 			fi;;
