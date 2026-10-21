@@ -11,6 +11,27 @@ local commands = {
             vim.pack.update(nil)
         end,
     },
+    pack_clean = {
+        name = 'PackClean',
+        func = function()
+            local stale = vim.iter(vim.pack.get())
+                :filter(function(p) return not p.active end)
+                :map(function(p) return p.spec.name end)
+                :totable()
+
+            if #stale == 0 then
+                vim.notify('PackClean: nothing to remove')
+                return
+            end
+
+            local choice = vim.fn.confirm(
+                'Delete inactive plugins?\n  ' .. table.concat(stale, '\n  '),
+                '&Yes\n&No', 2)
+            if choice == 1 then
+                vim.pack.del(stale)
+            end
+        end,
+    },
     tags = {
         name = 'MakeTags',
         func = function()
