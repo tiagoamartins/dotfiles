@@ -1,3 +1,4 @@
+-- ruff owns Python linting and formatting
 return {
     cmd = {'ruff', 'server'},
     filetypes = {
@@ -8,5 +9,8 @@ return {
         '.ruff.toml',
         'pyproject.toml',
         'ruff.toml',
+    },
+    server_capabilities = {
+        hoverProvider = vim.NIL,
     },
 }
