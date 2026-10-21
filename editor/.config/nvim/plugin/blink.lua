@@ -10,12 +10,7 @@ vim.pack.add({
 require('blink-cmp').setup({
     enabled = function()
         local filetype = vim.bo[0].filetype
-        if filetype == 'TelescopePrompt'
-            or filetype == 'minifiles'
-            or filetype == 'snacks_picker_input' then
-            return false
-        end
-        return true
+        return filetype ~= 'minifiles' and filetype ~= 'snacks_picker_input'
     end,
     sources = {
         default = {'lsp', 'path', 'snippets', 'buffer'},
@@ -23,14 +18,12 @@ require('blink-cmp').setup({
             lsp = {
                 name = 'lsp',
                 enabled = true,
-                module = 'blink.cmp.sources.lsp',
                 min_keyword_length = 0,
                 -- fallbacks = { "snippets", "buffer" },
                 score_offset = 90, -- the higher the number, the higher the priority
             },
             path = {
                 name = 'Path',
-                module = 'blink.cmp.sources.path',
                 score_offset = 25,
                 fallbacks = {'snippets', 'buffer'},
                 -- min_keyword_length = 2,
@@ -47,7 +40,6 @@ require('blink-cmp').setup({
                 name = 'Buffer',
                 enabled = true,
                 max_items = 3,
-                module = 'blink.cmp.sources.buffer',
                 min_keyword_length = 2,
                 score_offset = 15, -- the higher the number, the higher the priority
             },
@@ -56,7 +48,6 @@ require('blink-cmp').setup({
                 enabled = true,
                 max_items = 15,
                 min_keyword_length = 2,
-                module = 'blink.cmp.sources.snippets',
                 score_offset = 85, -- the higher the number, the higher the priority
                 should_show_items = function()
                     local col = vim.api.nvim_win_get_cursor(0)[2]
