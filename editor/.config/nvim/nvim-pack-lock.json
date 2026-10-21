@@ -13,10 +13,6 @@
       "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "hybrid.nvim": {
-      "rev": "0eafd5f0e1223073bdc7c02aedfd85bff029aa5c",
-      "src": "https://github.com/honamduong/hybrid.nvim"
-    },
     "luasnip": {
       "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/l3mon4d3/luasnip"
@@ -32,10 +28,6 @@
     "nvim-dap-virtual-text": {
       "rev": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6",
       "src": "https://github.com/thehamsta/nvim-dap-virtual-text"
-    },
-    "nvim-nio": {
-      "rev": "edcc181a875301dd21840189aa2f2f9ad69fc172",
-      "src": "https://github.com/nvim-neotest/nvim-nio"
     },
     "nvim-treesitter": {
       "rev": "5cb0114e6242625db56dd6440e945ed1ece10bc7",
@@ -106,10 +98,6 @@
     "vim-apathy": {
       "rev": "27128a0f55189724c841843ba41cd33cf7186032",
       "src": "https://github.com/tpope/vim-apathy"
-    },
-    "vim-commentary": {
-      "rev": "64a654ef4a20db1727938338310209b6a63f60c9",
-      "src": "https://github.com/tpope/vim-commentary"
     },
     "vim-compiler-python": {
       "rev": "92cfe1b5cd6eedbd2dcd0e9c45eda7083a08107b",
