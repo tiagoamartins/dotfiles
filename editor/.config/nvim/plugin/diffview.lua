@@ -1,7 +1,19 @@
 vim.pack.add({'https://github.com/sindrets/diffview.nvim'})
 
 require('diffview').setup({
-    use_icons = false
+    use_icons = false,
+    hooks = {
+        diff_buf_read = function(bufnr)
+            vim.opt_local.wrap = true
+        end,
+    },
+    view = {
+        merge_tool = {
+            layout = 'diff4_mixed',
+            disable_diagnostics = true,
+            winbar_info = true,
+        },
+    },
 })
 
 local mappings = {
@@ -13,11 +25,4 @@ local mappings = {
     {'<leader>dr', '<cmd>DiffviewRefresh<cr>', desc = '[D]iff view [R]efresh'},
 }
 
-for _, opts in pairs(mappings) do
-    local lhs = opts[1]
-    local rhs = opts[2]
-
-    table.remove(opts, 1)
-    table.remove(opts, 1)
-    vim.keymap.set('n', lhs, rhs, opts)
-end
+require('core.keymap').set(mappings)
