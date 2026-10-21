@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 #
 # Usage: yank [FILE...]
 #
@@ -42,9 +42,15 @@ test -n "$TMUX" && maybe tmux load-buffer -
 # copy via X11 or pbcopy
 if [[ "$OSTYPE" == "linux-gnu"* ]] && test -n "$DISPLAY"
 then
-	maybe wl-copy -n \
-		|| alive xhost && maybe xsel --input --clipboard \
-		|| maybe xclip -in -selection clipboard
+	if maybe wl-copy -n
+	then
+		:
+	elif alive xhost && maybe xsel --input --clipboard
+	then
+		:
+	else
+		maybe xclip -in -selection clipboard
+	fi
 elif [[ "$OSTYPE" == "darwin"* ]]
 then
 	maybe pbcopy
