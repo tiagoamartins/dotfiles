@@ -173,6 +173,20 @@ set.spellcapcheck = ''          -- don't check for capital letters at start of s
 set.complete:append({'kspell'}) -- word completion
 set.spelllang = 'en_us'
 
+-- clipboard {{{1
+if vim.env.SSH_TTY then
+    local osc52 = require('vim.ui.clipboard.osc52')
+    local function paste()
+        return {vim.fn.split(vim.fn.getreg(''), '\n'), vim.fn.getregtype('')}
+    end
+
+    vim.g.clipboard = {
+        name = 'OSC 52',
+        copy = {['+'] = osc52.copy('+'), ['*'] = osc52.copy('*')},
+        paste = {['+'] = paste, ['*'] = paste},
+    }
+end
+
 -- diagnostics {{{1
 vim.diagnostic.config({
     virtual_text = true, -- turn on in-line diagnostics
