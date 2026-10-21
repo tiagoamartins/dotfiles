@@ -121,7 +121,7 @@ alias ll='ls -l'
 alias mv='mv -i'
 alias rsync='rsync --exclude-from="$HOME/.cvsignore"'
 alias tree='tree -C'
-alias vi=$VISUAL
+alias vi="${VISUAL:-vi}"
 
 if [ "`uname -s`" = Darwin ]
 then
