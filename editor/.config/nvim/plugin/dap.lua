@@ -11,13 +11,26 @@ if require('config.tools').has_debuggers() then
     dap.defaults.fallback.terminal_win_cmd = [[ belowright new ]]
     dap.defaults.fallback.switchbuf = 'useopen'
 
-    vim.cmd (
-        [[autocmd TermClose *                     |]]..
-        [[if !v:event.status                      |]]..
-        [[    exe 'bdelete! ' .. expand('<abuf>') |]]..
-        [[endif                                   ]]
-    )
-    vim.cmd([[au FileType dap-repl lua require('dap.ext.autocompl').attach()]])
+    local augroup = vim.api.nvim_create_augroup('AU_dap', {clear = true})
+
+    -- close the debuggee terminal when it exits cleanly; scoped to dap's
+    -- "[dap-terminal] ..." buffers so other terminals are left alone
+    vim.api.nvim_create_autocmd('TermClose', {
+        group = augroup,
+        pattern = '*dap-terminal*',
+        callback = function(ev)
+            if vim.v.event.status == 0 then
+                vim.api.nvim_buf_delete(ev.buf, {force = true})
+            end
+        end,
+    })
+    vim.api.nvim_create_autocmd('FileType', {
+        group = augroup,
+        pattern = 'dap-repl',
+        callback = function()
+            require('dap.ext.autocompl').attach()
+        end,
+    })
 
     local repl = require('dap.repl')
     repl.commands = vim.tbl_extend('force', repl.commands, {
@@ -32,8 +45,8 @@ if require('config.tools').has_debuggers() then
 
     vim.api.nvim_create_user_command("RunScriptWithArgs", function(t)
         -- :help nvim_create_user_command
-        args = vim.split(vim.fn.expand(t.args), '\n')
-        approval = vim.fn.confirm(
+        local args = vim.split(vim.fn.expand(t.args), '\n')
+        local approval = vim.fn.confirm(
             "Will try to run:\n    " ..
             vim.bo.filetype .. " " ..
             vim.fn.expand('%') .. " " ..
@@ -115,7 +128,7 @@ if require('config.tools').has_debuggers() then
         },
         {
             name = 'Launch (valgrind)',
-            type = 'gdb',
+            type = 'vgdb',
             request = 'launch',
             program = handlers.get_executable,
             args = handlers.get_arguments,
@@ -189,8 +202,8 @@ if require('config.tools').has_debuggers() then
             require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
             end, desc = 'Add [L]og [P]oint'},
         {'<leader>rd', function() require('dap').repl.toggle() end, desc = '[R]un [D]ebugging Session'},
-        {'<leader>ld', function() require('dap').run_last() end, desc = 'Run [L]ast [D]ebugging Session'},
-        {'<leader>w', '<cmd>DapViewWatch<cr>', desc = 'DAP: View [W]atch'},
+        {'<leader>dl', function() require('dap').run_last() end, desc = '[D]ebug: run [L]ast session'},
+        {'<leader>dw', '<cmd>DapViewWatch<cr>', desc = '[D]ebug: view [W]atch'},
         {'<leader>K', function()
             require('dap.ui.widgets').hover(nil, {border = 'rounded'})
         end, desc = 'DAP: Hover [K]'},
@@ -205,12 +218,5 @@ if require('config.tools').has_debuggers() then
         {'<F8>', function() require('dap').step_out() end, desc = 'DAP: Step out'},
     }
 
-    for _, opts in pairs(mappings) do
-        local lhs = opts[1]
-        local rhs = opts[2]
-
-        table.remove(opts, 1)
-        table.remove(opts, 1)
-        vim.keymap.set('n', lhs, rhs, opts)
-    end
+    require('core.keymap').set(mappings)
 end
