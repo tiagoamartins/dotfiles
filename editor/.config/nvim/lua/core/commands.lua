@@ -35,7 +35,16 @@ local commands = {
     tags = {
         name = 'MakeTags',
         func = function()
-            vim.fn.jobstart('ctags -R .')
+            local ok, err = pcall(vim.system, {'ctags', '-R', '.'}, {}, function(res)
+                if res.code ~= 0 then
+                    vim.schedule(function()
+                        vim.notify('MakeTags: ' .. (res.stderr or ''), vim.log.levels.ERROR)
+                    end)
+                end
+            end)
+            if not ok then -- ctags not installed
+                vim.notify('MakeTags: ' .. err, vim.log.levels.ERROR)
+            end
         end,
     },
 }
