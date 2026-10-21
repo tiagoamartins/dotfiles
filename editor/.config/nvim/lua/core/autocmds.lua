@@ -120,7 +120,14 @@ augroups.statusline = {
         event = 'ColorScheme',
         desc = 'Re-apply statusline highlights on colorscheme change',
         callback = require('core.statusline').set_hl_groups,
-    }
+    },
+    whitespace = {
+        event = {'BufWinEnter', 'BufWritePost', 'InsertLeave', 'FileChangedShellPost'},
+        desc = 'Refresh cached statusline whitespace warning',
+        callback = function(ev)
+            require('core.statusline').update_whitespace(ev)
+        end,
+    },
 }
 
 augroups.treesitter = {

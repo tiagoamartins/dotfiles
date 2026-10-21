@@ -193,13 +193,10 @@ local filesize = function()
     end
 end
 
-local whitespace = function()
-    -- mixed indent, bad expandtab or trailing spaces warning,
-    -- see <https://github.com/millermedeiros/vim-statline>.
-    if vim.b.statusline_whitespace_warning then
-        return vim.b.statusline_whitespace_warning
-    end
-
+-- mixed indent, bad expandtab or trailing spaces warning,
+-- see <https://github.com/millermedeiros/vim-statline>.
+-- cache in b:statusline_whitespace_warning for speed.
+local scan_whitespace = function()
     local msg = ''
 
     if vim.bo.modifiable then
@@ -220,6 +217,20 @@ local whitespace = function()
     end
 
     return msg
+end
+
+local update_whitespace = function(ev)
+    local buf = ev and ev.buf or 0
+    if vim.bo[buf].buftype ~= '' then
+        return
+    end
+    vim.api.nvim_buf_call(buf, function()
+        vim.b[buf].statusline_whitespace_warning = scan_whitespace()
+    end)
+end
+
+local whitespace = function()
+    return vim.b.statusline_whitespace_warning or ''
 end
 
 local encoding = function()
@@ -246,6 +257,7 @@ vim.opt.statusline = "%{%v:lua.require'core.statusline'.render()%}"
 
 return {
     set_hl_groups = set_hl_groups,
+    update_whitespace = update_whitespace,
     render = function()
         local active = vim.api.nvim_get_current_win()
         local status = tonumber(vim.g.actual_curwin or -1)
