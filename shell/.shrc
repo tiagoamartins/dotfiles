@@ -63,57 +63,54 @@ esac
 
 unset hostname
 
-function aur-gc()
-{
-	# Remove unused build files in aur-sync cache
-	local XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
-	local AURDEST=${AURDEST:-$XDG_CACHE_HOME/aurutils/sync}
+if command -v pacman > /dev/null 2>&1
+then
+	# remove unused build files in aur-sync cache
+	aur_gc()
+	(
+		XDG_CACHE_HOME=${XDG_CACHE_HOME:-$HOME/.cache}
+		AURDEST=${AURDEST:-$XDG_CACHE_HOME/aurutils/sync}
 
-	# Assumes build files were retrieved through git(1)
-	find "$AURDEST" -name .git -execdir git clean -xf \;
+		# Assumes build files were retrieved through git(1)
+		find "$AURDEST" -name .git -execdir git clean -xf \;
 
-	# Print directories which do not contain a PKGBUILD file
-	for d in "$AURDEST"/*
-	do
-		[[ -f $d/PKGBUILD ]] || printf '%s\n' "$d"
-	done
-}
+		# Print directories which do not contain a PKGBUILD file
+		for d in "$AURDEST"/*
+		do
+			[ -f "$d/PKGBUILD" ] || printf '%s\n' "$d"
+		done
+	)
 
-function aur-remove()
-{
-	# aur-remove - remove listed packages from all local repositories
+	# remove listed packages from all local repositories
+	aur_remove()
+	(
+		# `return`, not `exit`: an `exit` here used to close the
+		# interactive shell (now harmless in a subshell, but clearer).
+		if [ "$#" -eq 0 ]
+		then
+			printf 'usage: aur_remove package [package ...]\n' >&2
+			return 1
+		fi
 
-	if [ "$#" -eq 0 ]
-	then
-		printf 'usage: aur remove package [package ...]\n' >&2
-		exit 1
-	fi
+		aur repo --path-list | while read -r repo_path
+		do
+			repo-remove "$repo_path" "$@"
+			paccache -c "${repo_path%/*}" -rvk0 "$@"
+		done
+	)
 
-	aur repo --path-list | while read -r repo_path
-	do
-		repo-remove "$repo_path" "$@"
-		paccache -c "${repo_path%/*}" -rvk0 "$@"
-	done
-}
+	# show the most recently installed packages (default: 20)
+	pacman_last()
+	(
+		expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n "${1:-20}"
+	)
 
-function pacman-last()
-{
-	local count
-
-	if [ "$#" -eq 0 ]
-	then
-		count=20
-	else
-		count=$1
-	fi
-
-	expac --timefmt='%Y-%m-%d %T' '%l\t%n' | sort | tail -n $count
-}
+	alias aur_check='aur repo -d aur --list | aur vercmp'
+	alias aur_list='comm -12 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
+	alias aur_unused='comm -13 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
+fi
 
 # Aliases
-alias aur-check='aur repo -d aur --list | aur vercmp'
-alias aur-list='comm -12 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
-alias aur-unused='comm -13 <(pacman -Qq | sort) <(pacman -Sql aur | sort)'
 alias cls='clear'
 alias cp='cp -i'
 alias dcm2nii='dcm2niix -v n -z y -f '"'"'%s_%p'"'"
