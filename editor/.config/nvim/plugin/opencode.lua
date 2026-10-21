@@ -11,11 +11,4 @@ local mappings = {
     {'<leader>Od', function() require('opencode').command('session.half.page.down') end, desc = 'Scroll OpenCode down'},
 }
 
-for _, opts in pairs(mappings) do
-    local lhs = opts[1]
-    local rhs = opts[2]
-
-    table.remove(opts, 1)
-    table.remove(opts, 1)
-    vim.keymap.set('n', lhs, rhs, opts)
-end
+require('core.keymap').set(mappings)
