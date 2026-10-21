@@ -23,7 +23,7 @@ local set_hl_groups = function()
         Warn = {fg = hl('DiagnosticWarn').fg, bg = hl('VertSplit').bg},
         Err = {fg = base.bg, bg = hl('DiagnosticError').fg},
         Flags = {fg = hl('Title').fg, bg = hl('VertSplit').bg},
-        Vcs = {fg = hl('OkMsg').fg, bg = hl('FloatTitle').bg},
+        Vcs = {fg = hl('OkMsg').fg, bg = base.bg},
     }) do
         group = 'StatusLine' .. group
         vim.api.nvim_set_hl(0, group, opts)
@@ -155,12 +155,15 @@ end
 
 local vcs = function()
     if (vim.g.statusline_git and vim.g.statusline_git ~= 0)
-       or not vim.g.loaded_fugitive or vim.bo.filetype == 'oil' then
+       or vim.bo.filetype == 'oil' then
         return ''
     end
 
-    local head = vim.fn.FugitiveHead()
-    return head ~= '' and ' [%#StatusLineVcs#' .. head .. '%*]' or ''
+    local head = vim.b.gitsigns_head
+    if (not head or head == '') and vim.g.loaded_fugitive then
+        head = vim.fn.FugitiveHead()
+    end
+    return (head and head ~= '') and ' [%#StatusLineVcs#' .. head .. '%*]' or ''
 end
 
 -- find out current buffer's size and output it
