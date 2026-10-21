@@ -66,13 +66,13 @@ augroups.plugins = {
         callback = function(ev)
             local name, kind = ev.data.spec.name, ev.data.kind
 
-            if name == 'blink-cmp' and (kind == 'install' or kind == 'update') then
+            if name == 'blink.cmp' and (kind == 'install' or kind == 'update') then
                 vim.system({'cargo', 'build', '--release'}, {cwd = ev.data.path}):wait()
             end
             if name == 'luasnip' and (kind == 'install' or kind == 'update') then
                 vim.system({'make', 'install_jsregexp'}, {cwd = ev.data.path}):wait()
             end
-            if name == 'telescope-fzf-native' and (kind == 'install' or kind == 'update') then
+            if name == 'telescope-fzf-native.nvim' and (kind == 'install' or kind == 'update') then
                 vim.system({'make'}, {cwd = ev.data.path}):wait()
             end
             if name == 'nvim-treesitter' and kind == 'update' then
