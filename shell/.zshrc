@@ -162,6 +162,7 @@ then
 fi
 
 fpath=($fpath ~/.config/zsh/functions ~/.config/zsh/functions.zwc)
+[[ ! -d /opt/homebrew/share/zsh/site-functions ]] || fpath+=(/opt/homebrew/share/zsh/site-functions)
 watch=(notme)
 PERIOD=3600
 periodic() { rehash }

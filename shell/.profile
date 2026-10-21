@@ -8,6 +8,8 @@ ENV=$HOME/.shrc
 [ -n "$RSYNC_RSH" ] || RSYNC_RSH='ssh -ax'
 export PATH ENV RSYNC_RSH
 
+[ ! -x /opt/homebrew/bin/brew ] || eval "$(/opt/homebrew/bin/brew shellenv sh)"
+
 if [ -r "$HOME/.env.local" ]
 then
 	set -a
