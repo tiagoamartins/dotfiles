@@ -41,7 +41,7 @@ tscope.setup({
 if require('config.tools').has_debuggers() then
     tscope.load_extension('dap')
 end
--- tscope.load_extension('fzf')
+pcall(tscope.load_extension, 'fzf')
 tscope.load_extension('luasnip')
 tscope.load_extension('ui-select')
 tscope.load_extension('undo')
@@ -110,9 +110,6 @@ local mappings = {
     {'<leader>sd', function()
         require('telescope.builtin').diagnostics()
     end, desc = '[S]earch [D]iagnostics'},
-    {'<leader>sv', function()
-        require('telescope').extensions.dap.variables()
-    end, desc = '[S]earch Debug [V]ariables'},
     {'<leader>ss', function()
         require('telescope').extensions.luasnip.luasnip()
     end, desc = '[S]earch [S]nippets'},
@@ -121,11 +118,10 @@ local mappings = {
     end, desc = '[S]earch [U]ndo tree'},
 }
 
-for _, opts in pairs(mappings) do
-    local lhs = opts[1]
-    local rhs = opts[2]
-
-    table.remove(opts, 1)
-    table.remove(opts, 1)
-    vim.keymap.set('n', lhs, rhs, opts)
+if require('config.tools').has_debuggers() then
+    table.insert(mappings, {'<leader>dv', function()
+        require('telescope').extensions.dap.variables()
+    end, desc = '[D]ebug [V]ariables'})
 end
+
+require('core.keymap').set(mappings)
